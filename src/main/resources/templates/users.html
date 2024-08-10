@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>List Users</title>
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<style>
+body {
+	background-color: lightblue;
+}
+
+h1 {
+	text-align: center;
+	background-color: #0b5394
+}
+
+h2 {
+	text-align: left;
+	background-color: #8fce00;
+	color: #744700
+}
+
+
+h1 {
+	color: white
+}
+
+span {
+	color: red
+}
+
+tbody {
+	background-color: #FBFBF9
+}
+</style>
+
+<script>
+        function callSpringBootController() {
+            $.ajax({
+                url: "http://localhost:8080/api/hello",
+                method: "GET",
+                success: function(response) {
+                    $("#response").text(response);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', status, error);
+                }
+            });
+        }
+    </script>
+<body>
+	<div>
+		<h1>List of Customers</h1>
+	</div>
+	<div class="container text-center">
+		<!-- <div>
+		<form th:action="@{/logout}" method="post">
+			<p>
+				Welcome <b>[[${#request.userPrincipal.principal.fullName}]]</b>
+			</p>
+			<input type="submit" class="btn btn-primary" value="Sign Out"/>
+		</form>
+	</div> -->
+
+
+		<div style="overflow-x: auto;">
+			<h5>
+				<span th:if="${msg != null}" th:text="${msg}"></span>
+			</h5>
+			<table class="table table-striped table-bordered">
+				<thead class="thead-dark">
+					<tr>
+						<th>User ID</th>
+						<th>E-mail</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Gender</th>
+						<th>Mobile Number</th>
+						<th>AadharNumber</th>
+						<th>Address</th>
+						<th>Date Of Birth</th>
+						<th>Loan Type</th>
+						<th>Loan Amount</th>
+						<th>Loan Pay Option</th>
+						<th>Total Amount To Pay</th>
+						<th>EMI Amount</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="user: ${listUsers}">
+						<td th:text="${user.userId}">User ID</td>
+						<td th:text="${user.email}">E-mail</td>
+						<td th:text="${user.firstName}">First Name</td>
+						<td th:text="${user.lastName}">Last Name</td>
+						<td th:text="${user.gender}">Last Name</td>
+						<td th:text="${user.mobileNumber}">Mobile Number</td>
+						<td th:text="${user.adharNumber}">Aadhar Number</td>
+						<td th:text="${user.address}">Address</td>
+						<td th:text="${user.dob}">Date Of Birth</td>
+						<td th:text="${user.loanType}">Loan Type</td>
+						<td th:text="${user.loanAmount}">Loan Amount</td>
+						<td th:text="${user.loanDuration}">Loan Duration</td>
+						<td th:text="${user.totalAmountToPay}">Total Amount To Pay</td>
+						<td th:text="${user.emiAmount}">Loan Duration</td>
+						
+						<td style="white-space: nowrap"><a
+							th:href="@{/payEmi/(firstName=${user.firstName},id=${user.userId},loanAmount=${user.totalAmountToPay},loanDuration=${user.loanDuration},emiAmount=${user.emiAmount})}">
+								<button type="button" class="btn btn-primary">PAY EMI</button>
+								</a> <a th:href="@{/editUser/(id=${user.id})}">
+								<button type="button" class="btn btn-primary">EDIT</button></a> 
+								<a th:href="@{/deleteUser/(id=${user.id})}" onclick="return confirm('Are you sure you want to delete this Customer?')">
+								<button type="button" class="btn btn-primary">DELETE</button></a>
+								<a th:href="@{/getEMIByUserId/(id=${user.userId})}">
+								<button type="button" class="btn btn-primary">EMI History</button></a>
+								<a th:href="@{/exportPdfForUser/(id=${user.userId})}">
+								<button type="button" class="btn btn-primary">GenerateLoanAggreement</button></a>
+								<a th:href="@{/generateEMIReport/(id=${user.userId})}">
+								<button type="button" class="btn btn-primary">GenerateEMIReport</button></a>
+						</td>
+						
+					</tr>
+						
+						
+				</tbody>
+				
+			</table>
+		</div>
+		
+		<div class="container">
+			<a th:href="@{/register}">
+				<button type="button" class="btn btn-primary">AddNewUser</button>
+			</a> <a th:href="@{/dashboard}">
+				<button type="button" class="btn btn-primary">ShowDashboard</button>
+			</a> <a th:href="@{/logout}"> <input type="submit"
+				class="btn btn-primary" value="Sign Out" />
+			</a> <a th:href="@{/users}">
+				<button type="button" class="btn btn-primary">ViewAllUsers</button>
+			</a> <a th:href="@{/searchUser}">
+				<button type="button" class="btn btn-primary">SearchUserById</button>
+			</a>
+
+
+		</div>
+		<h2>
+			TotalReceiveAmoutnt	: <span th:if="${totalRecieveAmount != null}" th:text="${totalRecieveAmount}"></span>
+			TotalDesburseAmount	: <span th:if="${totalDesburseAmount != null}" th:text="${totalDesburseAmount}"></span>
+			TotalInterestAmount	: <span th:if="${totalInterestAmount != null}" th:text="${totalInterestAmount}"></span>
+			TotalOutstandingAmount	: <span th:if="${totalOutstandingAmount != null}" th:text="${totalOutstandingAmount}"></span>
+		</h2>
+	</div>
+</body>
+</html>

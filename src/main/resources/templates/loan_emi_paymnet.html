@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Sign Up - CodeJava</title>
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<style>
+div {
+	background-color: #9fc5e8;
+}
+
+h3 {
+	color: #008B8B;
+}
+
+label {
+	color: #f44336;
+}
+
+body {
+	background-color: lightblue;
+}
+p{
+ color:#f44336;
+  font-weight:bold;
+}
+</style>
+<body>
+	<div class="container text-center">
+	<div>
+	<span th:text="${msg}"></span>
+	</div>
+		<div>
+			<h3>
+				Pay Emi For : <span th:text="${session.firstName}"></span> Id No : <span th:text="${session.id}"></span>
+			</h3>
+		</div>
+		<form th:action="@{/payEmiForUser}" th:object="${user}"
+			method="post" style="max-width: 600px; margin: 0 auto;">
+			<div class="m-3">
+
+
+				<p>EMI Amount:<span class="span" th:text="${session.emiAmount}"></span></p>
+
+
+				<div>
+					<button type="submit" class="btn btn-primary">PayEMINow</button>
+				</div>
+			</div>
+			<div class="container">
+			<a th:href="@{/register}">
+				<button type="button" class="btn btn-primary">AddNewUser</button>
+			</a> 
+			<a th:href="@{/dashboard}">
+				<button type="button" class="btn btn-primary">ShowDashboard</button>
+			</a>
+			<a th:href="@{/logout}">
+					<input type="button" class="btn btn-primary" value="Sign Out"/>
+					</a>
+		</div>
+		</form>
+	</div>
+</body>
+</html>

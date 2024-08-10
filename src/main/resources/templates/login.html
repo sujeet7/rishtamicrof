@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<style>
+div {
+	background-color: #d9ead3;
+}
+
+html {
+	display: table;
+	margin: auto;
+}
+
+body {
+	display: table-cell;
+	vertical-align: middle;
+	background-color: lightblue;
+}
+
+h3 {
+	color: #008B8B;
+}
+</style>
+<body>
+	<div class="container text-center">
+		<div>
+			<h3>Login to Rishta Microfinance</h3>
+		</div>
+		<img src="../static/images/images.png" width="300" height="150"
+			th:src="@{images/images.png}" />
+		<form th:action="@{/CustomLogin}" th:object="${user}" method="get"
+			style="max-width: 600px; margin: 0 auto;">
+			<div class="m-3">
+				<div class="form-group row">
+					<label class="col-4 col-form-label">User Name: </label>
+					<div class="col-8">
+						<input type="email" th:field="*{email}" class="form-control"
+							required />
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label class="col-4 col-form-label">Password: </label>
+					<div class="col-8">
+						<input type="password" th:field="*{password}" class="form-control"
+							required minlength="6" maxlength="10" />
+					</div>
+				</div>
+				<div>
+					<button type="submit" class="btn btn-primary">Login</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

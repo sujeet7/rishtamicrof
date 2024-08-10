@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<style>
+div {
+	background-color: #c27ba0;
+}
+
+h3 {
+	color: white;
+}
+
+label {
+	color: black;
+	background-color: #cfe2f3
+}
+
+label {
+	font-size: 20px;
+}
+
+body {
+	background-color: lightblue;
+}
+
+span {
+	color: green
+}
+</style>
+<body>
+	<div class="container text-center">
+		<div>
+			<h3>Add New Customer</h3>
+			<h5>
+				<span th:if="${msg != null}" th:text="${msg}"></span>
+			</h5>
+		</div>
+		<form th:action="@{/process_register}" th:object="${user}"
+			method="post" style="max-width: 600px; margin: 0 auto;">
+			<div class="m-3">
+				<div class="form-group row">
+					<label class="col-4 col-form-label">First Name: </label>
+					<div class="col-8">
+						<input type="text" th:field="*{firstName}" class="form-control"
+							required />
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label class="col-4 col-form-label">Last Name: </label>
+					<div class="col-8">
+						<input type="text" th:field="*{lastName}" class="form-control"
+							required />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-4 col-form-label">Gender: </label>
+					<div class="col-8">
+						<select th:field="*{gender}" class="form-control">
+							<option th:value="male" th:text="Male"></option>
+							<option th:value="female" th:text="Female"></option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-4 col-form-label">Date of Birth: </label>
+					<div class="col-8">
+						<input type="date" th:field="*{dob}" class="form-control" required
+							placeholder="dd/mm/yyyy" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-4 col-form-label">Mobile: </label>
+					<div class="col-8">
+						<input type="number" th:field="*{mobileNumber}"
+							class="form-control" required />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-4 col-form-label">Aadhar Number: </label>
+					<div class="col-8">
+						<input type="text" th:field="*{adharNumber}" class="form-control"
+							required />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-4 col-form-label">Address: </label>
+					<div class="col-8">
+						<input type="text" th:field="*{address}" class="form-control"
+							required />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-4 col-form-label">E-mail: </label>
+					<div class="col-8">
+						<input type="email" th:field="*{email}" class="form-control"
+							required />
+					</div>
+				</div>
+				<!-- 
+			<div class="form-group row">
+				<label class="col-4 col-form-label">Password: </label>
+				<div class="col-8">
+					<input type="password" th:field="*{password}" class="form-control" 
+							required minlength="6" maxlength="10"/>
+				</div>
+			</div> -->
+				<div class="form-group row">
+					<label class="col-4 col-form-label">Loan Type: </label>
+					<div class="col-8">
+						<select th:field="*{loanType}" class="form-control">
+							<option th:value="perosonal" th:text="PersonalLoan"></option>
+							<option th:value="goldloan" th:text="GoldLoan"></option>
+							<option th:value="grouploan" th:text="GroupLoan"></option>
+							<option th:value="buisnessloan" th:text="BusinessLoan"></option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-4 col-form-label">Loan Amount: </label>
+					<div class="col-8">
+						<input type="number" th:field="*{loanAmount}" class="form-control"
+							required />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-4 col-form-label">Loan Duration: </label>
+					<div class="col-8">
+						<select th:field="*{loanDuration}" class="form-control">
+							<option th:value="daily" th:text="Daily"></option>
+							<option th:value="weekly" th:text="Weekly"></option>
+							<option th:value="monthly" th:text="Monthly"></option>
+						</select>
+					</div>
+				</div>
+
+				<div>
+					<button type="submit" class="btn btn-primary">Submit</button>
+					<a th:href="@{/dashboard}">
+						<button type="button" class="btn btn-primary">ShowDashboard</button>
+					</a> <a th:href="@{/users}">
+						<button type="button" class="btn btn-primary">ViewAllUsers</button>
+					</a> </a>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
