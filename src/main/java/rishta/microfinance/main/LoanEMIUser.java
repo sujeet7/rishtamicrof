@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Loan_EMI")
+@Table(name = "loan_emi")
 public class LoanEMIUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
