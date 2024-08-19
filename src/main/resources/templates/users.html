@@ -38,21 +38,6 @@ tbody {
 	background-color: #FBFBF9
 }
 </style>
-
-<script>
-        function callSpringBootController() {
-            $.ajax({
-                url: "http://localhost:8080/api/hello",
-                method: "GET",
-                success: function(response) {
-                    $("#response").text(response);
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error:', status, error);
-                }
-            });
-        }
-    </script>
 <body>
 	<div>
 		<h1>List of Customers</h1>
@@ -68,7 +53,7 @@ tbody {
 	</div> -->
 
 
-		<div style="overflow-x: auto;">
+		<div style="overflow-x: auto;  width: 1300px;">
 			<h5>
 				<span th:if="${msg != null}" th:text="${msg}"></span>
 			</h5>
@@ -76,52 +61,60 @@ tbody {
 				<thead class="thead-dark">
 					<tr>
 						<th>User ID</th>
-						<th>E-mail</th>
 						<th>First Name</th>
 						<th>Last Name</th>
+						<th>Loan Type</th>
+						<th>Loan Amount</th>
+						<th>Total Amount To Pay</th>
+						<th>EMI Amount</th>
+						<th>Loan Duration</th>
+						<!--  
+						<th>Rate Of Interest</th>
+						<th>Loan Pay Option</th>
 						<th>Gender</th>
 						<th>Mobile Number</th>
 						<th>AadharNumber</th>
+						<th>E-mail</th>
 						<th>Address</th>
-						<th>Date Of Birth</th>
-						<th>Loan Type</th>
-						<th>Loan Amount</th>
-						<th>Loan Pay Option</th>
-						<th>Total Amount To Pay</th>
-						<th>EMI Amount</th>
+						<th>Date Of Birth</th>  -->
 						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="user: ${listUsers}">
 						<td th:text="${user.userId}">User ID</td>
-						<td th:text="${user.email}">E-mail</td>
 						<td th:text="${user.firstName}">First Name</td>
 						<td th:text="${user.lastName}">Last Name</td>
-						<td th:text="${user.gender}">Last Name</td>
-						<td th:text="${user.mobileNumber}">Mobile Number</td>
-						<td th:text="${user.adharNumber}">Aadhar Number</td>
-						<td th:text="${user.address}">Address</td>
-						<td th:text="${user.dob}">Date Of Birth</td>
 						<td th:text="${user.loanType}">Loan Type</td>
 						<td th:text="${user.loanAmount}">Loan Amount</td>
-						<td th:text="${user.loanDuration}">Loan Duration</td>
 						<td th:text="${user.totalAmountToPay}">Total Amount To Pay</td>
-						<td th:text="${user.emiAmount}">Loan Duration</td>
+						<td th:text="${user.emiAmount}">EMI Amounty</td>
+						<td th:text="${user.loanDuration}">Loan Duration</td>
+						
+						<!--  
+						<td th:text="${user.interestRate}">Rate Of Interest</td>
+						<td th:text="${user.loanPaymentType}">Loan Pay Option</td>
+						<td th:text="${user.gender}">Gender</td>
+						<td th:text="${user.mobileNumber}">Mobile Number</td>
+						<td th:text="${user.adharNumber}">Aadhar Number</td>
+						<td th:text="${user.email}">E-mail</td>
+						<td th:text="${user.address}">Address</td>
+						<td th:text="${user.dob}">Date Of Birth</td>  -->
+						
 						
 						<td style="white-space: nowrap"><a
-							th:href="@{/payEmi/(firstName=${user.firstName},id=${user.userId},loanAmount=${user.totalAmountToPay},loanDuration=${user.loanDuration},emiAmount=${user.emiAmount})}">
-								<button type="button" class="btn btn-primary">PAY EMI</button>
+							th:href="@{/payEmi/(firstName=${user.firstName},id=${user.userId},loanAmount=${user.totalAmountToPay},loanPaymentType=${user.loanPaymentType},loanDuration=${user.loanDuration},emiAmount=${user.emiAmount})}">
+								<button type="button" class="btn btn-primary">PAYEMI</button>
 								</a> <a th:href="@{/editUser/(id=${user.id})}">
 								<button type="button" class="btn btn-primary">EDIT</button></a> 
-								<a th:href="@{/deleteUser/(id=${user.id})}" onclick="return confirm('Are you sure you want to delete this Customer?')">
+								<a th:href="@{/deleteUser/(id=${user.id},userId=${user.userId})}" onclick="return confirm('Are you sure you want to delete this Customer?')">
 								<button type="button" class="btn btn-primary">DELETE</button></a>
 								<a th:href="@{/getEMIByUserId/(id=${user.userId})}">
-								<button type="button" class="btn btn-primary">EMI History</button></a>
+								<button type="button" class="btn btn-primary">EMIHistory</button></a>
 								<a th:href="@{/exportPdfForUser/(id=${user.userId})}">
-								<button type="button" class="btn btn-primary">GenerateLoanAggreement</button></a>
+								<button type="button" class="btn btn-primary">LoanReport</button></a>
 								<a th:href="@{/generateEMIReport/(id=${user.userId})}">
-								<button type="button" class="btn btn-primary">GenerateEMIReport</button></a>
+								<button type="button" class="btn btn-primary">EMIReport</button></a>
 						</td>
 						
 					</tr>

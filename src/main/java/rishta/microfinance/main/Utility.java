@@ -2,6 +2,8 @@ package rishta.microfinance.main;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -47,6 +49,12 @@ public class Utility {
 	        return date;
 	        
 	 }  
+	 
+	 public static String formateDate() {
+		 LocalDateTime currentDateTime = LocalDateTime.now();
+		 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+		 return formatter.format(currentDateTime);
+	 }
 	 
 	 public static Date getNextWeek(Date date) {
 	        Calendar calendar = Calendar.getInstance();
@@ -95,7 +103,7 @@ public class Utility {
             
 	        Paragraph p6 = new Paragraph("Borrower Information: ",font2);
 	        document.add(p6);
-	        Paragraph p7 = new Paragraph("● Name: 			"+user.getFirstName()+""+user.getLastName()+" ",font1);
+	        Paragraph p7 = new Paragraph("● Name: 			"+user.getFirstName()+" "+user.getLastName()+" ",font1);
 	        document.add(p7);
 	        Paragraph p8 = new Paragraph("● Address: 			"+user.getAddress()+"",font1);
 	        document.add(p8);

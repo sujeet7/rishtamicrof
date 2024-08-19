@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,10 +40,17 @@ public class CustomerController {
 		Long totalRecieveAmount = userEmiRepo.getAllPaidEMIAmounts();
 		Long totalDesburseAmount = userRepo.getAllDesbursAmount();
 		Long totalInterestAmount = userRepo.getAllInterstAmount();
-		
+		Long todayCollection = userEmiRepo.getTotalTodayAmount();
+		Long weeklyCollection = userEmiRepo.getTotalWeekAmount();
+		Long monthlyCollection = userEmiRepo.getTotalMontAmount();
+		Long totalSum = userEmiRepo.getTotalSumAmount();
 		model.addAttribute("totalRecieveAmount", totalRecieveAmount);
 		model.addAttribute("totalDesburseAmount", totalDesburseAmount);
 		model.addAttribute("totalInterestAmount", totalInterestAmount);
+		model.addAttribute("todayCollection", todayCollection);
+		model.addAttribute("weeklyCollection", weeklyCollection);
+		model.addAttribute("monthlyCollection", monthlyCollection);
+		model.addAttribute("totalSum", totalSum);
 		if(totalDesburseAmount!=null && totalRecieveAmount!=null) {
 			model.addAttribute("totalOutstandingAmount", totalDesburseAmount-totalRecieveAmount);
 			}
@@ -94,9 +102,21 @@ public class CustomerController {
 				userId = userId+id;
 				user.setUserId(userId);
 				if(user.getSavingAmount()!=null) {
-				interestAmount = (user.getSavingAmount()*Long.valueOf(interestRate))/100;
-				totalAmoutToPay = user.getSavingAmount()+interestAmount;
-				user.setTotalAmountToPay(user.getSavingAmount()+interestAmount);
+				interestAmount = (user.getSavingAmount()*Long.valueOf(user.getInterestRate()))/100;
+				System.out.println("RRRRRRRRRRRRRRRRRR"+interestAmount);
+				totalAmoutToPay = user.getSavingAmount();
+				if(user.getSavingDuration().equals("sixmonths")) {
+					interestAmount = interestAmount/2;
+					totalAmoutToPay = totalAmoutToPay+interestAmount;
+				}
+				else if(user.getSavingDuration().equals("year")) {
+					totalAmoutToPay = totalAmoutToPay+interestAmount;
+				}
+				else {
+					interestAmount = interestAmount*5;
+					totalAmoutToPay = totalAmoutToPay+interestAmount;
+				}
+				user.setTotalAmountToPay(totalAmoutToPay);
 				user.setRoleId(1);
 				user.setRegistrationDate(new Date());
 				}
@@ -129,17 +149,19 @@ public class CustomerController {
 		userId = userId+id;
 		user.setUserId(userId);
 		if(user.getLoanAmount()!=null) {
-		interestAmount = (user.getLoanAmount()*Long.valueOf(interestRate))/100;
+		interestAmount = (user.getLoanAmount()*Long.valueOf(user.getInterestRate()))/100;
 		totalAmoutToPay = user.getLoanAmount()+interestAmount;
 		user.setTotalAmountToPay(user.getLoanAmount()+interestAmount);
 		user.setRegistrationDate(new Date());
 		}
-		if (user.getLoanDuration().equals("daily")) {
-			user.setEmiAmount(totalAmoutToPay/240);
-		} else if (user.getLoanDuration().equals("weekly")) {
-			user.setEmiAmount(totalAmoutToPay/(long)34.79);
+		if (user.getLoanPaymentType().equals("daily")) {
+			user.setEmiAmount(totalAmoutToPay/user.getLoanDuration());
+		} else if (user.getLoanPaymentType().equals("weekly")) {
+			Long week = user.getLoanDuration()/7;
+			user.setEmiAmount(totalAmoutToPay/week);
 		} else {
-			user.setEmiAmount(totalAmoutToPay/8);
+			Long month = user.getLoanDuration()/30;
+			user.setEmiAmount(totalAmoutToPay/month);
 		}
 		try {
 			userExit = userRepo.findByEmail(user.getEmail());
@@ -148,7 +170,7 @@ public class CustomerController {
 				System.out.println(user.getFirstName() + "*******" + user.getLastName() + "" + userExit.getId());
 				userRepo.updateUser(user.getEmail(), user.getFirstName(), user.getLastName(), user.getMobileNumber(),
 						user.getAddress(), user.getDob(), user.getGender(), user.getLoanAmount(), user.getLoanType(),
-						user.getLoanDuration(), userExit.getId());
+						user.getLoanPaymentType(), userExit.getId());
 				msg = "Data updated sucessfully for user id : " + userExit.getUserId();
 				model.addAttribute("msg", msg);
 				model.addAttribute("user", user);
@@ -169,13 +191,15 @@ public class CustomerController {
 	}
 
 	@PostMapping("/payEmiForUser")
-	public String payEmi(Model model, HttpSession httpSession) {
+	public String payEmi(LoanEMIUser lonaEmiObj,Model model, HttpSession httpSession) {
 		
 		String firstName = (String) httpSession.getAttribute("firstName");
 		String emiAmount = (String) httpSession.getAttribute("emiAmount");
 		String userId = (String) httpSession.getAttribute("id");
 		String loanAmount = (String) httpSession.getAttribute("loanAmount");
+		String loanPaymentType = (String) httpSession.getAttribute("loanPaymentType");
 		String loanDuration = (String) httpSession.getAttribute("loanDuration");
+		
 		LoanEMIUser emiUser = new LoanEMIUser();
 		LoanEMIUser emiUserObj = userEmiRepo.getLastPaidEMIUser(userId);
 		LoanEMIUser emiDateObj = userEmiRepo.checkEMIDate(userId);
@@ -189,49 +213,55 @@ public class CustomerController {
 		
 		emiUser.setCustomerId(userId);
 		emiUser.setFirstName(firstName);
-		emiUser.setLastName("Kumar");
+		emiUser.setLastName(" ");
 		emiUser.setLoanAmount(Long.valueOf(loanAmount));
 		emiUser.setEmiAmount(Long.valueOf(emiAmount));
 		emiUser.setEmiPaymentDate(new Date());
 		emiUser.setLoanDuration(loanDuration);
 		if(emiUserObj==null) {
-		emiUser.setNextEmiDate(Utility.getNextMonth(new Date()));
+		//emiUser.setNextEmiDate(Utility.getNextMonth(new Date()));
 		emiUser.setTotalPaidEmi("1");
-		if(loanDuration.equals("daily")) {
-		emiUser.setNextEmiDate(Utility.getNextDay(new Date()));
-		}else if(loanDuration.equals("weekly")) {
-			emiUser.setNextEmiDate(Utility.getNextWeek(new Date()));
-		}else {
-			emiUser.setNextEmiDate(Utility.getNextMonth(new Date()));
-		}
-		if(loanDuration.equals("daily")) {
-			emiUser.setLeftEmiDuration("239");
-			}else if(loanDuration.equals("weekly")) {
-				emiUser.setLeftEmiDuration("33");
+		//if(loanDuration.equals("daily")) {
+		//emiUser.setNextEmiDate(lonaEmiObj.getNextEmiDate());
+		//}else if(loanDuration.equals("weekly")) {
+		//	emiUser.setNextEmiDate(lonaEmiObj.getNextEmiDate());
+		//}else {
+		//	emiUser.setNextEmiDate(lonaEmiObj.getNextEmiDate());
+		//}
+		emiUser.setNextEmiDate(lonaEmiObj.getNextEmiDate());
+		if(loanPaymentType.equals("daily")) {
+			int day = Integer.parseInt(loanDuration);
+			emiUser.setLeftEmiDuration(String.valueOf(day-1));
+			}else if(loanPaymentType.equals("weekly")) {
+				System.out.println(loanDuration+"##########################################");
+				int week = Integer.parseInt(loanDuration);
+				emiUser.setLeftEmiDuration(String.valueOf(week/7-1));
 			}else {
-				emiUser.setLeftEmiDuration("7");
+				int month = Integer.parseInt(loanDuration);
+				emiUser.setLeftEmiDuration(String.valueOf(month/30-1));
 			}
 		emiUser.setTotalDueEmi(String.valueOf(Long.valueOf(loanAmount)-Long.valueOf(emiAmount)));
-		model.addAttribute("user", new User());
 		}else {
 			emiUser.setEmiPaymentDate(emiUserObj.getNextEmiDate());
 			emiUser.setTotalPaidEmi(String.valueOf((Integer.valueOf(emiUserObj.getTotalPaidEmi())+1)));
 			emiUser.setTotalDueEmi(String.valueOf(Long.valueOf(loanAmount)-(Long.valueOf(emiAmount)*(Long.valueOf(emiUserObj.getTotalPaidEmi())+1))));
-			if (loanDuration.equals("daily")) {
-				emiUser.setNextEmiDate(Utility.getNextDay(emiUserObj.getNextEmiDate()));
-			} else if (loanDuration.equals("weekly")) {
-				emiUser.setNextEmiDate(Utility.getNextWeek(emiUserObj.getNextEmiDate()));
-			} else {
-				emiUser.setNextEmiDate(Utility.getNextMonth(emiUserObj.getNextEmiDate()));
-			}
-			if(loanDuration.equals("daily")) {
-				emiUser.setLeftEmiDuration(String.valueOf(Integer.valueOf(emiUserObj.getLeftEmiDuration())-1));
-				}else if(loanDuration.equals("weekly")) {
-					emiUser.setLeftEmiDuration(String.valueOf(Integer.valueOf(emiUserObj.getLeftEmiDuration())-1));
-				}else {
-					emiUser.setLeftEmiDuration(String.valueOf(Integer.valueOf(emiUserObj.getLeftEmiDuration())-1));
-				}
+			//if (loanDuration.equals("daily")) {
+			//	emiUser.setNextEmiDate(lonaEmiObj.getNextEmiDate());
+			//} else if (loanDuration.equals("weekly")) {
+			//	emiUser.setNextEmiDate(lonaEmiObj.getNextEmiDate());
+			//} else {
+			//	emiUser.setNextEmiDate(lonaEmiObj.getNextEmiDate());
+			//}
+			emiUser.setNextEmiDate(lonaEmiObj.getNextEmiDate());
 			
+			//if(loanDuration.equals("daily")) {
+			//	emiUser.setLeftEmiDuration(String.valueOf(Integer.valueOf(emiUserObj.getLeftEmiDuration())-1));
+			//	}else if(loanDuration.equals("weekly")) {
+			//		emiUser.setLeftEmiDuration(String.valueOf(Integer.valueOf(emiUserObj.getLeftEmiDuration())-1));
+			//	}else {
+			//		emiUser.setLeftEmiDuration(String.valueOf(Integer.valueOf(emiUserObj.getLeftEmiDuration())-1));
+			//	}
+			emiUser.setLeftEmiDuration(String.valueOf(Integer.valueOf(emiUserObj.getLeftEmiDuration())-1));
 		}
 		System.out.println("HHHHHHHHH" + firstName + ":" + emiAmount + userId);
 		LoanEMIUser result = null;
@@ -246,19 +276,23 @@ public class CustomerController {
 			System.out.println(e);
 			model.addAttribute("msg", "Error while paying emi");
 		}
+		model.addAttribute("LoanEMIUser", new LoanEMIUser());
 		return "loan_emi_paymnet";
 	}
 
 	@GetMapping("/payEmi")
 	public String payEmiforUser(@RequestParam("firstName") String firstName, @RequestParam("id") String id,
-			@RequestParam("loanAmount") String loanAmount, @RequestParam("loanDuration") String loanDuration,
+			@RequestParam("loanAmount") String loanAmount, @RequestParam("loanPaymentType") String loanPaymentType,
+			@RequestParam("loanDuration") String loanDuration,
 			@RequestParam("emiAmount") String emiAmount, Model model, HttpSession httpSession) {
 		httpSession.setAttribute("firstName", firstName);
 		httpSession.setAttribute("emiAmount", emiAmount);
 		httpSession.setAttribute("id", id);
 		httpSession.setAttribute("loanAmount", loanAmount);
+		httpSession.setAttribute("loanPaymentType", loanPaymentType);
+		httpSession.setAttribute("loanPaymentType", loanPaymentType);
 		httpSession.setAttribute("loanDuration", loanDuration);
-		model.addAttribute("user", new User());
+		model.addAttribute("LoanEMIUser", new LoanEMIUser());
 		System.out.println("@@@@@@@@@@@@@@@@@@@@@" + firstName + ":" + emiAmount);
 
 		return "loan_emi_paymnet";
@@ -356,11 +390,11 @@ public class CustomerController {
 	}
 
 	@GetMapping("/deleteUser")
-	public String deleteUser(Model model, @RequestParam("id") String id) {
-		System.out.println("id : " + id);
+	public String deleteUser(Model model, @RequestParam("id") String id, @RequestParam("userId") String userId) {
+		System.out.println("id : " + userId);
 		try {
 			userRepo.deleteById(Long.valueOf(id));
-			userEmiRepo.deleteById(Long.valueOf(id));
+			userEmiRepo.deleteUserById(userId);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

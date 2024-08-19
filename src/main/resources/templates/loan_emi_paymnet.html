@@ -14,7 +14,7 @@ div {
 	background-color: #9fc5e8;
 }
 
-h3 {
+h5 {
 	color: #008B8B;
 }
 
@@ -36,17 +36,45 @@ p{
 	<span th:text="${msg}"></span>
 	</div>
 		<div>
-			<h3>
-				Pay Emi For : <span th:text="${session.firstName}"></span> Id No : <span th:text="${session.id}"></span>
-			</h3>
+			<h5>
+				UserName : <span th:text="${session.firstName}"></span></br> 
+				UserId : <span th:text="${session.id}"></span> </br> 
+				EMIAmount : <span class="span" th:text="${session.emiAmount}"></span></br> 
+				LoanPaymentType : <span class="span" th:text="${session.loanPaymentType}"></span>
+			</h5>
 		</div>
-		<form th:action="@{/payEmiForUser}" th:object="${user}"
+		<form th:action="@{/payEmiForUser}" th:object="${LoanEMIUser}"
 			method="post" style="max-width: 600px; margin: 0 auto;">
 			<div class="m-3">
-
-
-				<p>EMI Amount:<span class="span" th:text="${session.emiAmount}"></span></p>
-
+				<div class="form-group row">
+					<label class="col-4 col-form-label">User ID: </label>
+					<div class="col-8">
+						<input type="text" th:field="*{customerId}" class="form-control"
+							required />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-4 col-form-label">Select EMI Date: </label>
+					<div class="col-8">
+						<input type="date" th:field="*{emiPaymentDate}" class="form-control" required
+							placeholder="dd/mm/yyyy" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-4 col-form-label">Select Next EMI Date: </label>
+					<div class="col-8">
+						<input type="date" th:field="*{nextEmiDate}" class="form-control" required
+							placeholder="dd/mm/yyyy" />
+					</div>
+				</div>
+				
+				<div class="form-group row">
+					<label class="col-4 col-form-label">Loan Amount: </label>
+					<div class="col-8">
+						<input type="number" th:field="*{loanAmount}" class="form-control"
+							placeholder="Please enter EMI Amount" required />
+					</div>
+				</div>
 
 				<div>
 					<button type="submit" class="btn btn-primary">PayEMINow</button>

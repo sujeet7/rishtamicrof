@@ -57,6 +57,7 @@ tbody {
 						<th>Saving Type</th>
 						<th>Saving Amount</th>
 						<th>Saving Pay Option</th>
+						<th>Rate Of Interest</th>
 						<th>Total Amount To Pay</th>
 						<th>Action</th>
 					</tr>
@@ -75,11 +76,12 @@ tbody {
 						<td th:text="${user.savingType}">Saving Type</td>
 						<td th:text="${user.savingAmount}">Saving Amount</td>
 						<td th:text="${user.savingDuration}">Saving Duration</td>
+						<td th:text="${user.interestRate}">Rate Of Interest</td>
 						<td th:text="${user.totalAmountToPay}">Total Amount To Pay</td>
 						<td style="white-space: nowrap"><a
 							th:href="@{/editSavingCustomer/(id=${user.id})}">
 								<button type="button" class="btn btn-primary">EDIT</button>
-						</a> <a th:href="@{/deleteSavingCustomer/(id=${user.id})}">
+						</a> <a th:href="@{/deleteSavingCustomer/(id=${user.id})}" onclick="return confirm('Are you sure you want to delete this Customer?')">
 								<button type="button" class="btn btn-primary">DELETE</button>
 						</a></td>
 					</tr>

@@ -10,9 +10,7 @@
 	src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <style>
-div {
-	background-color: #999999;
-}
+
 
 h1 {
 	text-align: center;
@@ -60,29 +58,42 @@ body {
     background-color: lightblue;
 }
 </style>
+
+<script>
+function myFunction() {
+	  var x = document.getElementById("myDIV");
+	  if (x.style.display === "none") {
+	    x.style.display = "block";
+	  } else {
+	    x.style.display = "none";
+	  }
+	}
+    </script>
 <body>
 	<form th:action="@{/process_register}" th:object="${user}"
 		method="post">
 		<h1>Welcome to Dashboard</h1>
-		<div class="container">
-			<div class="box">total balance:300000</div>
-			<!-- <div class="box">Cash Balance:20000</div>
-			<div class="box">Bank Balance:500000</div> -->
-			<div class="box">Total Interest : <span th:if="${totalInterestAmount != null}" th:text="${totalInterestAmount}"></span></div>
-
-		</div>
-		<div class="container">
-			<div class="box">Total Collection Amount:<span th:if="${totalRecieveAmount != null}" th:text="${totalRecieveAmount}"></span></div>
-			<div class="box">Total Disbursment Amount:<span th:if="${totalRecieveAmount != null}" th:text="${totalDesburseAmount}"></span></div>
-			<div class="box">Total Outstanding Amount:<span th:if="${totalRecieveAmount != null}" th:text="${totalOutstandingAmount}"></span></div>
-
-		</div>
-
-		<div class="container">
-			<div class="box">Today Collection :</div>
-			<div class="box">Weekly Collection :</div>
-			<div class="box">Monthly Collection :</div>
-			<div class="box">Total Collection Amount :</div>
+		<div id="myDIV">
+			<div class="container">
+				<div class="box" style="background-color: #77DD77;">total balance:300000</div>
+				<!-- <div class="box">Cash Balance:20000</div>
+				<div class="box">Bank Balance:500000</div> -->
+				<div class="box" style="background-color: #77DD77;" >Total Interest : <span th:if="${totalInterestAmount != null}" th:text="${totalInterestAmount}"></span></div>
+	
+			</div>
+			<div class="container">
+				<!-- <div class="box"  style="background-color: #ea9999;">Total Collection Amount:<span th:if="${totalRecieveAmount != null}" th:text="${totalRecieveAmount}"></span></div> -->
+				<div class="box" style="background-color: #ea9999;">Total Disbursment Amount:<span th:if="${totalRecieveAmount != null}" th:text="${totalDesburseAmount}"></span></div>
+				<div class="box" style="background-color: #ea9999;">Total Outstanding Amount:<span th:if="${totalRecieveAmount != null}" th:text="${totalOutstandingAmount}"></span></div>
+	
+			</div>
+	
+			<div class="container">
+				<div class="box" style="background-color: #1E771E;">Today Collection:<span th:if="${todayCollection != null}" th:text="${todayCollection}"></span></div>
+				<div class="box" style="background-color: #1E771E;">Weekly Collection:<span th:if="${weeklyCollection != null}" th:text="${weeklyCollection}"></span></div>
+				<div class="box" style="background-color: #1E771E;">Monthly Collection:<span th:if="${monthlyCollection != null}" th:text="${monthlyCollection}"></span></div>
+				<div class="box" style="background-color: #1E771E;">Total Collection Amount:<span th:if="${totalSum != null}" th:text="${totalSum}"></span></div>
+			</div>
 		</div>
 
 		<div class="container">
@@ -100,6 +111,7 @@ body {
 			<a th:href="@{/logout}"> <input type="button"
 				class="btn btn-primary" value="Log Out" />
 			</a>
+			<button type="button" class="btn btn-primary" onclick="myFunction()">Show/Hide</button>
 		</div>
 
 	</form>

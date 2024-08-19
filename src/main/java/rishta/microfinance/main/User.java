@@ -43,8 +43,8 @@ public class User {
 	private Long loanAmount;
 	@Column(name = "loan_type", nullable = false, length = 20)
 	private String loanType;
-	@Column(name = "loan_duration", nullable = false, length = 20)
-	private String loanDuration;
+	@Column(name = "loan_payment_type", nullable = false, length = 20)
+	private String loanPaymentType;
 	@Column(name = "emi_Amount", nullable = false, length = 20)
 	private Long emiAmount;
 	@Column(name = "total_amount_to_pay", nullable = false, length = 20)
@@ -55,6 +55,10 @@ public class User {
 	private int roleId;
 	@Column(name = "adhar_number", nullable = false, length = 20)
 	private String adharNumber;
+	@Column(name = "interest_rate", nullable = false, length = 20)
+	private Long interestRate;
+	@Column(name = "loan_duration", nullable = false, length = 20)
+	private Long loanDuration;
 	
 	public Long getId() {
 		return id;
@@ -146,14 +150,6 @@ public class User {
 		this.loanType = loanType;
 	}
 
-	public String getLoanDuration() {
-		return loanDuration;
-	}
-
-	public void setLoanDuration(String loanDuration) {
-		this.loanDuration = loanDuration;
-	}
-
 	public Long getEmiAmount() {
 		return emiAmount;
 	}
@@ -201,6 +197,32 @@ public class User {
 
 	public void setAdharNumber(String adharNumber) {
 		this.adharNumber = adharNumber;
+	}
+	
+	
+
+	public String getLoanPaymentType() {
+		return loanPaymentType;
+	}
+
+	public void setLoanPaymentType(String loanPaymentType) {
+		this.loanPaymentType = loanPaymentType;
+	}
+
+	public Long getInterestRate() {
+		return interestRate;
+	}
+
+	public void setInterestRate(Long interestRate) {
+		this.interestRate = interestRate;
+	}
+
+	public Long getLoanDuration() {
+		return loanDuration;
+	}
+
+	public void setLoanDuration(Long loanDuration) {
+		this.loanDuration = loanDuration;
 	}
 
 	@Override

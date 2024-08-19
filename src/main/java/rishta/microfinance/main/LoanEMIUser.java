@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "loan_emi")
 public class LoanEMIUser {
@@ -16,37 +18,39 @@ public class LoanEMIUser {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "user_id",nullable = false, unique = true, length = 45)
+	@Column(name = "user_id")
 	private String customerId;
 
-	@Column(name = "first_name", nullable = false, length = 20)
+	@Column(name = "first_name")
 	private String firstName;
 
-	@Column(name = "last_name", nullable = false, length = 20)
+	@Column(name = "last_name")
 	private String lastName;
 	
-	@Column(name = "loan_amount", nullable = false, length = 20)
+	@Column(name = "loan_amount")
 	private Long loanAmount;
 	
-	@Column(name = "loan_duration", nullable = false, length = 20)
+	@Column(name = "loan_duration")
 	private String loanDuration;
 	
-	@Column(name = "next_emi_date", nullable = false, length = 20)
+	@Column(name = "next_emi_date")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date nextEmiDate;
 	
-	@Column(name = "total_emi_paid", nullable = false, length = 20)
+	@Column(name = "total_emi_paid")
 	private String totalPaidEmi;
 	
-	@Column(name = "total_emi_due", nullable = false, length = 20)
+	@Column(name = "total_emi_due")
 	private String totalDueEmi;
 	
-	@Column(name = "left_emi_duration", nullable = false, length = 20)
+	@Column(name = "left_emi_duration")
 	private String leftEmiDuration;
 	
-	@Column(name = "emi_payment_date", nullable = false, length = 20)
+	@Column(name = "emi_payment_date")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date emiPaymentDate;
 	
-	@Column(name = "emi_amount", nullable = false, length = 20)
+	@Column(name = "emi_amount")
 	private Long emiAmount;
 
 	public Long getId() {

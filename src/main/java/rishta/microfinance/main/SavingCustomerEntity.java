@@ -53,6 +53,8 @@ public class SavingCustomerEntity {
 	private int roleId;
 	@Column(name = "adhar_number", nullable = false, length = 20)
 	private String adharNumber;
+	@Column(name = "interest_rate", nullable = false, length = 20)
+	private Long interestRate;
 	
 	public Long getId() {
 		return id;
@@ -155,6 +157,12 @@ public class SavingCustomerEntity {
 	}
 	public void setAdharNumber(String adharNumber) {
 		this.adharNumber = adharNumber;
+	}
+	public Long getInterestRate() {
+		return interestRate;
+	}
+	public void setInterestRate(Long interestRate) {
+		this.interestRate = interestRate;
 	}
 	
 	
