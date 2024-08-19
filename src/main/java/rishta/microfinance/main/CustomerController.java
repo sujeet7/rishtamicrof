@@ -158,19 +158,61 @@ public class CustomerController {
 			user.setEmiAmount(totalAmoutToPay/user.getLoanDuration());
 		} else if (user.getLoanPaymentType().equals("weekly")) {
 			Long week = user.getLoanDuration()/7;
+			System.out.println("emi Amout : "+totalAmoutToPay/week);
 			user.setEmiAmount(totalAmoutToPay/week);
 		} else {
 			Long month = user.getLoanDuration()/30;
+			if(month!=0) {
 			user.setEmiAmount(totalAmoutToPay/month);
+			}
 		}
 		try {
 			userExit = userRepo.findByEmail(user.getEmail());
 			System.out.println("aaaaaaaaaaaaaaaa"+userExit);
 			if (userExit!= null) {
+				if (userExit.getLoanPaymentType().equals("daily")) {
+					
+					if(user.getLoanPaymentType().equals("weekly")) {
+						user.setLoanDuration(userExit.getLoanDuration()/7);
+						Long week = userExit.getLoanDuration()/7;
+						user.setEmiAmount(userExit.getTotalAmountToPay()/week);
+					}
+					if(user.getLoanPaymentType().equals("monthly")){
+						user.setLoanDuration(userExit.getLoanDuration()/30);
+						Long month = userExit.getLoanDuration()/30;
+						user.setEmiAmount(userExit.getTotalAmountToPay()/month);
+					}
+				} else if (userExit.getLoanPaymentType().equals("weekly")) {
+					
+					if(user.getLoanPaymentType().equals("daily")) {
+						user.setLoanDuration(userExit.getLoanDuration()*7);
+						long dayily = userExit.getLoanDuration()*7;
+						user.setEmiAmount(userExit.getTotalAmountToPay()/dayily);
+					}
+					if(user.getLoanPaymentType().equals("monthly")){
+						System.out.println("hhhhhhhhhhhhhhhhhhhhhhhhh"+userExit.getTotalAmountToPay());
+						user.setLoanDuration((long) (userExit.getLoanDuration()/4.345));
+						long month = (long) (userExit.getLoanDuration()/4.345);
+						
+						user.setEmiAmount(userExit.getTotalAmountToPay()/month);
+					}
+				} else if(userExit.getLoanPaymentType().equals("monthly")) {
+					if(user.getLoanPaymentType().equals("daily")) {
+						System.out.println("KKKKKKKKKKKKKKKKKKKKKKKKK"+user.getLoanDuration());
+						user.setLoanDuration(userExit.getLoanDuration()*30);
+						Long month = userExit.getLoanDuration()*30;
+						user.setEmiAmount(userExit.getTotalAmountToPay()/month);
+					}
+					if(user.getLoanPaymentType().equals("weekly")){
+						user.setLoanDuration(userExit.getLoanDuration()/7);
+						Long month = userExit.getLoanDuration()/7;
+						user.setEmiAmount(userExit.getTotalAmountToPay()/month);
+					}
+				}
 				System.out.println(user.getFirstName() + "*******" + user.getLastName() + "" + userExit.getId());
 				userRepo.updateUser(user.getEmail(), user.getFirstName(), user.getLastName(), user.getMobileNumber(),
 						user.getAddress(), user.getDob(), user.getGender(), user.getLoanAmount(), user.getLoanType(),
-						user.getLoanPaymentType(), userExit.getId());
+						user.getLoanDuration(),user.getLoanPaymentType(),user.getEmiAmount(), userExit.getId());
 				msg = "Data updated sucessfully for user id : " + userExit.getUserId();
 				model.addAttribute("msg", msg);
 				model.addAttribute("user", user);
@@ -182,7 +224,7 @@ public class CustomerController {
 			}
 
 		} catch (Exception e) {
-			System.out.println(e.getCause());
+			System.out.println(e);
 			msg = "Error while saving data may be email or mobile number is duplicate.....";
 		}
 		model.addAttribute("msg", msg);

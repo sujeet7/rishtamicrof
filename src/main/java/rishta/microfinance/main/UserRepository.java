@@ -33,7 +33,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 			+ "gender =:gender,"
 			+ "loanAmount =:loanAmount,"
 			+ "loanType =:loanType,"
-			+ "loanDuration =:loanDuration"
+			+ "loanDuration =:loanDuration,"
+			+ "loanPaymentType =:loanPaymentType,"
+			+ "emiAmount =:emiAmount"
 			+ " where id =:id")
 public void updateUser(@Param("email") String email, 
 		@Param("firstName") String firstName,
@@ -44,7 +46,9 @@ public void updateUser(@Param("email") String email,
 		@Param("gender") String gender,
 		@Param("loanAmount") Long loanAmount,
 		@Param("loanType") String loanType,
-		@Param("loanDuration") String loanDuration,
+		@Param("loanDuration") Long loanDuration,
+		@Param("loanPaymentType") String loanPaymentType,
+		@Param("emiAmount") Long emiAmount,
 		@Param("id") Long id
 		);
 	
