@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 public interface UserLoanEMIRepository extends JpaRepository<LoanEMIUser, Long>{
 	
 	@Query(nativeQuery = true,
-		       value ="SELECT * FROM railway.loan_emi WHERE total_emi_paid = (SELECT MAX(total_emi_paid) FROM rishtadb.loan_emi) AND user_id=?1 ")
+		       value ="SELECT * FROM railway.loan_emi WHERE total_emi_paid = (SELECT MAX(total_emi_paid) FROM railway.loan_emi) AND user_id=?1 ")
 	public LoanEMIUser getLastPaidEMIUser(String  userId);
 	
 	@Query("SELECT u FROM LoanEMIUser u WHERE u.customerId=?1")
@@ -35,5 +35,6 @@ public interface UserLoanEMIRepository extends JpaRepository<LoanEMIUser, Long>{
 	@Query(nativeQuery = true,
 		       value ="SELECT * FROM railway.loan_emi WHERE total_emi_paid = (SELECT MAX(total_emi_paid) FROM railway.loan_emi) AND DATE(next_emi_date) <= CURDATE() AND user_id=?1")
 	public LoanEMIUser checkEMIDate(String  userId);
+	
 	
 }
