@@ -55,7 +55,6 @@ tbody {
 					<tr>
 						<th>User ID</th>
 						<th>First Name</th>
-						<th>Last Name</th>
 						<th>Total Loan Amount</th>
 						<th>Loan Duration</th>
 						<th>EMI Amount</th>
@@ -70,7 +69,6 @@ tbody {
 					<tr th:each="user: ${listOfEmiUsers}">
 						<td th:text="${user.customerId}">User ID</td>
 						<td th:text="${user.firstName}">First Name</td>
-						<td th:text="${user.lastName}">Last Name</td>
 						<td th:text="${user.loanAmount}">Total Loan Amount</td>
 						<td th:text="${user.loanDuration}">Loan Duration</td>
 						<td th:text="${user.emiAmount}">EMI Amount</td>

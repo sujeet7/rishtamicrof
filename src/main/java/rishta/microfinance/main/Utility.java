@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -55,6 +56,7 @@ public class Utility {
 		 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
 		 return formatter.format(currentDateTime);
 	 }
+	 
 	 
 	 public static Date getNextWeek(Date date) {
 	        Calendar calendar = Calendar.getInstance();

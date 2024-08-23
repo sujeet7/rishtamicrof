@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "users")
@@ -46,10 +49,11 @@ public class User {
 	@Column(name = "loan_payment_type", nullable = false, length = 20)
 	private String loanPaymentType;
 	@Column(name = "emi_Amount", nullable = false, length = 20)
-	private Long emiAmount;
+	private Double emiAmount;
 	@Column(name = "total_amount_to_pay", nullable = false, length = 20)
-	private Long totalAmountToPay;
+	private Double totalAmountToPay;
 	@Column(name = "registration_date", nullable = false, length = 20)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date registrationDate;
 	@Column(name = "role_id", nullable = false, length = 20)
 	private int roleId;
@@ -59,6 +63,8 @@ public class User {
 	private Long interestRate;
 	@Column(name = "loan_duration", nullable = false, length = 20)
 	private Long loanDuration;
+	@Transient
+	private Date lastTransaction;
 	
 	public Long getId() {
 		return id;
@@ -150,19 +156,19 @@ public class User {
 		this.loanType = loanType;
 	}
 
-	public Long getEmiAmount() {
+	public Double getEmiAmount() {
 		return emiAmount;
 	}
 
-	public void setEmiAmount(Long emiAmount) {
+	public void setEmiAmount(Double emiAmount) {
 		this.emiAmount = emiAmount;
 	}
 
-	public Long getTotalAmountToPay() {
+	public Double getTotalAmountToPay() {
 		return totalAmountToPay;
 	}
 
-	public void setTotalAmountToPay(Long totalAmountToPay) {
+	public void setTotalAmountToPay(Double totalAmountToPay) {
 		this.totalAmountToPay = totalAmountToPay;
 	}
 
@@ -223,6 +229,14 @@ public class User {
 
 	public void setLoanDuration(Long loanDuration) {
 		this.loanDuration = loanDuration;
+	}
+
+	public Date getLastTransaction() {
+		return lastTransaction;
+	}
+
+	public void setLastTransaction(Date lastTransaction) {
+		this.lastTransaction = lastTransaction;
 	}
 
 	@Override

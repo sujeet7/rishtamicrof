@@ -49,7 +49,7 @@ span {
 					<label class="col-4 col-form-label">First Name: </label>
 					<div class="col-8">
 						<input type="text" th:field="*{firstName}" class="form-control"
-							required />
+							placeholder="Sanjay" required />
 					</div>
 				</div>
 
@@ -57,7 +57,7 @@ span {
 					<label class="col-4 col-form-label">Last Name: </label>
 					<div class="col-8">
 						<input type="text" th:field="*{lastName}" class="form-control"
-							required />
+							placeholder="Singh" required />
 					</div>
 				</div>
 				<div class="form-group row">
@@ -87,7 +87,7 @@ span {
 					<label class="col-4 col-form-label">Aadhar Number: </label>
 					<div class="col-8">
 						<input type="text" th:field="*{adharNumber}" class="form-control"
-							required />
+							placeholder="Enter 12 digits aadhar number" required />
 					</div>
 				</div>
 				<div class="form-group row">
@@ -104,14 +104,13 @@ span {
 							placeholder="Abc@gmail.com" required />
 					</div>
 				</div>
-				<!-- 
-			<div class="form-group row">
-				<label class="col-4 col-form-label">Password: </label>
-				<div class="col-8">
-					<input type="password" th:field="*{password}" class="form-control" 
-							required minlength="6" maxlength="10"/>
+				<div class="form-group row">
+					<label class="col-4 col-form-label">Registration Date: </label>
+					<div class="col-8">
+						<input type="date" th:field="*{registrationDate}" class="form-control" required
+							placeholder="dd/mm/yyyy" />
+					</div>
 				</div>
-			</div> -->
 				<div class="form-group row">
 					<label class="col-4 col-form-label">Loan Type: </label>
 					<div class="col-8">
@@ -141,10 +140,24 @@ span {
 					</div>
 				</div>
 				<div class="form-group row">
+					<label class="col-4 col-form-label">Amount With Interest: </label>
+					<div class="col-8">
+						<input type="text" th:field="*{totalAmountToPay}" class="form-control"
+							placeholder="Please enter Loan Amount" required />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-4 col-form-label">EMI Amount: </label>
+					<div class="col-8">
+						<input type="text" th:field="*{emiAmount}" class="form-control"
+							placeholder="Please enter EMI Amount in day/week/month" required />
+					</div>
+				</div>
+				<div class="form-group row">
 					<label class="col-4 col-form-label">Loan Duration: </label>
 					<div class="col-8">
 						<input type="number" th:field="*{loanDuration}" class="form-control"
-							placeholder="Please enter days e.g 240" required />
+							placeholder="Please enter days/weeks/months e.g 240" required />
 					</div>
 				</div>
 				<div class="form-group row">

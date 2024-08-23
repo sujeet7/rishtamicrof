@@ -138,8 +138,6 @@ public class CustomerController {
 	public String processRegister(User user, Model model) {
 		String msg = null;
 		User userExit = null;
-		Long totalAmoutToPay = null;
-		Long interestAmount= null;
 		String userId="RMFC0";
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String encodedPassword = passwordEncoder.encode(user.getFirstName() + "@1234");
@@ -148,71 +146,15 @@ public class CustomerController {
 		Long id =userRepo.getMaxId()+1;
 		userId = userId+id;
 		user.setUserId(userId);
-		if(user.getLoanAmount()!=null) {
-		interestAmount = (user.getLoanAmount()*Long.valueOf(user.getInterestRate()))/100;
-		totalAmoutToPay = user.getLoanAmount()+interestAmount;
-		user.setTotalAmountToPay(user.getLoanAmount()+interestAmount);
-		user.setRegistrationDate(new Date());
-		}
-		if (user.getLoanPaymentType().equals("daily")) {
-			user.setEmiAmount(totalAmoutToPay/user.getLoanDuration());
-		} else if (user.getLoanPaymentType().equals("weekly")) {
-			Long week = user.getLoanDuration()/7;
-			System.out.println("emi Amout : "+totalAmoutToPay/week);
-			user.setEmiAmount(totalAmoutToPay/week);
-		} else {
-			Long month = user.getLoanDuration()/30;
-			if(month!=0) {
-			user.setEmiAmount(totalAmoutToPay/month);
-			}
-		}
+		
 		try {
 			userExit = userRepo.findByEmail(user.getEmail());
-			System.out.println("aaaaaaaaaaaaaaaa"+userExit);
 			if (userExit!= null) {
-				if (userExit.getLoanPaymentType().equals("daily")) {
-					
-					if(user.getLoanPaymentType().equals("weekly")) {
-						user.setLoanDuration(userExit.getLoanDuration()/7);
-						Long week = userExit.getLoanDuration()/7;
-						user.setEmiAmount(userExit.getTotalAmountToPay()/week);
-					}
-					if(user.getLoanPaymentType().equals("monthly")){
-						user.setLoanDuration(userExit.getLoanDuration()/30);
-						Long month = userExit.getLoanDuration()/30;
-						user.setEmiAmount(userExit.getTotalAmountToPay()/month);
-					}
-				} else if (userExit.getLoanPaymentType().equals("weekly")) {
-					
-					if(user.getLoanPaymentType().equals("daily")) {
-						user.setLoanDuration(userExit.getLoanDuration()*7);
-						long dayily = userExit.getLoanDuration()*7;
-						user.setEmiAmount(userExit.getTotalAmountToPay()/dayily);
-					}
-					if(user.getLoanPaymentType().equals("monthly")){
-						System.out.println("hhhhhhhhhhhhhhhhhhhhhhhhh"+userExit.getTotalAmountToPay());
-						user.setLoanDuration((long) (userExit.getLoanDuration()/4.345));
-						long month = (long) (userExit.getLoanDuration()/4.345);
-						
-						user.setEmiAmount(userExit.getTotalAmountToPay()/month);
-					}
-				} else if(userExit.getLoanPaymentType().equals("monthly")) {
-					if(user.getLoanPaymentType().equals("daily")) {
-						System.out.println("KKKKKKKKKKKKKKKKKKKKKKKKK"+user.getLoanDuration());
-						user.setLoanDuration(userExit.getLoanDuration()*30);
-						Long month = userExit.getLoanDuration()*30;
-						user.setEmiAmount(userExit.getTotalAmountToPay()/month);
-					}
-					if(user.getLoanPaymentType().equals("weekly")){
-						user.setLoanDuration(userExit.getLoanDuration()/7);
-						Long month = userExit.getLoanDuration()/7;
-						user.setEmiAmount(userExit.getTotalAmountToPay()/month);
-					}
-				}
 				System.out.println(user.getFirstName() + "*******" + user.getLastName() + "" + userExit.getId());
 				userRepo.updateUser(user.getEmail(), user.getFirstName(), user.getLastName(), user.getMobileNumber(),
 						user.getAddress(), user.getDob(), user.getGender(), user.getLoanAmount(), user.getLoanType(),
-						user.getLoanDuration(),user.getLoanPaymentType(),user.getEmiAmount(), userExit.getId());
+						user.getLoanDuration(),user.getLoanPaymentType(),user.getEmiAmount(),user.getTotalAmountToPay(),
+						user.getInterestRate(),user.getAdharNumber(),user.getRegistrationDate(), userExit.getId());
 				msg = "Data updated sucessfully for user id : " + userExit.getUserId();
 				model.addAttribute("msg", msg);
 				model.addAttribute("user", user);
@@ -244,66 +186,29 @@ public class CustomerController {
 		
 		LoanEMIUser emiUser = new LoanEMIUser();
 		LoanEMIUser emiUserObj = userEmiRepo.getLastPaidEMIUser(userId);
-		LoanEMIUser emiDateObj = userEmiRepo.checkEMIDate(userId);
-		List<LoanEMIUser> userFirstEMI = userEmiRepo.getAllUsersPaidEMI(userId);
-		if(emiUserObj!=null) {
-			model.addAttribute("nextEmiDate", String.valueOf(emiUserObj.getNextEmiDate()).replace("00:00:00.0", ""));
-			}
-		if(emiDateObj==null && userFirstEMI.size()>0) {
-			return "emi-message";
-		}
 		
 		emiUser.setCustomerId(userId);
 		emiUser.setFirstName(firstName);
 		emiUser.setLastName(" ");
-		emiUser.setLoanAmount(Long.valueOf(loanAmount));
-		emiUser.setEmiAmount(Long.valueOf(emiAmount));
-		emiUser.setEmiPaymentDate(new Date());
-		emiUser.setLoanDuration(loanDuration);
-		if(emiUserObj==null) {
-		//emiUser.setNextEmiDate(Utility.getNextMonth(new Date()));
-		emiUser.setTotalPaidEmi("1");
-		//if(loanDuration.equals("daily")) {
-		//emiUser.setNextEmiDate(lonaEmiObj.getNextEmiDate());
-		//}else if(loanDuration.equals("weekly")) {
-		//	emiUser.setNextEmiDate(lonaEmiObj.getNextEmiDate());
-		//}else {
-		//	emiUser.setNextEmiDate(lonaEmiObj.getNextEmiDate());
-		//}
-		emiUser.setNextEmiDate(lonaEmiObj.getNextEmiDate());
-		if(loanPaymentType.equals("daily")) {
-			int day = Integer.parseInt(loanDuration);
-			emiUser.setLeftEmiDuration(String.valueOf(day-1));
-			}else if(loanPaymentType.equals("weekly")) {
-				System.out.println(loanDuration+"##########################################");
-				int week = Integer.parseInt(loanDuration);
-				emiUser.setLeftEmiDuration(String.valueOf(week/7-1));
-			}else {
-				int month = Integer.parseInt(loanDuration);
-				emiUser.setLeftEmiDuration(String.valueOf(month/30-1));
-			}
-		emiUser.setTotalDueEmi(String.valueOf(Long.valueOf(loanAmount)-Long.valueOf(emiAmount)));
+		emiUser.setLoanAmount(Double.parseDouble(loanAmount));
+		if(lonaEmiObj.getEmiAmount().equals(Double.parseDouble(emiAmount))) {
+		emiUser.setEmiAmount(Double.parseDouble(emiAmount));
 		}else {
-			emiUser.setEmiPaymentDate(emiUserObj.getNextEmiDate());
-			emiUser.setTotalPaidEmi(String.valueOf((Integer.valueOf(emiUserObj.getTotalPaidEmi())+1)));
-			emiUser.setTotalDueEmi(String.valueOf(Long.valueOf(loanAmount)-(Long.valueOf(emiAmount)*(Long.valueOf(emiUserObj.getTotalPaidEmi())+1))));
-			//if (loanDuration.equals("daily")) {
-			//	emiUser.setNextEmiDate(lonaEmiObj.getNextEmiDate());
-			//} else if (loanDuration.equals("weekly")) {
-			//	emiUser.setNextEmiDate(lonaEmiObj.getNextEmiDate());
-			//} else {
-			//	emiUser.setNextEmiDate(lonaEmiObj.getNextEmiDate());
-			//}
-			emiUser.setNextEmiDate(lonaEmiObj.getNextEmiDate());
-			
-			//if(loanDuration.equals("daily")) {
-			//	emiUser.setLeftEmiDuration(String.valueOf(Integer.valueOf(emiUserObj.getLeftEmiDuration())-1));
-			//	}else if(loanDuration.equals("weekly")) {
-			//		emiUser.setLeftEmiDuration(String.valueOf(Integer.valueOf(emiUserObj.getLeftEmiDuration())-1));
-			//	}else {
-			//		emiUser.setLeftEmiDuration(String.valueOf(Integer.valueOf(emiUserObj.getLeftEmiDuration())-1));
-			//	}
+			emiUser.setEmiAmount(lonaEmiObj.getEmiAmount());
+		}
+		emiUser.setEmiPaymentDate(lonaEmiObj.getEmiPaymentDate());
+		emiUser.setLoanDuration(loanDuration);
+		emiUser.setNextEmiDate(lonaEmiObj.getNextEmiDate());
+		
+		if(emiUserObj==null) {
+		emiUser.setTotalPaidEmi("1");
+		emiUser.setLeftEmiDuration(String.valueOf(Integer.valueOf(loanDuration)-1));
+		emiUser.setTotalDueEmi(String.valueOf(Double.parseDouble(loanAmount)-Double.parseDouble(emiAmount)));
+		}else {
 			emiUser.setLeftEmiDuration(String.valueOf(Integer.valueOf(emiUserObj.getLeftEmiDuration())-1));
+			emiUser.setTotalPaidEmi(String.valueOf((Integer.valueOf(emiUserObj.getTotalPaidEmi())+1)));
+			emiUser.setTotalDueEmi(String.valueOf(Double.parseDouble(emiUserObj.getTotalDueEmi())-lonaEmiObj.getEmiAmount()));
+			emiUser.setTotalPaidEmi(String.valueOf((Integer.valueOf(emiUserObj.getTotalPaidEmi())+1)));
 		}
 		System.out.println("HHHHHHHHH" + firstName + ":" + emiAmount + userId);
 		LoanEMIUser result = null;
@@ -357,6 +262,12 @@ public class CustomerController {
 		Long totalDesburseAmount = userRepo.getAllDesbursAmount();
 		Long totalInterestAmount = userRepo.getAllInterstAmount();
 		if(listUsers!=null && listUsers.size()>0) {
+			for (User user : listUsers) {
+				LoanEMIUser emiUserObj = userEmiRepo.getLastPaidEMIUser(user.getUserId());
+				if(emiUserObj!=null) {
+				user.setLastTransaction(emiUserObj.getEmiPaymentDate());
+				}
+			}
 		model.addAttribute("listUsers", listUsers);
 		model.addAttribute("totalRecieveAmount", totalRecieveAmount);
 		model.addAttribute("totalDesburseAmount", totalDesburseAmount);

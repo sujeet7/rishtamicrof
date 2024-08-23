@@ -1,5 +1,6 @@
 package rishta.microfinance.main;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -35,6 +36,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 			+ "loanType =:loanType,"
 			+ "loanDuration =:loanDuration,"
 			+ "loanPaymentType =:loanPaymentType,"
+			+ "totalAmountToPay =:totalAmountToPay,"
+			+ "interestRate =:interestRate,"
+			+ "adharNumber =:adharNumber,"
+			+ "registrationDate =:registrationDate,"
 			+ "emiAmount =:emiAmount"
 			+ " where id =:id")
 public void updateUser(@Param("email") String email, 
@@ -48,7 +53,11 @@ public void updateUser(@Param("email") String email,
 		@Param("loanType") String loanType,
 		@Param("loanDuration") Long loanDuration,
 		@Param("loanPaymentType") String loanPaymentType,
-		@Param("emiAmount") Long emiAmount,
+		@Param("emiAmount") Double emiAmount,
+		@Param("totalAmountToPay") Double totalAmountToPay,
+		@Param("interestRate") Long interestRate,
+		@Param("adharNumber") String adharNumber,
+		@Param("registrationDate") Date registrationDate,
 		@Param("id") Long id
 		);
 	

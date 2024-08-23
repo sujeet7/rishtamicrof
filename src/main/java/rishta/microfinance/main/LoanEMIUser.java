@@ -28,7 +28,7 @@ public class LoanEMIUser {
 	private String lastName;
 	
 	@Column(name = "loan_amount")
-	private Long loanAmount;
+	private Double loanAmount;
 	
 	@Column(name = "loan_duration")
 	private String loanDuration;
@@ -51,7 +51,7 @@ public class LoanEMIUser {
 	private Date emiPaymentDate;
 	
 	@Column(name = "emi_amount")
-	private Long emiAmount;
+	private Double emiAmount;
 
 	public Long getId() {
 		return id;
@@ -87,11 +87,11 @@ public class LoanEMIUser {
 		this.lastName = lastName;
 	}
 
-	public Long getLoanAmount() {
+	public Double getLoanAmount() {
 		return loanAmount;
 	}
 
-	public void setLoanAmount(Long loanAmount) {
+	public void setLoanAmount(Double loanAmount) {
 		this.loanAmount = loanAmount;
 	}
 
@@ -104,11 +104,11 @@ public class LoanEMIUser {
 		this.loanDuration = loanDuration;
 	}
 
-	public Long getEmiAmount() {
+	public Double getEmiAmount() {
 		return emiAmount;
 	}
 
-	public void setEmiAmount(Long emiAmount) {
+	public void setEmiAmount(Double emiAmount) {
 		this.emiAmount = emiAmount;
 	}
 

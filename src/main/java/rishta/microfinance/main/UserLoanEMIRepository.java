@@ -8,14 +8,20 @@ import org.springframework.data.jpa.repository.Query;
 public interface UserLoanEMIRepository extends JpaRepository<LoanEMIUser, Long>{
 	
 	@Query(nativeQuery = true,
-		       value ="SELECT * FROM railway.loan_emi WHERE total_emi_paid = (SELECT MAX(total_emi_paid) FROM railway.loan_emi) AND user_id=?1 ")
+		       value ="SELECT * FROM railway.loan_emi WHERE total_emi_paid = (SELECT MAX(total_emi_paid) FROM railway.loan_emi where user_id=?1 ) AND user_id=?1 ")
 	public LoanEMIUser getLastPaidEMIUser(String  userId);
 	
 	@Query("SELECT u FROM LoanEMIUser u WHERE u.customerId=?1")
 	public List<LoanEMIUser> getAllUsersPaidEMI(String  userId);
 	
+	@Query("SELECT u FROM LoanEMIUser u WHERE u.customerId=?1 and u.loanDuration=?2")
+	public LoanEMIUser getLoanEMIUser(String  userId,String  loanDuration);
+	
 	@Query("SELECT SUM(u.emiAmount) FROM LoanEMIUser u")
 	public Long getAllPaidEMIAmounts();
+	
+	@Query("SELECT MAX(u.totalPaidEmi) FROM LoanEMIUser u WHERE u.customerId=?1")
+	public Long getTotalPaidEMI(String  userId);
 	
 	@Query(nativeQuery = true,value ="DELETE FROM railway.loan_emi WHERE user_id=?1")
 	public Long deleteUserById(String  userId);
