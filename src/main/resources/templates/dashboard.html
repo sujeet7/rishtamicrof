@@ -72,27 +72,27 @@ function myFunction() {
 <body>
 	<form th:action="@{/process_register}" th:object="${user}"
 		method="post">
-		<h1>Welcome to Dashboard</h1>
+		<h1>Welcome to Rishta Microfinanace Dashboard</h1>
 		<div id="myDIV">
 			<div class="container">
-				<div class="box" style="background-color: #77DD77;">total balance:300000</div>
+				<div class="box" style="background-color: #77DD77; font-size: 30px;color: Red">Total Balance : 300000</div>
 				<!-- <div class="box">Cash Balance:20000</div>
 				<div class="box">Bank Balance:500000</div> -->
-				<div class="box" style="background-color: #77DD77;" >Total Interest : <span th:if="${totalInterestAmount != null}" th:text="${totalInterestAmount}"></span></div>
+				<div class="box" style="background-color: #77DD77;font-size: 30px;color: red" >Total Interest : <span th:if="${totalInterestAmount != null}" th:text="${totalInterestAmount}"></span></div>
 	
 			</div>
 			<div class="container">
 				<!-- <div class="box"  style="background-color: #ea9999;">Total Collection Amount:<span th:if="${totalRecieveAmount != null}" th:text="${totalRecieveAmount}"></span></div> -->
-				<div class="box" style="background-color: #ea9999;">Total Disbursment Amount:<span th:if="${totalRecieveAmount != null}" th:text="${totalDesburseAmount}"></span></div>
-				<div class="box" style="background-color: #ea9999;">Total Outstanding Amount:<span th:if="${totalRecieveAmount != null}" th:text="${totalOutstandingAmount}"></span></div>
+				<div class="box" style="background-color: #ea9999;font-size: 30px;color: #741b47">Total Disbursment Amount:<span th:if="${totalRecieveAmount != null}" th:text="${totalDesburseAmount}"></span></div>
+				<div class="box" style="background-color: #ea9999;font-size: 30px;color: #741b47">Total Outstanding Amount:<span th:if="${totalRecieveAmount != null}" th:text="${totalOutstandingAmount}"></span></div>
 	
 			</div>
 	
 			<div class="container">
-				<div class="box" style="background-color: #1E771E;">Today Collection:<span th:if="${todayCollection != null}" th:text="${todayCollection}"></span></div>
-				<div class="box" style="background-color: #1E771E;">Weekly Collection:<span th:if="${weeklyCollection != null}" th:text="${weeklyCollection}"></span></div>
-				<div class="box" style="background-color: #1E771E;">Monthly Collection:<span th:if="${monthlyCollection != null}" th:text="${monthlyCollection}"></span></div>
-				<div class="box" style="background-color: #1E771E;">Total Collection Amount:<span th:if="${totalSum != null}" th:text="${totalSum}"></span></div>
+				<div class="box" style="background-color: #d64e7a;font-size: 25px;color: white">Today Collection:<span th:if="${todayCollection != null}" th:text="${todayCollection}"></span></div>
+				<div class="box" style="background-color: #d64e7a;font-size: 25px;color: white">Weekly Collection:<span th:if="${weeklyCollection != null}" th:text="${weeklyCollection}"></span></div>
+				<div class="box" style="background-color: #d64e7a;font-size: 25px;color: white">Monthly Collection:<span th:if="${monthlyCollection != null}" th:text="${monthlyCollection}"></span></div>
+				<div class="box" style="background-color: #d64e7a;font-size: 25px; color: white">Total Collection Amount:<span th:if="${totalSum != null}" th:text="${totalSum}"></span></div>
 			</div>
 		</div>
 
