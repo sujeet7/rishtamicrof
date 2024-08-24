@@ -1089,3 +1089,120 @@ java.sql.SQLSyntaxErrorException: Unknown database 'rishtadb'
 2024-08-24 17:56:57.235 DEBUG 15616 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 27 mappings in 'requestMappingHandlerMapping'
 2024-08-24 17:56:57.395 DEBUG 15616 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
 2024-08-24 17:56:57.402 DEBUG 15616 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2024-08-24 18:08:08.289 DEBUG 14556 --- [restartedMain] o.s.w.s.r.ResourceUrlEncodingFilter      : Filter 'resourceUrlEncodingFilter' configured for use
+2024-08-24 18:08:08.890 DEBUG 14556 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2024-08-24 18:08:08.958 DEBUG 14556 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 27 mappings in 'requestMappingHandlerMapping'
+2024-08-24 18:08:09.595 DEBUG 14556 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2024-08-24 18:08:09.615 DEBUG 14556 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2024-08-24 18:08:20.257  INFO 14556 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-08-24 18:08:20.257 DEBUG 14556 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2024-08-24 18:08:20.264 DEBUG 14556 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2024-08-24 18:08:20.265  INFO 14556 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms
+2024-08-24 18:08:20.284 DEBUG 14556 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/", parameters={}
+2024-08-24 18:08:20.289 DEBUG 14556 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to rishta.microfinance.main.LoginLogoutController#loginPage(Model)
+2024-08-24 18:08:20.310 DEBUG 14556 --- [http-nio-8080-exec-1] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, application/signed-exchange;v=b3;q=0.7, */*;q=0.8]
+2024-08-24 18:08:20.555 DEBUG 14556 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:08:20.567 DEBUG 14556 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/webjars/bootstrap/css/bootstrap.min.css", parameters={}
+2024-08-24 18:08:20.569 DEBUG 14556 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/webjars/jquery/jquery.min.js", parameters={}
+2024-08-24 18:08:20.569 DEBUG 14556 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/webjars/bootstrap/js/bootstrap.min.js", parameters={}
+2024-08-24 18:08:20.569 DEBUG 14556 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/images/images.png", parameters={}
+2024-08-24 18:08:20.573 DEBUG 14556 --- [http-nio-8080-exec-5] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2024-08-24 18:08:20.573 DEBUG 14556 --- [http-nio-8080-exec-4] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/"]
+2024-08-24 18:08:20.573 DEBUG 14556 --- [http-nio-8080-exec-2] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/"]
+2024-08-24 18:08:20.573 DEBUG 14556 --- [http-nio-8080-exec-3] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/"]
+2024-08-24 18:08:20.586 DEBUG 14556 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:08:20.586 DEBUG 14556 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:08:20.589 DEBUG 14556 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:08:20.590 DEBUG 14556 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:09:04.093 DEBUG 14556 --- [restartedMain] o.s.w.s.r.ResourceUrlEncodingFilter      : Filter 'resourceUrlEncodingFilter' configured for use
+2024-08-24 18:09:04.281 DEBUG 14556 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2024-08-24 18:09:04.296 DEBUG 14556 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 27 mappings in 'requestMappingHandlerMapping'
+2024-08-24 18:09:04.647 DEBUG 14556 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2024-08-24 18:09:04.663 DEBUG 14556 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2024-08-24 18:09:04.872  INFO 14556 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-08-24 18:09:04.873 DEBUG 14556 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2024-08-24 18:09:04.875 DEBUG 14556 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2024-08-24 18:09:04.876  INFO 14556 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2024-08-24 18:09:04.878 DEBUG 14556 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/CustomLogin?email=Radha%40gmail.com&password=Radha%401234", parameters={masked}
+2024-08-24 18:09:04.879 DEBUG 14556 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to rishta.microfinance.main.LoginLogoutController#checkLogin(String, Model)
+2024-08-24 18:09:04.957 DEBUG 14556 --- [http-nio-8080-exec-1] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, application/signed-exchange;v=b3;q=0.7, */*;q=0.8]
+2024-08-24 18:09:05.018 DEBUG 14556 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:09:05.038 DEBUG 14556 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/webjars/bootstrap/css/bootstrap.min.css", parameters={}
+2024-08-24 18:09:05.040 DEBUG 14556 --- [http-nio-8080-exec-2] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/"]
+2024-08-24 18:09:05.040 DEBUG 14556 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/webjars/bootstrap/js/bootstrap.min.js", parameters={}
+2024-08-24 18:09:05.041 DEBUG 14556 --- [http-nio-8080-exec-4] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/"]
+2024-08-24 18:09:05.044 DEBUG 14556 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/webjars/jquery/jquery.min.js", parameters={}
+2024-08-24 18:09:05.045 DEBUG 14556 --- [http-nio-8080-exec-3] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/"]
+2024-08-24 18:09:05.052 DEBUG 14556 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:09:05.053 DEBUG 14556 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:09:05.057 DEBUG 14556 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:09:07.499 DEBUG 14556 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/users", parameters={}
+2024-08-24 18:09:07.499 DEBUG 14556 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to rishta.microfinance.main.CustomerController#listUsers(Model)
+2024-08-24 18:09:07.561 DEBUG 14556 --- [http-nio-8080-exec-1] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, application/signed-exchange;v=b3;q=0.7, */*;q=0.8]
+2024-08-24 18:09:07.603 DEBUG 14556 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:09:07.618 DEBUG 14556 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/webjars/bootstrap/css/bootstrap.min.css", parameters={}
+2024-08-24 18:09:07.620 DEBUG 14556 --- [http-nio-8080-exec-4] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/"]
+2024-08-24 18:09:07.621 DEBUG 14556 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/webjars/bootstrap/js/bootstrap.min.js", parameters={}
+2024-08-24 18:09:07.621 DEBUG 14556 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/webjars/jquery/jquery.min.js", parameters={}
+2024-08-24 18:09:07.622 DEBUG 14556 --- [http-nio-8080-exec-3] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/"]
+2024-08-24 18:09:07.623 DEBUG 14556 --- [http-nio-8080-exec-2] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/"]
+2024-08-24 18:09:07.630 DEBUG 14556 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:09:07.631 DEBUG 14556 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:09:07.631 DEBUG 14556 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:11:03.054 DEBUG 14556 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/getEMIByUserId/?id=RMFC051", parameters={masked}
+2024-08-24 18:11:03.056 DEBUG 14556 --- [http-nio-8080-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to rishta.microfinance.main.CustomerController#getEMIByUserId(String, Model, HttpSession)
+2024-08-24 18:11:03.070 DEBUG 14556 --- [http-nio-8080-exec-8] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, application/signed-exchange;v=b3;q=0.7, */*;q=0.8]
+2024-08-24 18:11:03.093 DEBUG 14556 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:11:03.109 DEBUG 14556 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/webjars/bootstrap/css/bootstrap.min.css", parameters={}
+2024-08-24 18:11:03.110 DEBUG 14556 --- [http-nio-8080-exec-10] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/"]
+2024-08-24 18:11:03.111 DEBUG 14556 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/webjars/bootstrap/js/bootstrap.min.js", parameters={}
+2024-08-24 18:11:03.111 DEBUG 14556 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/webjars/jquery/jquery.min.js", parameters={}
+2024-08-24 18:11:03.112 DEBUG 14556 --- [http-nio-8080-exec-1] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/"]
+2024-08-24 18:11:03.112 DEBUG 14556 --- [http-nio-8080-exec-9] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/"]
+2024-08-24 18:11:03.121 DEBUG 14556 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:11:03.121 DEBUG 14556 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:11:03.125 DEBUG 14556 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:11:05.818 DEBUG 14556 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/updateUserEmi/?id=56", parameters={masked}
+2024-08-24 18:11:05.820 DEBUG 14556 --- [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to rishta.microfinance.main.CustomerController#updateEmiforUser(String, Model, HttpSession)
+2024-08-24 18:11:05.829 DEBUG 14556 --- [http-nio-8080-exec-3] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, application/signed-exchange;v=b3;q=0.7, */*;q=0.8]
+2024-08-24 18:11:05.850 DEBUG 14556 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:11:05.866 DEBUG 14556 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/webjars/bootstrap/css/bootstrap.min.css", parameters={}
+2024-08-24 18:11:05.867 DEBUG 14556 --- [http-nio-8080-exec-2] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/"]
+2024-08-24 18:11:05.867 DEBUG 14556 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/webjars/bootstrap/js/bootstrap.min.js", parameters={}
+2024-08-24 18:11:05.867 DEBUG 14556 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/webjars/jquery/jquery.min.js", parameters={}
+2024-08-24 18:11:05.868 DEBUG 14556 --- [http-nio-8080-exec-4] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/"]
+2024-08-24 18:11:05.868 DEBUG 14556 --- [http-nio-8080-exec-6] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/"]
+2024-08-24 18:11:05.876 DEBUG 14556 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:11:05.876 DEBUG 14556 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:11:05.875 DEBUG 14556 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:11:09.947 DEBUG 14556 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/users", parameters={}
+2024-08-24 18:11:09.947 DEBUG 14556 --- [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to rishta.microfinance.main.CustomerController#listUsers(Model)
+2024-08-24 18:11:09.968 DEBUG 14556 --- [http-nio-8080-exec-7] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, application/signed-exchange;v=b3;q=0.7, */*;q=0.8]
+2024-08-24 18:11:10.007 DEBUG 14556 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:11:10.024 DEBUG 14556 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/webjars/bootstrap/css/bootstrap.min.css", parameters={}
+2024-08-24 18:11:10.025 DEBUG 14556 --- [http-nio-8080-exec-5] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/"]
+2024-08-24 18:11:10.025 DEBUG 14556 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/webjars/bootstrap/js/bootstrap.min.js", parameters={}
+2024-08-24 18:11:10.025 DEBUG 14556 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/webjars/jquery/jquery.min.js", parameters={}
+2024-08-24 18:11:10.026 DEBUG 14556 --- [http-nio-8080-exec-8] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/"]
+2024-08-24 18:11:10.026 DEBUG 14556 --- [http-nio-8080-exec-1] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/"]
+2024-08-24 18:11:10.031 DEBUG 14556 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:11:10.031 DEBUG 14556 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:11:10.033 DEBUG 14556 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:11:12.111 DEBUG 14556 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/register", parameters={}
+2024-08-24 18:11:12.111 DEBUG 14556 --- [http-nio-8080-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to rishta.microfinance.main.CustomerController#showRegistrationForm(Model)
+2024-08-24 18:11:12.113 DEBUG 14556 --- [http-nio-8080-exec-9] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, application/signed-exchange;v=b3;q=0.7, */*;q=0.8]
+2024-08-24 18:11:12.137 DEBUG 14556 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:11:12.154 DEBUG 14556 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/webjars/bootstrap/css/bootstrap.min.css", parameters={}
+2024-08-24 18:11:12.155 DEBUG 14556 --- [http-nio-8080-exec-10] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/"]
+2024-08-24 18:11:12.155 DEBUG 14556 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/webjars/bootstrap/js/bootstrap.min.js", parameters={}
+2024-08-24 18:11:12.155 DEBUG 14556 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/webjars/jquery/jquery.min.js", parameters={}
+2024-08-24 18:11:12.156 DEBUG 14556 --- [http-nio-8080-exec-2] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/"]
+2024-08-24 18:11:12.156 DEBUG 14556 --- [http-nio-8080-exec-3] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/"]
+2024-08-24 18:11:12.160 DEBUG 14556 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:11:12.160 DEBUG 14556 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:11:12.161 DEBUG 14556 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-24 18:22:32.323 DEBUG 14556 --- [restartedMain] o.s.w.s.r.ResourceUrlEncodingFilter      : Filter 'resourceUrlEncodingFilter' configured for use
+2024-08-24 18:22:32.457 DEBUG 14556 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2024-08-24 18:22:32.466 DEBUG 14556 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 27 mappings in 'requestMappingHandlerMapping'
+2024-08-24 18:22:32.685 DEBUG 14556 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2024-08-24 18:22:32.693 DEBUG 14556 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
