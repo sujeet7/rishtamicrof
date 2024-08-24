@@ -33,7 +33,29 @@ body {
 span {
 	color: green
 }
+#myid {
+   position: absolute;
+   left: 70%;
+   top: 30;
+}
 </style>
+ <script>
+        // Ensure the script runs after the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            var inputField = document.getElementById('inputField');  // Reference to the input field
+            var dynamicLink = document.getElementById('dynamicLink');  // Reference to the anchor tag
+
+            // Attach an event listener to update the anchor tag's href when the input value changes
+            inputField.addEventListener('input', function() {
+                var inputValue = inputField.value;  // Get the current input field value
+                dynamicLink.href = "/sendOTP?mobileNumber=" + encodeURIComponent(inputValue);  // Update the href with the input value
+
+                // Optionally update the link text for clarity
+                dynamicLink.textContent = "/sendOTP?mobileNumber=" + inputValue;
+            });
+        });
+    </script>
+
 <body>
 	<div class="container text-center">
 		<div>
@@ -75,14 +97,20 @@ span {
 						<input type="date" th:field="*{dob}" class="form-control" required
 							placeholder="dd/mm/yyyy" />
 					</div>
+					
 				</div>
+				<div class="form-group row" style="float:right" id="myid">
+								 <a type="button" class="btn btn-primary" id="dynamicLink" href="#">Verify-OTP</a>
+							</div>
 				<div class="form-group row">
 					<label class="col-4 col-form-label">Mobile: </label>
 					<div class="col-8">
-						<input type="number" th:field="*{mobileNumber}"
+						<input type="number" th:field="*{mobileNumber}" id="inputField"
 							class="form-control" placeholder="9872341253" required />
+							
 					</div>
 				</div>
+				
 				<div class="form-group row">
 					<label class="col-4 col-form-label">Aadhar Number: </label>
 					<div class="col-8">

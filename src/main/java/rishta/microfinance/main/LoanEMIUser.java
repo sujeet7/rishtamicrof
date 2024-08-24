@@ -152,5 +152,13 @@ public class LoanEMIUser {
 		this.emiPaymentDate = emiPaymentDate;
 	}
 
+	@Override
+	public String toString() {
+		return "LoanEMIUser [id=" + id + ", customerId=" + customerId + ", firstName=" + firstName + ", lastName="
+				+ lastName + ", loanAmount=" + loanAmount + ", loanDuration=" + loanDuration + ", nextEmiDate="
+				+ nextEmiDate + ", totalPaidEmi=" + totalPaidEmi + ", totalDueEmi=" + totalDueEmi + ", leftEmiDuration="
+				+ leftEmiDuration + ", emiPaymentDate=" + emiPaymentDate + ", emiAmount=" + emiAmount + "]";
+	}
+
 
 }

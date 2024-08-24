@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<style>
+div {
+	background-color: #c27ba0;
+}
+
+h3 {
+	color: white;
+}
+
+label {
+	color: black;
+	background-color: #cfe2f3
+}
+
+label {
+	font-size: 20px;
+}
+
+body {
+	background-color: lightblue;
+}
+
+span {
+	color: green
+}
+</style>
+<body>
+	<div class="container text-center">
+		<div>
+			<h3>Update EMI History</h3>
+			<h5>
+				<span th:if="${msg != null}" th:text="${msg}"></span>
+			</h5>
+		</div>
+		<form th:action="@{/updateUserEmiHistory}" th:object="${LoanEMIUser}"
+			method="post" style="max-width: 600px; margin: 0 auto;">
+			<div class="m-3">
+				<div class="form-group row">
+					<label class="col-4 col-form-label">User ID: </label>
+					<div class="col-8">
+						<input type="text" th:field="*{customerId}" class="form-control"
+							 required />
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label class="col-4 col-form-label">First Name: </label>
+					<div class="col-8">
+						<input type="text" th:field="*{firstName}" class="form-control"
+							placeholder="Singh" required />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-4 col-form-label">Loan Amount: </label>
+					<div class="col-8">
+						<input type="number" th:field="*{loanAmount}" class="form-control"
+							 required />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-4 col-form-label">Loan Duration: </label>
+					<div class="col-8">
+						<input type="number" th:field="*{loanDuration}" class="form-control"
+							 required />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-4 col-form-label">EMI Amount: </label>
+					<div class="col-8">
+						<input type="text" th:field="*{emiAmount}" class="form-control"
+							 required />
+					</div>
+				</div>
+					<div class="form-group row">
+					<label class="col-4 col-form-label">EMI Date: </label>
+					<div class="col-8">
+						<input type="date" th:field="*{emiPaymentDate}" class="form-control" required
+							placeholder="dd/mm/yyyy" />
+					</div>
+				</div>
+				
+				<div class="form-group row">
+					<label class="col-4 col-form-label">Next EMI Date: </label>
+					<div class="col-8">
+						<input type="date" th:field="*{nextEmiDate}" class="form-control" required
+							placeholder="dd/mm/yyyy" />
+					</div>
+				</div>
+				
+				<div class="form-group row">
+					<label class="col-4 col-form-label">Total Paid EMI: </label>
+					<div class="col-8">
+						<input type="number" th:field="*{totalPaidEmi}" class="form-control"
+							 required />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-4 col-form-label">Total Due Amount: </label>
+					<div class="col-8">
+						<input type="number" th:field="*{totalDueEmi}" class="form-control"
+							 required />
+					</div>
+				</div>
+				
+				<div class="form-group row">
+					<label class="col-4 col-form-label">Total Left EMI: </label>
+					<div class="col-8">
+						<input type="number" th:field="*{leftEmiDuration}" class="form-control"
+							 required />
+					</div>
+				</div>
+
+				<div>
+					<button type="submit" class="btn btn-primary">UpdateUser</button>
+					<a th:href="@{/dashboard}">
+						<button type="button" class="btn btn-primary">ShowDashboard</button>
+					</a> <a th:href="@{/users}">
+						<button type="button" class="btn btn-primary">ViewAllUsers</button>
+					</a> </a>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

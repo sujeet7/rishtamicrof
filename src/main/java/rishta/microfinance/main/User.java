@@ -66,6 +66,9 @@ public class User {
 	@Transient
 	private Date lastTransaction;
 	
+	@Transient
+	private String otp;
+	
 	public Long getId() {
 		return id;
 	}
@@ -237,6 +240,14 @@ public class User {
 
 	public void setLastTransaction(Date lastTransaction) {
 		this.lastTransaction = lastTransaction;
+	}
+
+	public String getOtp() {
+		return otp;
+	}
+
+	public void setOtp(String otp) {
+		this.otp = otp;
 	}
 
 	@Override

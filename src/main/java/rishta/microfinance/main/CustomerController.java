@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -210,7 +211,6 @@ public class CustomerController {
 			emiUser.setTotalDueEmi(String.valueOf(Double.parseDouble(emiUserObj.getTotalDueEmi())-lonaEmiObj.getEmiAmount()));
 			emiUser.setTotalPaidEmi(String.valueOf((Integer.valueOf(emiUserObj.getTotalPaidEmi())+1)));
 		}
-		System.out.println("HHHHHHHHH" + firstName + ":" + emiAmount + userId);
 		LoanEMIUser result = null;
 		try {
 			result = userEmiRepo.save(emiUser);
@@ -240,16 +240,42 @@ public class CustomerController {
 		httpSession.setAttribute("loanPaymentType", loanPaymentType);
 		httpSession.setAttribute("loanDuration", loanDuration);
 		model.addAttribute("LoanEMIUser", new LoanEMIUser());
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@" + firstName + ":" + emiAmount);
 
 		return "loan_emi_paymnet";
+	}
+	
+	@GetMapping("/updateUserEmi")
+	public String updateEmiforUser(@RequestParam("id") String id,
+			Model model,HttpSession httpSession) {
+		LoanEMIUser emiUser = userEmiRepo.getLoanEMIUser(Long.valueOf(id));
+		httpSession.setAttribute("id", id);
+		model.addAttribute("LoanEMIUser", emiUser);
+
+		return "loan_emi_update";
+	}
+	
+	@PostMapping("/updateUserEmiHistory")
+	public String updateUserEmiDetails(LoanEMIUser lonaEmiObj,
+			Model model,HttpSession httpSession) {
+		try {
+			String userId = (String) httpSession.getAttribute("id");
+			userEmiRepo.updateEMIHistory(lonaEmiObj.getFirstName(), lonaEmiObj.getLoanAmount(),
+					lonaEmiObj.getLoanDuration(), lonaEmiObj.getEmiAmount(), lonaEmiObj.getEmiPaymentDate(),
+					lonaEmiObj.getNextEmiDate(), lonaEmiObj.getTotalPaidEmi(), lonaEmiObj.getTotalDueEmi(),
+					lonaEmiObj.getLeftEmiDuration(), Long.valueOf(userId));
+			model.addAttribute("msg", "Updated Sucessfully");
+			model.addAttribute("LoanEMIUser", new LoanEMIUser());
+		}catch(Exception e) {
+			model.addAttribute("msg", "Error While Updating User");
+		}
+
+		return "loan_emi_update";
 	}
 	
 	@GetMapping("/getEMIByUserId")
 	public String getEMIByUserId( @RequestParam("id") String userId,
 			 Model model, HttpSession httpSession) {
 		List<LoanEMIUser> user = userEmiRepo.getAllUsersPaidEMI(userId);
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@" + userId);
 		model.addAttribute("listOfEmiUsers", user);
 		return "user-emi-history";
 	}
@@ -344,10 +370,19 @@ public class CustomerController {
 
 	@GetMapping("/deleteUser")
 	public String deleteUser(Model model, @RequestParam("id") String id, @RequestParam("userId") String userId) {
-		System.out.println("id : " + userId);
 		try {
 			userRepo.deleteById(Long.valueOf(id));
-			userEmiRepo.deleteUserById(userId);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return "users";
+	}
+	
+	@GetMapping("/deleteEMIHistoryUser")
+	public String deleteEMIHistoryUser(Model model, @RequestParam("id") String id, @RequestParam("userId") String userId) {
+		try {
+			userEmiRepo.deleteById(Long.valueOf(id));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -357,7 +392,6 @@ public class CustomerController {
 	
 	@GetMapping("/deleteSavingCustomer")
 	public String deleteSavingCustomer(Model model, @RequestParam("id") String id) {
-		System.out.println("id : " + id);
 		try {
 			savingCustomerRepository.deleteById(Long.valueOf(id));
 		} catch (Exception e) {
@@ -366,5 +400,35 @@ public class CustomerController {
 
 		return "saving-customers";
 	}
-
+	@GetMapping("/sendOTP")
+	public String sendOTP(Model model,@RequestParam("mobileNumber") String mobileNumber,HttpSession httpSession) {
+		System.out.println("sendOTP Mobile Number : "+mobileNumber);
+		httpSession.setAttribute("mobileNumber", mobileNumber);
+		String otp = MessageUtility.generateOTP();
+		System.out.println("sendOTP otp : "+otp);
+		MessageUtility.sendOTP(mobileNumber, otp);
+		MessageUtility.storeOtp(mobileNumber, otp);
+		model.addAttribute("user", new User());
+		return "otp_verification";
+	}
+	
+	@PostMapping("/verifyOTP")
+	public String verifyOTP(Model model,User user,HttpSession httpSession) {
+		String mobileNumber = (String) httpSession.getAttribute("mobileNumber");
+		System.out.println("verifyOTP Mobile Number : "+mobileNumber);
+		String otp = MessageUtility.getOtp(mobileNumber);
+		System.out.println("verifyOTP otp : "+otp);
+		
+		System.out.println("verifyOTP user.getOtp() : "+user.getOtp());
+		
+		boolean verificationStatus = MessageUtility.verifyOtp(user.getOtp(),otp);
+		if(verificationStatus) {
+			model.addAttribute("msg", "Successfully Verified OTP");
+		}else {
+			model.addAttribute("msg", "Failed To Verified OTP");
+		}
+		model.addAttribute("user", new User());
+		return "otp_verification";
+	}
+	
 }

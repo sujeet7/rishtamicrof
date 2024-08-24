@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Sign Up - CodeJava</title>
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<style>
+div {
+	background-color: #9fc5e8;
+}
+
+h5 {
+	color: #008B8B;
+}
+
+label {
+	color: #f44336;
+}
+
+body {
+	background-color: lightblue;
+}
+p{
+ color:#f44336;
+  font-weight:bold;
+}
+</style>
+<body>
+	<div class="container text-center">
+	<div>
+	<span th:text="${msg}"></span>
+	</div>
+		<div>
+			<h5>
+				Verify OTP
+			</h5>
+		</div>
+		<form th:action="@{/verifyOTP}" th:object="${user}"
+			method="post" style="max-width: 600px; margin: 0 auto;">
+			<div class="m-3">
+				<div class="form-group row">
+					<label class="col-4 col-form-label">OTP : </label>
+					<div class="col-8">
+						<input type="text" th:field="*{otp}" class="form-control"
+						placeholder="Please enter OTP"	required />
+					</div>
+				</div>
+				
+				<div>
+					<button type="submit" class="btn btn-primary">Verify OTP</button>
+					<a th:href="@{/register}">
+				<button type="button" class="btn btn-primary">Back</button>
+			</a>
+				</div>
+			</div> 
+			
+		</form>
+	</div>
+</body>
+</html>

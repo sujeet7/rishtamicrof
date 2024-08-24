@@ -63,6 +63,7 @@ tbody {
 						<th>Total Paid EMI</th>
 						<th>Total Due Amount</th>
 						<th>Total EMI Left</th>
+						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -77,24 +78,15 @@ tbody {
 						<td th:text="${user.totalPaidEmi}">Total Paid EMI</td>
 						<td th:text="${user.totalDueEmi}">Total Due Amount</td>
 						<td th:text="${user.leftEmiDuration}">Total EMI Left</td>
+						<td style="white-space: nowrap">
+								 <a th:href="@{/updateUserEmi/(id=${user.id})}">
+								<button type="button" class="btn btn-primary">EDIT</button></a> 
+								<a th:href="@{/deleteEMIHistoryUser/(id=${user.id},userId=${user.customerId})}" onclick="return confirm('Are you sure you want to delete this Customer?')">
+								<button type="button" class="btn btn-primary">DELETE</button></a>
+						</td>
 					</tr>
 				</tbody>
 			</table>
-		</div>
-		<div class="container">
-			<a th:href="@{/register}">
-				<button type="button" class="btn btn-primary">AddNewUser</button>
-			</a> <a th:href="@{/dashboard}">
-				<button type="button" class="btn btn-primary">ShowDashboard</button>
-			</a> <a th:href="@{/logout}"> <input type="submit"
-				class="btn btn-primary" value="Sign Out" />
-			</a> <a th:href="@{/users}">
-				<button type="button" class="btn btn-primary">ViewAllUsers</button>
-			</a> <a th:href="@{/searchUser}">
-				<button type="button" class="btn btn-primary">SearchUserById</button>
-			</a>
-
-
 		</div>
 	</div>
 </body>

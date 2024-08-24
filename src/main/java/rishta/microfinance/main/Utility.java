@@ -72,8 +72,16 @@ public class Utility {
 	     
 	    public static void export(HttpServletResponse response,User user) throws DocumentException, IOException {
 	        Document document = new Document(PageSize.A4);
+	        String paymentType="";
+	        if(user.getLoanPaymentType().equals("daily")) {
+	        	paymentType = paymentType+"/ Per Day";
+	        }else if(user.getLoanPaymentType().equals("weekly")) {
+	        	paymentType = paymentType+"/ Per Week";
+	        }else {
+	        	paymentType = paymentType+"/ Per Month";
+	        }
 	        PdfWriter.getInstance(document, response.getOutputStream());
-	         
+	        
 	        document.open();
 	        Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
 	        font.setSize(18);
@@ -127,7 +135,7 @@ public class Utility {
 	        document.add(p25);
 	        Paragraph p13 = new Paragraph("● Loan Date : 			"+user.getRegistrationDate()+"",font1);
 	        document.add(p13);
-	        Paragraph p14 = new Paragraph("● Loan EMI Amount : 			"+user.getEmiAmount()+"",font1);
+	        Paragraph p14 = new Paragraph("● Loan EMI Amount : 			"+user.getEmiAmount()+" "+paymentType,font1);
 	        document.add(p14);
 	        Paragraph p23 = new Paragraph("● Loan Duration : 			"+user.getLoanDuration()+"",font1);
 	        document.add(p23);
