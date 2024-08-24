@@ -402,18 +402,22 @@ public class CustomerController {
 	}
 	@GetMapping("/sendOTP")
 	public String sendOTP(Model model,@RequestParam("mobileNumber") String mobileNumber,HttpSession httpSession) {
-		System.out.println("sendOTP Mobile Number : "+mobileNumber);
+		/*
+		 System.out.println("sendOTP Mobile Number : "+mobileNumber);
 		httpSession.setAttribute("mobileNumber", mobileNumber);
 		String otp = MessageUtility.generateOTP();
 		System.out.println("sendOTP otp : "+otp);
 		MessageUtility.sendOTP(mobileNumber, otp);
 		MessageUtility.storeOtp(mobileNumber, otp);
 		model.addAttribute("user", new User());
+		*/
 		return "otp_verification";
+		
 	}
 	
 	@PostMapping("/verifyOTP")
 	public String verifyOTP(Model model,User user,HttpSession httpSession) {
+		/*
 		String mobileNumber = (String) httpSession.getAttribute("mobileNumber");
 		System.out.println("verifyOTP Mobile Number : "+mobileNumber);
 		String otp = MessageUtility.getOtp(mobileNumber);
@@ -428,6 +432,7 @@ public class CustomerController {
 			model.addAttribute("msg", "Failed To Verified OTP");
 		}
 		model.addAttribute("user", new User());
+		*/
 		return "otp_verification";
 	}
 	
