@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface UserLoanEMIRepository extends JpaRepository<LoanEMIUser, Long>{
 	
 	@Query(nativeQuery = true,
-		       value ="SELECT * FROM rishtadb.loan_emi WHERE total_emi_paid = (SELECT MAX(total_emi_paid) FROM rishtadb.loan_emi where user_id=?1 ) AND user_id=?1 ")
+		       value ="SELECT * FROM railway.loan_emi WHERE total_emi_paid = (SELECT MAX(total_emi_paid) FROM railway.loan_emi where user_id=?1 ) AND user_id=?1 ")
 	public LoanEMIUser getLastPaidEMIUser(String  userId);
 	
 	@Query("SELECT u FROM LoanEMIUser u WHERE u.customerId=?1")
@@ -32,20 +32,20 @@ public interface UserLoanEMIRepository extends JpaRepository<LoanEMIUser, Long>{
 	
 	public void deleteById(String id);
 	
-	@Query(nativeQuery = true,value ="SELECT SUM(emi_amount) FROM rishtadb.loan_emi WHERE DATE(emi_payment_date) = CURDATE()")
+	@Query(nativeQuery = true,value ="SELECT SUM(emi_amount) FROM railway.loan_emi WHERE DATE(emi_payment_date) = CURDATE()")
 	public Long getTotalTodayAmount();
 	
-	@Query(nativeQuery = true,value ="SELECT SUM(emi_amount) FROM rishtadb.loan_emi WHERE YEARWEEK(emi_payment_date, 1) = YEARWEEK(CURDATE(), 1)")
+	@Query(nativeQuery = true,value ="SELECT SUM(emi_amount) FROM railway.loan_emi WHERE YEARWEEK(emi_payment_date, 1) = YEARWEEK(CURDATE(), 1)")
 	public Long getTotalWeekAmount();
 	
-	@Query(nativeQuery = true,value ="SELECT SUM(emi_amount) FROM rishtadb.loan_emi WHERE YEAR(emi_payment_date) = YEAR(CURDATE()) AND MONTH(emi_payment_date) = MONTH(CURDATE())")
+	@Query(nativeQuery = true,value ="SELECT SUM(emi_amount) FROM railway.loan_emi WHERE YEAR(emi_payment_date) = YEAR(CURDATE()) AND MONTH(emi_payment_date) = MONTH(CURDATE())")
 	public Long getTotalMontAmount();
 	
-	@Query(nativeQuery = true,value ="SELECT SUM(emi_amount) FROM rishtadb.loan_emi")
+	@Query(nativeQuery = true,value ="SELECT SUM(emi_amount) FROM railway.loan_emi")
 	public Long getTotalSumAmount();
 	
 	@Query(nativeQuery = true,
-		       value ="SELECT * FROM rishtadb.loan_emi WHERE total_emi_paid = (SELECT MAX(total_emi_paid) FROM rishtadb.loan_emi) AND DATE(next_emi_date) <= CURDATE() AND user_id=?1")
+		       value ="SELECT * FROM railway.loan_emi WHERE total_emi_paid = (SELECT MAX(total_emi_paid) FROM railway.loan_emi) AND DATE(next_emi_date) <= CURDATE() AND user_id=?1")
 	public LoanEMIUser checkEMIDate(String  userId);
 	
 	@Modifying(clearAutomatically = true)

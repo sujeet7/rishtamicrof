@@ -8005,3 +8005,8 @@ org.springframework.expression.spel.SpelEvaluationException: EL1007E: Property o
 2024-08-28 18:10:43.693 DEBUG 18700 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
 2024-08-28 18:10:43.694 DEBUG 18700 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
 2024-08-28 18:10:43.694 DEBUG 18700 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-08-28 18:11:52.372 DEBUG 18700 --- [restartedMain] o.s.w.s.r.ResourceUrlEncodingFilter      : Filter 'resourceUrlEncodingFilter' configured for use
+2024-08-28 18:11:52.451 DEBUG 18700 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2024-08-28 18:11:52.459 DEBUG 18700 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 27 mappings in 'requestMappingHandlerMapping'
+2024-08-28 18:11:52.645 DEBUG 18700 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2024-08-28 18:11:52.650 DEBUG 18700 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
