@@ -239,7 +239,7 @@ public class Utility {
 	        document.add(p12);
 	        Paragraph p25 = new Paragraph("● Total Saving Amount With Intrest : 			"+user.getTotalAmountToPay()+"",font1);
 	        document.add(p25);
-	        Paragraph p13 = new Paragraph("● Loan Date : 			"+user.getRegistrationDate()+"",font1);
+	        Paragraph p13 = new Paragraph("● Saving Date : 			"+user.getRegistrationDate()+"",font1);
 	        document.add(p13);
 	        Paragraph p14 = new Paragraph("● Saving EMI Amount : 			"+user.getSavingEMIAmount()+" "+paymentType,font1);
 	        document.add(p14);
