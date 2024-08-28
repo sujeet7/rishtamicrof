@@ -130,22 +130,45 @@ span {
 					</div>
 				</div>
 				<div class="form-group row">
+					<label class="col-4 col-form-label">Total Amount Pay: </label>
+					<div class="col-8">
+						<input type="number" th:field="*{totalAmountToPay}"
+							class="form-control" required maxlength="5" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-4 col-form-label">EMI Amount: </label>
+					<div class="col-8">
+						<input type="number" th:field="*{savingEMIAmount}"
+							class="form-control" required maxlength="5" />
+					</div>
+				</div>
+				<div class="form-group row">
 					<label class="col-4 col-form-label">Interest Rate: </label>
 					<div class="col-8">
 						<select th:field="*{interestRate}" class="form-control">
+							<option th:value="6" th:text="'6%'"></option>
+							<option th:value="7" th:text="'7%'"></option>
+							<option th:value="8" th:text="'8%'"></option>
+							<option th:value="9" th:text="'9%'"></option>
 							<option th:value="10" th:text="'10%'"></option>
-							<option th:value="15" th:text="'15%'"></option>
-							<option th:value="20" th:text="'20%'"></option>
 						</select>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-4 col-form-label">Saving Duration: </label>
 					<div class="col-8">
-						<select th:field="*{savingDuration}" class="form-control">
-							<option th:value="sixmonths" th:text="6-Months"></option>
-							<option th:value="year" th:text="Yearly"></option>
-							<option th:value="fiveyears" th:text="5-Years"></option>
+						<input type="number" th:field="*{savingDuration}"
+							class="form-control" required maxlength="5" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-4 col-form-label">Saving Payment Type: </label>
+					<div class="col-8">
+						<select th:field="*{loanPaymentType}" class="form-control">
+							<option th:value="daily" th:text="Daily"></option>
+							<option th:value="weekly" th:text="Weekly"></option>
+							<option th:value="monthly" th:text="Monthly"></option>
 						</select>
 					</div>
 				</div>

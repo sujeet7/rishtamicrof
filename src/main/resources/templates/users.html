@@ -40,7 +40,7 @@ tbody {
 </style>
 <body>
 	<div>
-		<h1>List of Customers</h1>
+		<h1>List of Customers (TotalLoanCustomer : <span th:if="${loanCustomerCounts != null}" th:text="${loanCustomerCounts}"></span>)</h1>
 	</div>
 	<div>
 
@@ -131,11 +131,13 @@ tbody {
 			</a> <a th:href="@{/searchUser}">
 				<button type="button" class="btn btn-primary">SearchUserById</button>
 			</a>
-
+			<a th:href="@{/savingCustomers}">
+				<button type="button" class="btn btn-primary">ViewAllSavingAccountCustomers</button>
+			</a>
 
 		</div>
 		<h2>
-			TotalReceiveAmoutnt	: <span th:if="${totalRecieveAmount != null}" th:text="${totalRecieveAmount}"></span>
+			TotalReceiveAmount	: <span th:if="${totalRecieveAmount != null}" th:text="${totalRecieveAmount}"></span>
 			TotalDesburseAmount	: <span th:if="${totalDesburseAmount != null}" th:text="${totalDesburseAmount}"></span>
 			TotalInterestAmount	: <span th:if="${totalInterestAmount != null}" th:text="${totalInterestAmount}"></span>
 			TotalOutstandingAmount	: <span th:if="${totalOutstandingAmount != null}" th:text="${totalOutstandingAmount}"></span>

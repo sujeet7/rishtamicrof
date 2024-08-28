@@ -75,7 +75,6 @@ public class CustomerController {
 	public String addSavingCustomer(SavingCustomerEntity user, Model model) {
 		String msg = null;
 		SavingCustomerEntity userExit = null;
-		Long totalAmoutToPay = null;
 		Long interestAmount= null;
 		String userId="RMFSA0";
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -105,19 +104,9 @@ public class CustomerController {
 				if(user.getSavingAmount()!=null) {
 				interestAmount = (user.getSavingAmount()*Long.valueOf(user.getInterestRate()))/100;
 				System.out.println("RRRRRRRRRRRRRRRRRR"+interestAmount);
-				totalAmoutToPay = user.getSavingAmount();
-				if(user.getSavingDuration().equals("sixmonths")) {
-					interestAmount = interestAmount/2;
-					totalAmoutToPay = totalAmoutToPay+interestAmount;
-				}
-				else if(user.getSavingDuration().equals("year")) {
-					totalAmoutToPay = totalAmoutToPay+interestAmount;
-				}
-				else {
-					interestAmount = interestAmount*5;
-					totalAmoutToPay = totalAmoutToPay+interestAmount;
-				}
-				user.setTotalAmountToPay(totalAmoutToPay);
+				
+				user.setTotalAmountToPay(user.getTotalAmountToPay());
+				user.setSavingDuration(user.getSavingDuration());
 				user.setRoleId(1);
 				user.setRegistrationDate(new Date());
 				}
@@ -287,11 +276,12 @@ public class CustomerController {
 		Long totalRecieveAmount = userEmiRepo.getAllPaidEMIAmounts();
 		Long totalDesburseAmount = userRepo.getAllDesbursAmount();
 		Long totalInterestAmount = userRepo.getAllInterstAmount();
+		Long counts = userRepo.getTotalNumberOfUser();
 		if(listUsers!=null && listUsers.size()>0) {
 			for (User user : listUsers) {
-				LoanEMIUser emiUserObj = userEmiRepo.getLastPaidEMIUser(user.getUserId());
+				Date emiUserObj = userEmiRepo.getMaxDate(user.getUserId());
 				if(emiUserObj!=null) {
-				user.setLastTransaction(emiUserObj.getEmiPaymentDate());
+				user.setLastTransaction(emiUserObj);
 				}
 			}
 		model.addAttribute("listUsers", listUsers);
@@ -304,14 +294,26 @@ public class CustomerController {
 		}else {
 		model.addAttribute("msg", "No user found with this id : ");
 		}
-
+		model.addAttribute("loanCustomerCounts", counts);
 		return "users";
 	}
 	
 	@GetMapping("/savingCustomers")
 	public String savingCustomers(Model model) {
 		List<SavingCustomerEntity> listUsers = savingCustomerRepository.findAll();
+		Long counts = savingCustomerRepository.getTotalNumberOfCustomer();
+		Long totalSum = savingCustomerRepository.getTotalAmount();
+		if(listUsers!=null && listUsers.size()>0) {
+			for (SavingCustomerEntity user : listUsers) {
+				Date emiUserObj = userEmiRepo.getMaxDate(user.getUserId());
+				if(emiUserObj!=null) {
+				user.setLastTransaction(emiUserObj);
+				}
+			}
+		}
 		model.addAttribute("savingCustomers", listUsers);
+		model.addAttribute("savingCustomerCounts", counts);
+		model.addAttribute("totalSavingAmount", totalSum);
 
 		return "saving-customers";
 	}

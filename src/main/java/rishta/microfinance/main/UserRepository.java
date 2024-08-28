@@ -21,6 +21,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Query("SELECT u FROM User u WHERE u.userId=?1")
 	public User getUserById(String  userId);
 	
+	@Query("SELECT COUNT(*) FROM User u")
+	public Long getTotalNumberOfUser();
+	
 	public void deleteById(String id);
 	
 	@Modifying(clearAutomatically = true)

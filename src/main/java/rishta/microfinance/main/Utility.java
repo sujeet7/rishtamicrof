@@ -73,12 +73,16 @@ public class Utility {
 	    public static void export(HttpServletResponse response,User user) throws DocumentException, IOException {
 	        Document document = new Document(PageSize.A4);
 	        String paymentType="";
+	        String durationType="";
 	        if(user.getLoanPaymentType().equals("daily")) {
 	        	paymentType = paymentType+"/ Per Day";
+	        	durationType = durationType+"Days";
 	        }else if(user.getLoanPaymentType().equals("weekly")) {
 	        	paymentType = paymentType+"/ Per Week";
+	        	durationType = durationType+"Weeks";
 	        }else {
 	        	paymentType = paymentType+"/ Per Month";
+	        	durationType = durationType+"Months";
 	        }
 	        PdfWriter.getInstance(document, response.getOutputStream());
 	        
@@ -91,7 +95,7 @@ public class Utility {
 	        Font font2 = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
 	        font2.setSize(14);
 	        font2.setColor(Color.PINK);
-	        Paragraph p = new Paragraph("Personal Loan Agreement", font);
+	        Paragraph p = new Paragraph("Saving Agreement Report", font);
 	        p.setAlignment(Paragraph.ALIGN_CENTER);
 	        document.add(p);
 	        document.add(Chunk.NEWLINE);
@@ -137,7 +141,7 @@ public class Utility {
 	        document.add(p13);
 	        Paragraph p14 = new Paragraph("● Loan EMI Amount : 			"+user.getEmiAmount()+" "+paymentType,font1);
 	        document.add(p14);
-	        Paragraph p23 = new Paragraph("● Loan Duration : 			"+user.getLoanDuration()+"",font1);
+	        Paragraph p23 = new Paragraph("● Loan Duration : 			"+user.getLoanDuration()+" "+durationType,font1);
 	        document.add(p23);
 	        Paragraph p24 = new Paragraph("● Loan Type : 			"+user.getLoanType()+"",font1);
 	        document.add(p24);
@@ -168,7 +172,108 @@ public class Utility {
 	        document.close();
 	         
 	    }
-	    
+	    public static void exportSavingCustomer(HttpServletResponse response,SavingCustomerEntity user) throws DocumentException, IOException {
+	        Document document = new Document(PageSize.A4);
+	        String paymentType="";
+	        String durationType="";
+	        if(user.getLoanPaymentType().equals("daily")) {
+	        	paymentType = paymentType+"/ Per Day";
+	        	durationType = durationType+"Days";
+	        }else if(user.getLoanPaymentType().equals("weekly")) {
+	        	paymentType = paymentType+"/ Per Week";
+	        	durationType = durationType+"Weeks";
+	        }else {
+	        	paymentType = paymentType+"/ Per Month";
+	        	durationType = durationType+"Months";
+	        }
+	        PdfWriter.getInstance(document, response.getOutputStream());
+	        
+	        document.open();
+	        Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
+	        font.setSize(18);
+	        font.setColor(Color.RED);
+	        Font font1 = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
+	        font1.setSize(8);
+	        Font font2 = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
+	        font2.setSize(14);
+	        font2.setColor(Color.PINK);
+	        Paragraph p = new Paragraph("Personal Loan Agreement", font);
+	        p.setAlignment(Paragraph.ALIGN_CENTER);
+	        document.add(p);
+	        document.add(Chunk.NEWLINE);
+            document.add(Chunk.NEWLINE);
+            
+	        Paragraph p1 = new Paragraph("Lender Information: ",font2);
+	        document.add(p1);
+	        Paragraph p2 = new Paragraph("● Name: 			Rishta Microfinance",font1);
+	        document.add(p2);
+	        Paragraph p3 = new Paragraph("● Address: 			Nadwasarai,Mau(U.P) Pin: 27302",font1);
+	        document.add(p3);
+	        Paragraph p4 = new Paragraph("● Phone Number: 			8826119350",font1);
+	        document.add(p4);
+	        Paragraph p5 = new Paragraph("● Email: 			Rishtamicrofinance@gmail.com",font1);
+	        document.add(p5);
+	        
+	        document.add(Chunk.NEWLINE);
+            document.add(Chunk.NEWLINE);
+            
+	        Paragraph p6 = new Paragraph("Saving Customer Information: ",font2);
+	        document.add(p6);
+	        Paragraph p7 = new Paragraph("● Name: 			"+user.getFirstName()+" "+user.getLastName()+" ",font1);
+	        document.add(p7);
+	        Paragraph p8 = new Paragraph("● Address: 			"+user.getAddress()+"",font1);
+	        document.add(p8);
+	        Paragraph p9 = new Paragraph("● Phone Number: 			"+user.getMobileNumber()+"",font1);
+	        document.add(p9);
+	        Paragraph p10 = new Paragraph("● Adhar Number: 			"+user.getAdharNumber()+"",font1);
+	        document.add(p10);
+	        Paragraph p15 = new Paragraph("● Email: 			"+user.getEmail()+"",font1);
+	        document.add(p15);
+	        
+	        document.add(Chunk.NEWLINE);
+            document.add(Chunk.NEWLINE);
+	        
+	        Paragraph p11 = new Paragraph("Saving Details : ",font2);
+	        document.add(p11);
+	        Paragraph p12 = new Paragraph("● Saving Amount : 			"+user.getSavingAmount()+"",font1);
+	        document.add(p12);
+	        Paragraph p25 = new Paragraph("● Total Loan Amount With Intrest : 			"+user.getTotalAmountToPay()+"",font1);
+	        document.add(p25);
+	        Paragraph p13 = new Paragraph("● Loan Date : 			"+user.getRegistrationDate()+"",font1);
+	        document.add(p13);
+	        Paragraph p14 = new Paragraph("● Saving EMI Amount : 			"+user.getSavingEMIAmount()+" "+paymentType,font1);
+	        document.add(p14);
+	        Paragraph p23 = new Paragraph("● Saving Duration : 			"+user.getSavingDuration()+" "+durationType,font1);
+	        document.add(p23);
+	        Paragraph p24 = new Paragraph("● Saving Type : 			"+user.getSavingType()+"",font1);
+	        document.add(p24);
+	        
+	       
+	        
+	        
+	        document.add(Chunk.NEWLINE);
+            document.add(Chunk.NEWLINE);
+	        
+	        Paragraph p16 = new Paragraph("Additional Terms and Condtion: ",font2);
+	        document.add(p16);
+	        Paragraph p17 = new Paragraph("The Lender agrees to lend to the Borrower and the Borrower agrees to borrow from the Lender for the purposes specified in Article 2 hereof and  on the terms and conditions contained ",font1);
+	        document.add(p17);
+	        
+	        document.add(Chunk.NEWLINE);
+            document.add(Chunk.NEWLINE);
+	        
+	        Paragraph p18 = new Paragraph("Signature:",font2);
+	        document.add(p18);
+	        Paragraph p19 = new Paragraph("Lender's Signature: ______________________________________ Date: ______________________________",font1);
+	        document.add(p19);
+	        Paragraph p20 = new Paragraph("Saver's Signature: _____________________________________ Date: ______________________________",font1);
+	        document.add(p20);
+	        Paragraph granter = new Paragraph("Granter's Signature: _____________________________________ Date: ______________________________",font1);
+	        document.add(granter);
+	         
+	        document.close();
+	         
+	    }
 	    
 	    private static void writeTableHeader(PdfPTable table) {
 	        PdfPCell cell = new PdfPCell();

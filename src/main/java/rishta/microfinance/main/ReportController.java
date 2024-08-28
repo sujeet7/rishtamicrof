@@ -38,8 +38,14 @@ public class ReportController {
 			response.setHeader(headerKey, headerValue);
 
 			User user = userRepo.getUserById(userId);
-
+			SavingCustomerEntity savingUser=null;
+			if(user==null) {
+				savingUser  = savingCustomerRepository.getUserById(userId);
+				Utility.exportSavingCustomer(response, savingUser);
+			}
+			if(user!=null) {
 			Utility.export(response, user);
+			}
 
 		}
 		

@@ -14,6 +14,12 @@ public interface SavingCustomerRepository extends JpaRepository<SavingCustomerEn
 	@Query("SELECT MAX(u.id) FROM SavingCustomerEntity u")
 	public Long getMaxId();
 	
+	@Query("SELECT COUNT(*) FROM SavingCustomerEntity u")
+	public Long getTotalNumberOfCustomer();
+	
+	@Query("SELECT SUM(u.savingAmount) FROM SavingCustomerEntity u")
+	public Long getTotalAmount();
+	
 	@Query("SELECT u FROM SavingCustomerEntity u WHERE u.userId=?1")
 	public SavingCustomerEntity getUserById(String  userId);
 	
@@ -39,7 +45,7 @@ public void updateSavingCustomer(@Param("email") String email,
 		@Param("gender") String gender,
 		@Param("savingAmount") Long savingAmount,
 		@Param("savingType") String savingType,
-		@Param("savingDuration") String savingDuration,
+		@Param("savingDuration") Long savingDuration,
 		@Param("id") Long id
 		);
 

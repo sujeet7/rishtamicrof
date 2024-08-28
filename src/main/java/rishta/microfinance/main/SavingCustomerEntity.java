@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "Saving_Customer_Details")
@@ -17,7 +18,7 @@ public class SavingCustomerEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "user_id", nullable = false, length = 20)
+	@Column(name = "user_id")
 	private String userId;
 
 	@Column(nullable = false, unique = true, length = 45)
@@ -26,36 +27,41 @@ public class SavingCustomerEntity {
 	@Column(nullable = false, length = 64)
 	private String password;
 
-	@Column(name = "first_name", nullable = false, length = 20)
+	@Column(name = "first_name")
 	private String firstName;
 
-	@Column(name = "last_name", nullable = false, length = 20)
+	@Column(name = "last_name")
 	private String lastName;
-	@Column(name = "mobile_number", nullable = false, length = 20)
+	@Column(name = "mobile_number")
 	private String mobileNumber;
-	@Column(name = "address", nullable = false, length = 200)
+	@Column(name = "address")
 	private String address;
-	@Column(name = "dob", nullable = false, length = 20)
+	@Column(name = "dob")
 	private String dob;
-	@Column(name = "gender", nullable = false, length = 20)
+	@Column(name = "gender")
 	private String gender;
-	@Column(name = "saving_duration", nullable = false, length = 20)
-	private String savingDuration;
-	@Column(name = "saving_amount", nullable = false, length = 20)
+	@Column(name = "loan_payment_type")
+	private String loanPaymentType;
+	@Column(name = "saving_duration")
+	private Long savingDuration;
+	@Column(name = "saving_amount")
 	private Long savingAmount;
-	@Column(name = "total_amount_to_pay", nullable = false, length = 20)
-	private Long totalAmountToPay;
-	@Column(name = "saving_type", length = 20)
+	@Column(name = "total_amount_to_pay")
+	private Double totalAmountToPay;
+	@Column(name = "saving_type")
 	private String savingType;
-	@Column(name = "registration_date", nullable = false, length = 20)
+	@Column(name = "registration_date")
 	private Date registrationDate;
-	@Column(name = "role_id", nullable = false, length = 20)
+	@Column(name = "role_id")
 	private int roleId;
-	@Column(name = "adhar_number", nullable = false, length = 20)
+	@Column(name = "adhar_number")
 	private String adharNumber;
-	@Column(name = "interest_rate", nullable = false, length = 20)
+	@Column(name = "interest_rate")
 	private Long interestRate;
-	
+	@Column(name = "emi_Amount", nullable = false, length = 20)
+	private Double savingEMIAmount;
+	@Transient
+	private Date lastTransaction;
 	public Long getId() {
 		return id;
 	}
@@ -116,10 +122,10 @@ public class SavingCustomerEntity {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getSavingDuration() {
+	public Long getSavingDuration() {
 		return savingDuration;
 	}
-	public void setSavingDuration(String savingDuration) {
+	public void setSavingDuration(Long savingDuration) {
 		this.savingDuration = savingDuration;
 	}
 	public Long getSavingAmount() {
@@ -128,10 +134,10 @@ public class SavingCustomerEntity {
 	public void setSavingAmount(Long savingAmount) {
 		this.savingAmount = savingAmount;
 	}
-	public Long getTotalAmountToPay() {
+	public Double getTotalAmountToPay() {
 		return totalAmountToPay;
 	}
-	public void setTotalAmountToPay(Long totalAmountToPay) {
+	public void setTotalAmountToPay(Double totalAmountToPay) {
 		this.totalAmountToPay = totalAmountToPay;
 	}
 	public String getSavingType() {
@@ -163,6 +169,24 @@ public class SavingCustomerEntity {
 	}
 	public void setInterestRate(Long interestRate) {
 		this.interestRate = interestRate;
+	}
+	public Double getSavingEMIAmount() {
+		return savingEMIAmount;
+	}
+	public void setSavingEMIAmount(Double savingEMIAmount) {
+		this.savingEMIAmount = savingEMIAmount;
+	}
+	public String getLoanPaymentType() {
+		return loanPaymentType;
+	}
+	public void setLoanPaymentType(String loanPaymentType) {
+		this.loanPaymentType = loanPaymentType;
+	}
+	public Date getLastTransaction() {
+		return lastTransaction;
+	}
+	public void setLastTransaction(Date lastTransaction) {
+		this.lastTransaction = lastTransaction;
 	}
 	
 	
