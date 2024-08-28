@@ -95,7 +95,7 @@ public class Utility {
 	        Font font2 = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
 	        font2.setSize(14);
 	        font2.setColor(Color.PINK);
-	        Paragraph p = new Paragraph("Saving Agreement Report", font);
+	        Paragraph p = new Paragraph("Loan Agreement Report", font);
 	        p.setAlignment(Paragraph.ALIGN_CENTER);
 	        document.add(p);
 	        document.add(Chunk.NEWLINE);
@@ -197,13 +197,13 @@ public class Utility {
 	        Font font2 = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
 	        font2.setSize(14);
 	        font2.setColor(Color.PINK);
-	        Paragraph p = new Paragraph("Personal Loan Agreement", font);
+	        Paragraph p = new Paragraph("Saving Plan Agreement", font);
 	        p.setAlignment(Paragraph.ALIGN_CENTER);
 	        document.add(p);
 	        document.add(Chunk.NEWLINE);
             document.add(Chunk.NEWLINE);
             
-	        Paragraph p1 = new Paragraph("Lender Information: ",font2);
+	        Paragraph p1 = new Paragraph("Saver Information: ",font2);
 	        document.add(p1);
 	        Paragraph p2 = new Paragraph("● Name: 			Rishta Microfinance",font1);
 	        document.add(p2);
@@ -237,7 +237,7 @@ public class Utility {
 	        document.add(p11);
 	        Paragraph p12 = new Paragraph("● Saving Amount : 			"+user.getSavingAmount()+"",font1);
 	        document.add(p12);
-	        Paragraph p25 = new Paragraph("● Total Loan Amount With Intrest : 			"+user.getTotalAmountToPay()+"",font1);
+	        Paragraph p25 = new Paragraph("● Total Saving Amount With Intrest : 			"+user.getTotalAmountToPay()+"",font1);
 	        document.add(p25);
 	        Paragraph p13 = new Paragraph("● Loan Date : 			"+user.getRegistrationDate()+"",font1);
 	        document.add(p13);
