@@ -35,7 +35,10 @@ public class CustomerController {
 	
 	 @Value("${spring.microfinance.interestrate}")
 	    private String interestRate;
-
+	 
+	 private static final String ACCOUNT_SID = System.getenv("ACCOUNT_SID");
+	 private static final String AUTH_TOKEN = System.getenv("AUTH_TOKEN");
+	 
 	@GetMapping("/dashboard")
 	public String showDashboard(Model model) {
 		Long totalRecieveAmount = userEmiRepo.getAllPaidEMIAmounts();
@@ -151,7 +154,7 @@ public class CustomerController {
 				return "user-registration";
 			} else {
 				userRepo.save(user);
-				//MessageUtility.sendMessage(user.getMobileNumber(), user);
+				//MessageUtility.sendMessage(user.getMobileNumber(), user,ACCOUNT_SID,AUTH_TOKEN);
 				msg = "Data saved sucessfully for user id : " + user.getUserId();
 			}
 
@@ -404,22 +407,27 @@ public class CustomerController {
 	}
 	@GetMapping("/sendOTP")
 	public String sendOTP(Model model,@RequestParam("mobileNumber") String mobileNumber,HttpSession httpSession) {
-		/*
+		
 		 System.out.println("sendOTP Mobile Number : "+mobileNumber);
 		httpSession.setAttribute("mobileNumber", mobileNumber);
 		String otp = MessageUtility.generateOTP();
 		System.out.println("sendOTP otp : "+otp);
-		MessageUtility.sendOTP(mobileNumber, otp);
+		try {
+			System.out.println("ACCOUNT_SID======="+ACCOUNT_SID+"################"+AUTH_TOKEN);
+		MessageUtility.sendOTP(mobileNumber, otp,ACCOUNT_SID,AUTH_TOKEN);
+		}catch(Exception e) {
+			
+		}
 		MessageUtility.storeOtp(mobileNumber, otp);
 		model.addAttribute("user", new User());
-		*/
+		
 		return "otp_verification";
 		
 	}
 	
 	@PostMapping("/verifyOTP")
 	public String verifyOTP(Model model,User user,HttpSession httpSession) {
-		/*
+		
 		String mobileNumber = (String) httpSession.getAttribute("mobileNumber");
 		System.out.println("verifyOTP Mobile Number : "+mobileNumber);
 		String otp = MessageUtility.getOtp(mobileNumber);
@@ -434,7 +442,7 @@ public class CustomerController {
 			model.addAttribute("msg", "Failed To Verified OTP");
 		}
 		model.addAttribute("user", new User());
-		*/
+		
 		return "otp_verification";
 	}
 	
