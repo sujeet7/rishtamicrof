@@ -21,17 +21,29 @@ public class LoginLogoutController {
 
 	@GetMapping("/CustomLogin")
 	public String checkLogin(@RequestParam("email") String email, Model model) {
+		try {
+			
 		User user = userRepo.findByEmail(email);
 		model.addAttribute("user", user);
+		if(user==null) {
+			model.addAttribute("user", new User());
+			model.addAttribute("error", "Invalid username or password please try again.");
+			return "login";
+		}
 		if(user.getRoleId()==1) {
 			return "user-profile";
 		}
 		if (user != null) {
 			return "dashboard";
-		} else {
+		} 
+		}catch(Exception e) {
+			model.addAttribute("error", "Somthing went wrong.");
 			return "login";
 		}
+		return "login";
+		
 	}
+	
 	
 
 }
