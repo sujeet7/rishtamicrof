@@ -21,7 +21,7 @@ public class MessageUtility {
 		    		+ "Welcome to Rishta Microfinanace.\r\n"
 		    		+ "We are pleased to inform you that your loan amount of "+user.getLoanAmount()+" Rs. has been successfully credited to you, ending for Aadhar card "+user.getAdharNumber()+". \r\n"
 		    		+ "\r\n"
-		    		+ "Thank you for choosing Rihta Microfinace.\r\n"
+		    		+ "Thank you for choosing Rista Microfinace.\r\n"
 		    		+ "\r\n"
 		    		+ "Best regards,\r\n"
 		    		+ "[Rista Microfinace]";
