@@ -19,9 +19,9 @@ public class MessageUtility {
 		 String body = "Dear "+user.getFirstName()+""+user.getLastName()+",\r\n"
 		    		+ "\r\n"
 		    		+ "Welcome to Rishta Microfinanace.\r\n"
-		    		+ "We are pleased to inform you that your loan amount of "+user.getLoanAmount()+" Rs. has been successfully credited to you ending for Aadhar card "+user.getAdharNumber()+". \r\n"
+		    		+ "We are pleased to inform you that your loan amount of "+user.getLoanAmount()+" Rs. has been successfully credited to you, ending for Aadhar card "+user.getAdharNumber()+". \r\n"
 		    		+ "\r\n"
-		    		+ "Thank you for choosing Rishta Microfinace.\r\n"
+		    		+ "Thank you for choosing Rihta Microfinace.\r\n"
 		    		+ "\r\n"
 		    		+ "Best regards,\r\n"
 		    		+ "[Rista Microfinace]";
@@ -38,9 +38,9 @@ public class MessageUtility {
 	public static void sendOTP(String mobileNumber,String otp,String ACCOUNT_SID,String AUTH_TOKEN) {
 		Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 		mobileNumber = "+91"+mobileNumber;
-		 String body = "Dear Custome\r\n"
+		 String body = "Dear Customer\r\n"
 		    		+ "This otp is only for loan verifiaction, your otp is: "+otp+" \r\n"
-		    		+ "Do no share your otp with unknown.\r\n"
+		    		+ "Do not share your otp with unknown.\r\n"
 		    		+ "\r\n"
 		    		+ "Best regards,\r\n"
 		    		+ "[Rista Microfinace]";
