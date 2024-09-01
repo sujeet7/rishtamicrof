@@ -38,6 +38,7 @@ public class CustomerController {
 	 
 	 private static final String ACCOUNT_SID = System.getenv("ACCOUNT_SID");
 	 private static final String AUTH_TOKEN = System.getenv("AUTH_TOKEN");
+	 private static final String FROM_NUMBER = System.getenv("FROM_NUMBER");
 	 
 	@GetMapping("/dashboard")
 	public String showDashboard(Model model) {
@@ -154,7 +155,7 @@ public class CustomerController {
 				return "user-registration";
 			} else {
 				userRepo.save(user);
-				//MessageUtility.sendMessage(user.getMobileNumber(), user,ACCOUNT_SID,AUTH_TOKEN);
+				MessageUtility.sendMessage(user.getMobileNumber(), user,ACCOUNT_SID,AUTH_TOKEN,FROM_NUMBER);
 				msg = "Data saved sucessfully for user id : " + user.getUserId();
 			}
 
@@ -414,7 +415,7 @@ public class CustomerController {
 		System.out.println("sendOTP otp : "+otp);
 		try {
 			System.out.println("ACCOUNT_SID======="+ACCOUNT_SID+"################"+AUTH_TOKEN);
-		MessageUtility.sendOTP(mobileNumber, otp,ACCOUNT_SID,AUTH_TOKEN);
+		MessageUtility.sendOTPMessage(mobileNumber, otp,ACCOUNT_SID,AUTH_TOKEN,FROM_NUMBER);
 		}catch(Exception e) {
 			
 		}

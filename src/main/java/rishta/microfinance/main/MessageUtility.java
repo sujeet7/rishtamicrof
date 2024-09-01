@@ -13,21 +13,21 @@ public class MessageUtility {
     private static final Map<String, String> otpStorage = new ConcurrentHashMap<>();
    
 	
-	public static void sendMessage(String mobileNumber,User user,String ACCOUNT_SID,String AUTH_TOKEN) {
+	public static void sendMessage(String mobileNumber,User user,String ACCOUNT_SID,String AUTH_TOKEN,String FROM_NUMBER) {
 		Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 		mobileNumber = "+91"+mobileNumber;
 		 String body = "Dear "+user.getFirstName()+""+user.getLastName()+",\r\n"
 		    		+ "\r\n"
-		    		+ "Welcome to Rishta Microfinanace.\r\n"
+		    		+ "Welcome to Risita Microfinanace.\r\n"
 		    		+ "We are pleased to inform you that your loan amount of "+user.getLoanAmount()+" Rs. has been successfully credited to you, ending for Aadhar card "+user.getAdharNumber()+". \r\n"
 		    		+ "\r\n"
-		    		+ "Thank you for choosing Rista Microfinace.\r\n"
+		    		+ "Thank you for choosing Risita Microfinace.\r\n"
 		    		+ "\r\n"
 		    		+ "Best regards,\r\n"
-		    		+ "[Rista Microfinace]";
+		    		+ "[Risita Microfinace]";
 		  Message message = Message.creator(
 	                new PhoneNumber(mobileNumber),  // To number
-	                new PhoneNumber("+12673961392"),  // From number
+	                new PhoneNumber(FROM_NUMBER),  // From number
 	                body
 	        ).create();
 		
@@ -35,7 +35,7 @@ public class MessageUtility {
 	}
 	
 	
-	public static void sendOTP(String mobileNumber,String otp,String ACCOUNT_SID,String AUTH_TOKEN) {
+	public static void sendOTPMessage(String mobileNumber,String otp,String ACCOUNT_SID,String AUTH_TOKEN,String FROM_NUMBER) {
 		Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 		mobileNumber = "+91"+mobileNumber;
 		 String body = "Dear Customer\r\n"
@@ -43,10 +43,10 @@ public class MessageUtility {
 		    		+ "Do not share your otp with unknown.\r\n"
 		    		+ "\r\n"
 		    		+ "Best regards,\r\n"
-		    		+ "[Rista Microfinace]";
+		    		+ "[Risita Microfinace]";
 		  Message message = Message.creator(
 	                new PhoneNumber(mobileNumber),  // To number
-	                new PhoneNumber("+12673961392"),  // From number
+	                new PhoneNumber(FROM_NUMBER),  // From number
 	                body
 	        ).create();
 		
