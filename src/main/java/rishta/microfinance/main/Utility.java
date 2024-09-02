@@ -88,13 +88,13 @@ public class Utility {
 	        
 	        document.open();
 	        Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
-	        font.setSize(18);
+	        font.setSize(22);
 	        font.setColor(Color.RED);
 	        Font font1 = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
 	        font1.setSize(8);
 	        Font font2 = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
 	        font2.setSize(14);
-	        font2.setColor(Color.PINK);
+	        font2.setColor(Color.RED);
 	        Paragraph p = new Paragraph("Loan Agreement Report", font);
 	        p.setAlignment(Paragraph.ALIGN_CENTER);
 	        document.add(p);
@@ -196,7 +196,7 @@ public class Utility {
 	        font1.setSize(8);
 	        Font font2 = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
 	        font2.setSize(14);
-	        font2.setColor(Color.PINK);
+	        font2.setColor(Color.RED);
 	        Paragraph p = new Paragraph("Saving Plan Agreement", font);
 	        p.setAlignment(Paragraph.ALIGN_CENTER);
 	        document.add(p);
@@ -277,7 +277,7 @@ public class Utility {
 	    
 	    private static void writeTableHeader(PdfPTable table) {
 	        PdfPCell cell = new PdfPCell();
-	        cell.setBackgroundColor(Color.PINK);
+	        cell.setBackgroundColor(Color.RED);
 	        cell.setPadding(5);
 	         
 	        Font font = FontFactory.getFont(FontFactory.HELVETICA);
@@ -290,8 +290,8 @@ public class Utility {
 	        cell.setPhrase(new Phrase("First Name", font));
 	        table.addCell(cell);
 	        
-	        cell.setPhrase(new Phrase("Last Name", font));
-	        table.addCell(cell);
+	        //cell.setPhrase(new Phrase("Last Name", font));
+	        //table.addCell(cell);
 	         
 	        cell.setPhrase(new Phrase("Loan Amount", font));
 	        table.addCell(cell);
@@ -319,7 +319,7 @@ public class Utility {
 	        for (LoanEMIUser user : listUsers) {
 	            table.addCell(user.getCustomerId());
 	            table.addCell(user.getFirstName());
-	            table.addCell(user.getLastName());
+	            //table.addCell(user.getLastName());
 	            table.addCell(String.valueOf(user.getLoanAmount()));
 	            table.addCell(user.getLoanDuration());
 	            table.addCell(String.valueOf(user.getNextEmiDate()).replace("00:00:00.0",""));
@@ -344,9 +344,9 @@ public class Utility {
 	         
 	        document.add(p);
 	         
-	        PdfPTable table = new PdfPTable(10);
+	        PdfPTable table = new PdfPTable(9);
 	        table.setWidthPercentage(100f);
-	        table.setWidths(new float[] {4.0f, 3.5f, 3.0f, 3.0f, 3.5f,4.0f, 2.0f, 3.0f, 3.0f, 3.5f});
+	        table.setWidths(new float[] {4.0f, 3.5f, 3.0f, 3.5f,4.0f, 2.0f, 3.0f, 3.0f, 3.5f});
 	        table.setSpacingBefore(10);
 	        writeTableHeader(table);
 	        writeTableData(table,listUsers);

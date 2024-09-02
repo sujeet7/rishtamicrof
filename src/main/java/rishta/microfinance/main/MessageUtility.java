@@ -16,7 +16,7 @@ public class MessageUtility {
 	public static void sendMessage(String mobileNumber,User user,String ACCOUNT_SID,String AUTH_TOKEN,String FROM_NUMBER) {
 		Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 		mobileNumber = "+91"+mobileNumber;
-		 String body = "Dear "+user.getFirstName()+""+user.getLastName()+",\r\n"
+		 String body = "Dear "+user.getFirstName()+" "+user.getLastName()+",\r\n"
 		    		+ "\r\n"
 		    		+ "Welcome to Risita Microfinanace.\r\n"
 		    		+ "We are pleased to inform you that your loan amount of "+user.getLoanAmount()+" Rs. has been successfully credited to you, ending for Aadhar card "+user.getAdharNumber()+". \r\n"

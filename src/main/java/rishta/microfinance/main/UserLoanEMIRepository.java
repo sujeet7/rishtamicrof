@@ -30,6 +30,9 @@ public interface UserLoanEMIRepository extends JpaRepository<LoanEMIUser, Long>{
 	@Query("SELECT MAX(u.totalPaidEmi) FROM LoanEMIUser u WHERE u.customerId=?1")
 	public Long getTotalPaidEMI(String  userId);
 	
+	@Modifying
+    @Transactional
+    @Query("DELETE FROM LoanEMIUser u WHERE u.customerId=?1")
 	public void deleteById(String id);
 	
 	@Query(nativeQuery = true,value ="SELECT SUM(emi_amount) FROM railway.loan_emi WHERE DATE(emi_payment_date) = CURDATE()")

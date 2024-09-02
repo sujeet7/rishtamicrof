@@ -374,10 +374,12 @@ public class CustomerController {
 		return "user-popup";
 	}
 
+	@Transactional
 	@GetMapping("/deleteUser")
 	public String deleteUser(Model model, @RequestParam("id") String id, @RequestParam("userId") String userId) {
 		try {
 			userRepo.deleteById(Long.valueOf(id));
+			userEmiRepo.deleteById(userId);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
