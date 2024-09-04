@@ -105,7 +105,7 @@ public class Utility {
 	        document.add(p1);
 	        Paragraph p2 = new Paragraph("● Name: 			Rishita Micro Finance",font1);
 	        document.add(p2);
-	        Paragraph p3 = new Paragraph("● Address: 			Nadwasarai,Dist-Mau(U.P) Pin: 27302",font1);
+	        Paragraph p3 = new Paragraph("● Address: 			Nadwasarai,Dist-Mau(U.P) Pin: 275302",font1);
 	        document.add(p3);
 	        Paragraph p4 = new Paragraph("● Phone Number: 			9695549171",font1);
 	        document.add(p4);
