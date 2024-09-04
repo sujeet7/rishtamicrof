@@ -103,13 +103,13 @@ public class Utility {
             
 	        Paragraph p1 = new Paragraph("Lender Information: ",font2);
 	        document.add(p1);
-	        Paragraph p2 = new Paragraph("● Name: 			Rishta Microfinance",font1);
+	        Paragraph p2 = new Paragraph("● Name: 			Rishita Micro Finance",font1);
 	        document.add(p2);
-	        Paragraph p3 = new Paragraph("● Address: 			Nadwasarai,Mau(U.P) Pin: 27302",font1);
+	        Paragraph p3 = new Paragraph("● Address: 			Nadwasarai,Dist-Mau(U.P) Pin: 27302",font1);
 	        document.add(p3);
-	        Paragraph p4 = new Paragraph("● Phone Number: 			8826119350",font1);
+	        Paragraph p4 = new Paragraph("● Phone Number: 			9695549171",font1);
 	        document.add(p4);
-	        Paragraph p5 = new Paragraph("● Email: 			Rishtamicrofinance@gmail.com",font1);
+	        Paragraph p5 = new Paragraph("● Email: 			Rishitamicrofinance@gmail.com",font1);
 	        document.add(p5);
 	        
 	        document.add(Chunk.NEWLINE);

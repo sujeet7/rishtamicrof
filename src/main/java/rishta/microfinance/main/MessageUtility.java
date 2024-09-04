@@ -18,13 +18,13 @@ public class MessageUtility {
 		mobileNumber = "+91"+mobileNumber;
 		 String body = "Dear "+user.getFirstName()+" "+user.getLastName()+",\r\n"
 		    		+ "\r\n"
-		    		+ "Welcome to Risita Microfinanace.\r\n"
+		    		+ "Welcome to Rishita Microfinanace.\r\n"
 		    		+ "We are pleased to inform you that your loan amount of "+user.getLoanAmount()+" Rs. has been successfully credited to you, ending for Aadhar card "+user.getAdharNumber()+". \r\n"
 		    		+ "\r\n"
-		    		+ "Thank you for choosing Risita Microfinace.\r\n"
+		    		+ "Thank you for choosing Rishita Microfinace.\r\n"
 		    		+ "\r\n"
 		    		+ "Best regards,\r\n"
-		    		+ "[Risita Microfinace]";
+		    		+ "[Rishita Microfinace]";
 		  Message message = Message.creator(
 	                new PhoneNumber(mobileNumber),  // To number
 	                new PhoneNumber(FROM_NUMBER),  // From number
@@ -43,7 +43,7 @@ public class MessageUtility {
 		    		+ "Do not share your otp with unknown.\r\n"
 		    		+ "\r\n"
 		    		+ "Best regards,\r\n"
-		    		+ "[Risita Microfinace]";
+		    		+ "[Rishita Microfinace]";
 		  Message message = Message.creator(
 	                new PhoneNumber(mobileNumber),  // To number
 	                new PhoneNumber(FROM_NUMBER),  // From number
