@@ -1,5 +1,7 @@
 package rishta.microfinance.main;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,6 +22,9 @@ public interface SavingCustomerRepository extends JpaRepository<SavingCustomerEn
 	@Query("SELECT SUM(u.savingAmount) FROM SavingCustomerEntity u")
 	public Long getTotalAmount();
 	
+	 @Query(value = "SELECT * FROM railway.Saving_Customer_Details LIMIT 5;", nativeQuery = true)
+		public List<SavingCustomerEntity> getToFiveUsers();
+	 
 	@Query("SELECT u FROM SavingCustomerEntity u WHERE u.userId=?1")
 	public SavingCustomerEntity getUserById(String  userId);
 	

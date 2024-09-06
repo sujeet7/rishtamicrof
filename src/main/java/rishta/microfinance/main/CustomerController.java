@@ -48,6 +48,8 @@ public class CustomerController {
 		Long todayCollection = userEmiRepo.getTotalTodayAmount();
 		Long weeklyCollection = userEmiRepo.getTotalWeekAmount();
 		Long monthlyCollection = userEmiRepo.getTotalMontAmount();
+		List<User> topFiveUsers = userRepo.getToFiveUsers();
+		List<SavingCustomerEntity> topFiveSavingUsers = savingCustomerRepository.getToFiveUsers();
 		Long totalSum = userEmiRepo.getTotalSumAmount();
 		model.addAttribute("totalRecieveAmount", totalRecieveAmount);
 		model.addAttribute("totalDesburseAmount", totalDesburseAmount);
@@ -56,6 +58,8 @@ public class CustomerController {
 		model.addAttribute("weeklyCollection", weeklyCollection);
 		model.addAttribute("monthlyCollection", monthlyCollection);
 		model.addAttribute("totalSum", totalSum);
+		model.addAttribute("topFiveUsers", topFiveUsers);
+		model.addAttribute("topFiveSavingUsers", topFiveSavingUsers);
 		if(totalDesburseAmount!=null && totalRecieveAmount!=null) {
 			model.addAttribute("totalOutstandingAmount", totalDesburseAmount-totalRecieveAmount);
 			}
