@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "Saving_Customer_Details")
 public class SavingCustomerEntity {
@@ -51,6 +53,7 @@ public class SavingCustomerEntity {
 	@Column(name = "saving_type")
 	private String savingType;
 	@Column(name = "registration_date")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date registrationDate;
 	@Column(name = "role_id")
 	private int roleId;
@@ -62,6 +65,8 @@ public class SavingCustomerEntity {
 	private Double savingEMIAmount;
 	@Transient
 	private Date lastTransaction;
+	@Column(name = "relation")
+	private String relation;
 	public Long getId() {
 		return id;
 	}
@@ -187,6 +192,12 @@ public class SavingCustomerEntity {
 	}
 	public void setLastTransaction(Date lastTransaction) {
 		this.lastTransaction = lastTransaction;
+	}
+	public String getRelation() {
+		return relation;
+	}
+	public void setRelation(String relation) {
+		this.relation = relation;
 	}
 	
 	

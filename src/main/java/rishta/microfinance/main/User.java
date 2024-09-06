@@ -68,6 +68,8 @@ public class User {
 	
 	@Transient
 	private String otp;
+	@Column(name = "relation")
+	private String relation;
 	
 	public Long getId() {
 		return id;
@@ -248,6 +250,14 @@ public class User {
 
 	public void setOtp(String otp) {
 		this.otp = otp;
+	}
+
+	public String getRelation() {
+		return relation;
+	}
+
+	public void setRelation(String relation) {
+		this.relation = relation;
 	}
 
 	@Override

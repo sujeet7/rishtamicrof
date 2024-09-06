@@ -112,7 +112,7 @@ public class CustomerController {
 				user.setTotalAmountToPay(user.getTotalAmountToPay());
 				user.setSavingDuration(user.getSavingDuration());
 				user.setRoleId(1);
-				user.setRegistrationDate(new Date());
+				user.setRegistrationDate(user.getRegistrationDate());
 				}
 				savingCustomerRepository.save(user);
 				msg = "Data saved sucessfully for user id : " + user.getUserId();

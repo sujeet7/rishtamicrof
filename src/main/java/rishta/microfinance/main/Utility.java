@@ -119,6 +119,8 @@ public class Utility {
 	        document.add(p6);
 	        Paragraph p7 = new Paragraph("● Name: 			"+user.getFirstName()+" "+user.getLastName()+" ",font1);
 	        document.add(p7);
+	        Paragraph p0 = new Paragraph("● Relation: 			"+user.getRelation(),font1);
+	        document.add(p0);
 	        Paragraph p8 = new Paragraph("● Address: 			"+user.getAddress()+"",font1);
 	        document.add(p8);
 	        Paragraph p9 = new Paragraph("● Phone Number: 			"+user.getMobileNumber()+"",font1);
@@ -164,8 +166,10 @@ public class Utility {
 	        document.add(p18);
 	        Paragraph p19 = new Paragraph("Lender's Signature: ______________________________________ Date: ______________________________",font1);
 	        document.add(p19);
+	        document.add(Chunk.NEWLINE);
 	        Paragraph p20 = new Paragraph("Borrower's Signature: _____________________________________ Date: ______________________________",font1);
 	        document.add(p20);
+	        document.add(Chunk.NEWLINE);
 	        Paragraph granter = new Paragraph("Granter's Signature: _____________________________________ Date: ______________________________",font1);
 	        document.add(granter);
 	         
@@ -221,6 +225,8 @@ public class Utility {
 	        document.add(p6);
 	        Paragraph p7 = new Paragraph("● Name: 			"+user.getFirstName()+" "+user.getLastName()+" ",font1);
 	        document.add(p7);
+	        Paragraph p0 = new Paragraph("● Relation: 			"+user.getRelation(),font1);
+	        document.add(p0);
 	        Paragraph p8 = new Paragraph("● Address: 			"+user.getAddress()+"",font1);
 	        document.add(p8);
 	        Paragraph p9 = new Paragraph("● Phone Number: 			"+user.getMobileNumber()+"",font1);
@@ -266,8 +272,10 @@ public class Utility {
 	        document.add(p18);
 	        Paragraph p19 = new Paragraph("Lender's Signature: ______________________________________ Date: ______________________________",font1);
 	        document.add(p19);
+	        document.add(Chunk.NEWLINE);
 	        Paragraph p20 = new Paragraph("Saver's Signature: _____________________________________ Date: ______________________________",font1);
 	        document.add(p20);
+	        document.add(Chunk.NEWLINE);
 	        Paragraph granter = new Paragraph("Granter's Signature: _____________________________________ Date: ______________________________",font1);
 	        document.add(granter);
 	         
