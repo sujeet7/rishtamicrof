@@ -307,6 +307,8 @@ public class CustomerController {
 		List<SavingCustomerEntity> listUsers = savingCustomerRepository.findAll();
 		Long counts = savingCustomerRepository.getTotalNumberOfCustomer();
 		Long totalSum = savingCustomerRepository.getTotalAmount();
+		Long totalRecieveAmount = userEmiRepo.getAllPaidEMIAmountsForSaving();
+		
 		if(listUsers!=null && listUsers.size()>0) {
 			for (SavingCustomerEntity user : listUsers) {
 				Date emiUserObj = userEmiRepo.getMaxDate(user.getUserId());
@@ -318,6 +320,7 @@ public class CustomerController {
 		model.addAttribute("savingCustomers", listUsers);
 		model.addAttribute("savingCustomerCounts", counts);
 		model.addAttribute("totalSavingAmount", totalSum);
+		model.addAttribute("totalRecieveAmount", totalRecieveAmount);
 
 		return "saving-customers";
 	}

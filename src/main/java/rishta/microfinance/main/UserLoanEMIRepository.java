@@ -27,6 +27,9 @@ public interface UserLoanEMIRepository extends JpaRepository<LoanEMIUser, Long>{
 	@Query("SELECT SUM(u.emiAmount) FROM LoanEMIUser u")
 	public Long getAllPaidEMIAmounts();
 	
+	@Query("SELECT SUM(u.emiAmount) FROM LoanEMIUser u WHERE u.customerId LIKE 'RMFSA0%'")
+	public Long getAllPaidEMIAmountsForSaving();
+	
 	@Query("SELECT MAX(u.totalPaidEmi) FROM LoanEMIUser u WHERE u.customerId=?1")
 	public Long getTotalPaidEMI(String  userId);
 	
