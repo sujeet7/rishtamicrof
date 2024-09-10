@@ -95,7 +95,8 @@ public class CustomerController {
 				System.out.println(user.getFirstName() + "*******" + user.getLastName() + "" + userExit.getId());
 				savingCustomerRepository.updateSavingCustomer(user.getEmail(), user.getFirstName(), user.getLastName(), user.getMobileNumber(),
 						user.getAddress(), user.getDob(), user.getGender(), user.getSavingAmount(), user.getSavingType(),
-						user.getSavingDuration(), userExit.getId());
+						user.getSavingDuration(),user.getTotalAmountToPay(),user.getRegistrationDate(),
+						user.getAdharNumber(),user.getInterestRate(),user.getSavingEMIAmount(), userExit.getId());
 				msg = "Data updated sucessfully for user id : " + userExit.getId();
 				model.addAttribute("msg", msg);
 				model.addAttribute("savingCustomer", user);

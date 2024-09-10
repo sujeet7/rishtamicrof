@@ -1,5 +1,6 @@
 package rishta.microfinance.main;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,7 +23,7 @@ public interface SavingCustomerRepository extends JpaRepository<SavingCustomerEn
 	@Query("SELECT SUM(u.savingAmount) FROM SavingCustomerEntity u")
 	public Long getTotalAmount();
 	
-	 @Query(value = "SELECT * FROM railway.saving_customer_details LIMIT 5;", nativeQuery = true)
+	 @Query(value = "SELECT * FROM rishtadb.saving_customer_details LIMIT 5;", nativeQuery = true)
 		public List<SavingCustomerEntity> getToFiveUsers();
 	 
 	@Query("SELECT u FROM SavingCustomerEntity u WHERE u.userId=?1")
@@ -39,7 +40,12 @@ public interface SavingCustomerRepository extends JpaRepository<SavingCustomerEn
 			+ "gender =:gender,"
 			+ "savingAmount =:savingAmount,"
 			+ "savingType =:savingType,"
-			+ "savingDuration =:savingDuration"
+			+ "savingDuration =:savingDuration,"
+			+ "totalAmountToPay =:totalAmountToPay,"
+			+ "registrationDate =:registrationDate,"
+			+ "adharNumber =:adharNumber,"
+			+ "interestRate =:interestRate,"
+			+ "savingEMIAmount =:savingEMIAmount"
 			+ " where id =:id")
 public void updateSavingCustomer(@Param("email") String email, 
 		@Param("firstName") String firstName,
@@ -51,6 +57,11 @@ public void updateSavingCustomer(@Param("email") String email,
 		@Param("savingAmount") Long savingAmount,
 		@Param("savingType") String savingType,
 		@Param("savingDuration") Long savingDuration,
+		@Param("totalAmountToPay") Double totalAmountToPay,
+		@Param("registrationDate") Date registrationDate,
+		@Param("adharNumber") String adharNumber,
+		@Param("interestRate") Long interestRate,
+		@Param("savingEMIAmount") Double savingEMIAmount,
 		@Param("id") Long id
 		);
 

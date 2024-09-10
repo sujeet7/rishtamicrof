@@ -121,6 +121,8 @@ public class Utility {
 	        document.add(p7);
 	        Paragraph p0 = new Paragraph("● Relation: 			"+user.getRelation(),font1);
 	        document.add(p0);
+	        Paragraph p00 = new Paragraph("● Date Of Birth: 			"+user.getDob(),font1);
+	        document.add(p00);
 	        Paragraph p8 = new Paragraph("● Address: 			"+user.getAddress()+"",font1);
 	        document.add(p8);
 	        Paragraph p9 = new Paragraph("● Phone Number: 			"+user.getMobileNumber()+"",font1);
@@ -227,6 +229,8 @@ public class Utility {
 	        document.add(p7);
 	        Paragraph p0 = new Paragraph("● Relation: 			"+user.getRelation(),font1);
 	        document.add(p0);
+	        Paragraph p00 = new Paragraph("● Date Of Birth: 			"+user.getDob(),font1);
+	        document.add(p00);
 	        Paragraph p8 = new Paragraph("● Address: 			"+user.getAddress()+"",font1);
 	        document.add(p8);
 	        Paragraph p9 = new Paragraph("● Phone Number: 			"+user.getMobileNumber()+"",font1);
@@ -301,10 +305,10 @@ public class Utility {
 	        //cell.setPhrase(new Phrase("Last Name", font));
 	        //table.addCell(cell);
 	         
-	        cell.setPhrase(new Phrase("Loan Amount", font));
+	        cell.setPhrase(new Phrase("Loan/Saving Amount", font));
 	        table.addCell(cell);
 	         
-	        cell.setPhrase(new Phrase("Loan Duration", font));
+	        cell.setPhrase(new Phrase("Loan/Saving Duration", font));
 	        table.addCell(cell); 
 	        
 	        cell.setPhrase(new Phrase("Next EMI Date", font));
