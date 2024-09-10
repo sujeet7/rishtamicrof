@@ -23,7 +23,7 @@ public interface SavingCustomerRepository extends JpaRepository<SavingCustomerEn
 	@Query("SELECT SUM(u.savingAmount) FROM SavingCustomerEntity u")
 	public Long getTotalAmount();
 	
-	 @Query(value = "SELECT * FROM rishtadb.saving_customer_details LIMIT 5;", nativeQuery = true)
+	 @Query(value = "SELECT * FROM railway.saving_customer_details LIMIT 5;", nativeQuery = true)
 		public List<SavingCustomerEntity> getToFiveUsers();
 	 
 	@Query("SELECT u FROM SavingCustomerEntity u WHERE u.userId=?1")
