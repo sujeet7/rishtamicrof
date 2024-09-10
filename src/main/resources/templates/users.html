@@ -59,9 +59,13 @@ tbody {
 						<th>Total Amount To Pay</th>
 						<th>EMI Amount</th>
 						<th>Loan Duration</th>
+						
+						 
 						<th>Rate Of Interest</th>
 						<th>Loan Pay Option</th>
+						
 						<th>Mobile Number</th>
+						
 						<th>Last Transaction</th>
 						<!-- 
 						<th>Gender</th>
@@ -82,14 +86,16 @@ tbody {
 						<td th:text="${user.totalAmountToPay}">Total Amount To Pay</td>
 						<td th:text="${user.emiAmount}">EMI Amount</td>
 						<td th:text="${user.loanDuration}">Loan Duration</td>
+						
 						  
 						  <td th:text="${user.interestRate}">Rate Of Interest</td>
 						<td th:text="${user.loanPaymentType}">Loan Pay Option</td>
+						
 						<td th:text="${user.mobileNumber}">Mobile Number</td>
 						
 						<td style="color:red" th:text="${user.lastTransaction}">Last Transaction</td>
-						<!-- 
-						<td th:text="${user.gender}">Gender</td>
+						<!--
+						<td th:text="${user.gender}">Gender</td> 
 						<td th:text="${user.adharNumber}">Aadhar Number</td>
 						<td th:text="${user.email}">E-mail</td>
 						<td th:text="${user.address}">Address</td>
@@ -103,11 +109,11 @@ tbody {
 								<button type="button" class="btn btn-primary">EDIT</button></a> 
 								<a th:href="@{/deleteUser/(id=${user.id},userId=${user.userId})}" onclick="return confirm('Are you sure you want to delete this Customer?')">
 								<button type="button" class="btn btn-primary">DELETE</button></a>
-								<a th:href="@{/getEMIByUserId/(id=${user.userId})}">
-								<button type="button" class="btn btn-primary">LoanReport</button></a>
-								<a th:href="@{/generateEMIReport/(id=${user.userId})}">
-								<button type="button" class="btn btn-primary">EMIHistory</button></a>
 								<a th:href="@{/exportPdfForUser/(id=${user.userId})}">
+								<button type="button" class="btn btn-primary">LoanReport</button></a>
+								<a th:href="@{/getEMIByUserId/(id=${user.userId})}">
+								<button type="button" class="btn btn-primary">EMIHistory</button></a>
+								<a th:href="@{/generateEMIReport/(id=${user.userId})}">
 								<button type="button" class="btn btn-primary">EMIReport</button></a>
 						</td>
 						
