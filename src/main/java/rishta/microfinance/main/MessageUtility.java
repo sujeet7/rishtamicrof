@@ -33,6 +33,26 @@ public class MessageUtility {
 		
 		  System.out.println(message.getSid());
 	}
+	public static void sendMessageForSaving(String mobileNumber,SavingCustomerEntity user,String ACCOUNT_SID,String AUTH_TOKEN,String FROM_NUMBER) {
+		Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+		mobileNumber = "+91"+mobileNumber;
+		 String body = "Dear "+user.getFirstName()+" "+user.getLastName()+",\r\n"
+		    		+ "\r\n"
+		    		+ "Welcome to Rishita Microfinanace.\r\n"
+		    		+ "We are pleased to inform you that You have opend "+ user.getSavingType() +" account for amount "+user.getSavingAmount()+" Rs. has been successfully processed to my company, ending for Aadhar card "+user.getAdharNumber()+". \r\n"
+		    		+ "\r\n"
+		    		+ "Thank you for choosing Rishita Microfinace.\r\n"
+		    		+ "\r\n"
+		    		+ "Best regards,\r\n"
+		    		+ "[Rishita Microfinace]";
+		  Message message = Message.creator(
+	                new PhoneNumber(mobileNumber),  // To number
+	                new PhoneNumber(FROM_NUMBER),  // From number
+	                body
+	        ).create();
+		
+		  System.out.println(message.getSid());
+	}
 	
 	
 	public static void sendOTPMessage(String mobileNumber,String otp,String ACCOUNT_SID,String AUTH_TOKEN,String FROM_NUMBER) {

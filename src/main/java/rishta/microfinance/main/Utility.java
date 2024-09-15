@@ -211,7 +211,7 @@ public class Utility {
             
 	        Paragraph p1 = new Paragraph("Saver Information: ",font2);
 	        document.add(p1);
-	        Paragraph p2 = new Paragraph("● Name: 			Rishta Microfinance",font1);
+	        Paragraph p2 = new Paragraph("● Name: 			Rishita Microfinance",font1);
 	        document.add(p2);
 	        Paragraph p3 = new Paragraph("● Address: 			Nadwasarai,Mau(U.P) Pin: 27302",font1);
 	        document.add(p3);

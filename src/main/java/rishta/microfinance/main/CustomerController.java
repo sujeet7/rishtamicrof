@@ -48,8 +48,10 @@ public class CustomerController {
 		Long todayCollection = userEmiRepo.getTotalTodayAmount();
 		Long weeklyCollection = userEmiRepo.getTotalWeekAmount();
 		Long monthlyCollection = userEmiRepo.getTotalMontAmount();
+		
 		List<User> topFiveUsers = userRepo.getToFiveUsers();
 		List<SavingCustomerEntity> topFiveSavingUsers = savingCustomerRepository.getToFiveUsers();
+		System.out.println("HHHHHHHHHHHHHHH"+topFiveUsers);
 		Long totalSum = userEmiRepo.getTotalSumAmount();
 		model.addAttribute("totalRecieveAmount", totalRecieveAmount);
 		model.addAttribute("totalDesburseAmount", totalDesburseAmount);
@@ -63,7 +65,7 @@ public class CustomerController {
 		if(totalDesburseAmount!=null && totalRecieveAmount!=null) {
 			model.addAttribute("totalOutstandingAmount", totalDesburseAmount-totalRecieveAmount);
 			}
-		model.addAttribute("user", new User());
+		//model.addAttribute("user", new User());
 
 		return "dashboard";
 	}
@@ -120,6 +122,7 @@ public class CustomerController {
 				user.setRegistrationDate(user.getRegistrationDate());
 				}
 				savingCustomerRepository.save(user);
+				MessageUtility.sendMessageForSaving(user.getMobileNumber(), user,ACCOUNT_SID,AUTH_TOKEN,FROM_NUMBER);
 				msg = "Data saved sucessfully for user id : " + user.getUserId();
 			}
 
