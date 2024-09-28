@@ -57,6 +57,18 @@ public class Utility {
 		 return formatter.format(currentDateTime);
 	 }
 	 
+	 public static Date getDate(String dateString) {
+	        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+	        Date date=null;
+	        try {
+	            date = formatter.parse(dateString);
+	            System.out.println("Converted Date: " + date);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+			return date;
+	 }
+	 
 	 
 	 public static Date getNextWeek(Date date) {
 	        Calendar calendar = Calendar.getInstance();

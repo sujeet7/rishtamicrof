@@ -15,10 +15,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
+@CrossOrigin(origins = "*") 
 @Controller
 public class CustomerController {
 
@@ -175,7 +181,8 @@ public class CustomerController {
 		model.addAttribute("user", new User());
 		return "user-registration";
 	}
-
+	
+/*
 	@PostMapping("/payEmiForUser")
 	public String payEmi(LoanEMIUser lonaEmiObj,Model model, HttpSession httpSession) {
 		
@@ -243,6 +250,76 @@ public class CustomerController {
 		model.addAttribute("LoanEMIUser", new LoanEMIUser());
 
 		return "loan_emi_paymnet";
+	}
+	*/
+	
+	@PostMapping("/payEmiForUser")
+	@ResponseBody
+	public String payEmiForUser(Model model,@RequestBody JsonNode jsonNode) {
+		String firstName = null;
+		String userId = null;
+		String loanAmount = null;
+		String loanPaymentType = null;
+		String loanDuration = null;
+		String emiAmount = null;
+		String emiAmountFromUI = null;
+		String emiPaymentDate = null;
+		String nextEmiDate = null;
+		 if (jsonNode != null) {
+	                firstName = jsonNode.get("firstName").asText();
+	                userId = jsonNode.get("id").asText();
+	                loanAmount = jsonNode.get("loanAmount").asText();
+	                loanPaymentType = jsonNode.get("loanPaymentType").asText();
+	                loanDuration = jsonNode.get("loanDuration").asText();
+	                emiAmount = jsonNode.get("emiAmount").asText();
+	                emiAmountFromUI = jsonNode.get("emiAmountFromUI").asText();
+	                emiPaymentDate = jsonNode.get("emiPaymentDate").asText();
+	                nextEmiDate = jsonNode.get("nextEmiDate").asText();
+
+	                System.out.println("First Name: " + emiAmountFromUI);
+	                // Process each user here
+	        }
+		
+			
+			LoanEMIUser emiUser = new LoanEMIUser();
+			LoanEMIUser emiUserObj = userEmiRepo.getLastPaidEMIUser(userId);
+			
+			emiUser.setCustomerId(userId);
+			emiUser.setFirstName(firstName);
+			emiUser.setLastName(" ");
+			emiUser.setLoanAmount(Double.parseDouble(loanAmount));
+			if(emiAmountFromUI.equals(Double.parseDouble(emiAmount))) {
+			emiUser.setEmiAmount(Double.parseDouble(emiAmount));
+			}else {
+				emiUser.setEmiAmount(Double.parseDouble(emiAmountFromUI));
+			}
+			emiUser.setEmiPaymentDate(Utility.getDate(emiPaymentDate));
+			emiUser.setLoanDuration(loanDuration);
+			emiUser.setNextEmiDate(Utility.getDate(nextEmiDate));
+			
+			if(emiUserObj==null) {
+			emiUser.setTotalPaidEmi("1");
+			emiUser.setLeftEmiDuration(String.valueOf(Integer.valueOf(loanDuration)-1));
+			emiUser.setTotalDueEmi(String.valueOf(Double.parseDouble(loanAmount)-Double.parseDouble(emiAmount)));
+			}else {
+				emiUser.setLeftEmiDuration(String.valueOf(Integer.valueOf(emiUserObj.getLeftEmiDuration())-1));
+				emiUser.setTotalPaidEmi(String.valueOf((Integer.valueOf(emiUserObj.getTotalPaidEmi())+1)));
+				emiUser.setTotalDueEmi(String.valueOf(Double.parseDouble(emiUserObj.getTotalDueEmi())-Double.parseDouble(emiAmountFromUI)));
+				emiUser.setTotalPaidEmi(String.valueOf((Integer.valueOf(emiUserObj.getTotalPaidEmi())+1)));
+			}
+			LoanEMIUser result = null;
+			try {
+				result = userEmiRepo.save(emiUser);
+				if (result.getId() != null) {
+					model.addAttribute("msg", "Successfully paid emi");
+				} else {
+					model.addAttribute("msg", "Error while paying emi");
+				}
+			} catch (Exception e) {
+				System.out.println(e);
+				model.addAttribute("msg", "Error while paying emi");
+			}
+		return "<h5>EMI paid sucessfully</h5>";
 	}
 	
 	@GetMapping("/updateUserEmi")

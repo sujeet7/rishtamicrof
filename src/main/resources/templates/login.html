@@ -33,9 +33,17 @@
         .login-container .btn-primary {
             width: 100%;
         }
+        .buttonClass {
+            grid-gap: 10px; 
+        }
         .login-container .form-control {
             margin-bottom: 15px;
         }
+        .center-links {
+	    display: flex;
+	    justify-content: center;
+	    gap: 20px; /* Space between links */
+  }
 </style>
 <body>
 	 <div class="login-container">
@@ -56,6 +64,8 @@
                 <span th:if="${error != null}" th:text="${error}"></span>
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
+            <a th:href="@{/updatePassword}" class="center-links">Forgot Password
+			</a>
         </form>
     </div>
 

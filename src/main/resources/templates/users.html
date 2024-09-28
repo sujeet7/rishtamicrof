@@ -37,11 +37,211 @@ span {
 tbody {
 	background-color: #FBFBF9
 }
+
+/* Modal background */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Dark transparent background */
+        }
+
+        /* Modal content box */
+        .modal-content {
+            background-color: #f9f9f9;
+            margin: 10% auto;
+            padding: 10px;
+            border: 1px solid #888;
+            width: 30%;
+            border-radius: 12px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Close button styling */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            cursor: pointer;
+        }
+
+        /* Input field styles */
+        .form-field {
+            margin-bottom: 15px;
+        }
+
+        .form-field input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Submit button styles */
+        .submit-btn {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #2980b9;
+        }
+
+        /* Anchor tag for opening the modal */
+        a {
+            text-decoration: none;
+            color: #3498db;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        a:hover {
+            color: #2980b9;
+        }
+
 </style>
+<script th:inline="javascript">
+        var csrfToken = /*[[${_csrf.token}]]*/ 'unknown';
+        var csrfHeader = /*[[${_csrf.headerName}]]*/ 'X-CSRF-TOKEN';
+    </script>
+<script>
+    // Function to open the modal
+   function  populateForm(firstName,id,loanAmount,loanPaymentType,loanDuration,emiAmount) {
+    	document.getElementById('firstName').value = firstName; // Set name input
+        document.getElementById('id').value = id; // Set email input
+        document.getElementById('totalAmountToPay').value = loanAmount; // Set phone input
+        document.getElementById('loanPaymentType').value = loanPaymentType; // Set phone input
+        document.getElementById('loanDuration').value = loanDuration; // Set phone input
+        document.getElementById('emiAmount').value = emiAmount; // Set phone input */
+        document.getElementById('myModal').style.display = 'block';
+    }
+
+    // Function to close the modal
+    function closeModal() {
+        document.getElementById('myModal').style.display = 'none';
+    }
+
+    // Close the modal when clicking outside of it
+    window.onclick = function(event) {
+        var modal = document.getElementById('myModal');
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+    
+    window.onload = function () {
+    	$("#showMsg").val("");
+        let anchors = document.querySelectorAll('a[data-id]');
+        anchors.forEach(function(anchor) {
+            anchor.addEventListener('click', function() {
+                // Fetch data-* attributes
+                let firstName = this.getAttribute('data-firstName');
+                let id = this.getAttribute('data-id');
+                let loanAmount = this.getAttribute('data-loanAmount');
+                let loanPaymentType = this.getAttribute('data-loanPaymentType');
+                let loanDuration = this.getAttribute('data-loanDuration');
+                let emiAmount = this.getAttribute('data-emiAmount');
+                // Call the populateForm function with the values
+                populateForm(firstName,id,loanAmount,loanPaymentType,loanDuration,emiAmount);
+            });
+        });
+    };
+    
+    function submitForm(event) {
+        event.preventDefault(); // Prevent the default form submission
+        // Gather form data
+        const formData = {
+        	firstName: document.getElementById('firstName').value,
+            id: document.getElementById('id').value,
+            loanAmount: document.getElementById('totalAmountToPay').value,
+            loanPaymentType: document.getElementById('loanPaymentType').value,
+            loanDuration: document.getElementById('loanDuration').value,
+            emiAmount: document.getElementById('emiAmount').value,
+            emiAmountFromUI: document.getElementById('emiAmountFromUI').value,
+            emiPaymentDate: document.getElementById('emiPaymentDate').value,
+            nextEmiDate: document.getElementById('nextEmiDate').value
+            };
+        const myJSON = JSON.stringify(formData);
+        // AJAX request to save user
+        $.ajax({
+            type: "POST",
+            url: "/payEmiForUser",
+            contentType: "application/json",
+            data: myJSON,
+            headers: {
+                [csrfHeader]: csrfToken // Include the CSRF token here
+            },
+            success: function(response) {
+            	 $("#showMsg").html(response);
+                // Optionally, reset the form and hide it
+                document.getElementById('userForm').reset();
+            },
+            error: function(xhr, status, error) {
+                console.error("Error saving user:", error);
+                alert("An error occurred while saving the user.");
+            }
+        });
+    }
+    function refreshPage() {
+        location.reload(); // Refreshes the current page
+    }
+</script>
+
 <body>
 	<div>
 		<h1>List of Customers (TotalLoanCustomer : <span th:if="${loanCustomerCounts != null}" th:text="${loanCustomerCounts}"></span>)</h1>
 	</div>
+	
+	<!-- The Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <span id="showMsg" style="color:green"></span>
+        <h3>Enter Your EMI Details</h3>
+        
+        <!-- Form inside the modal -->
+        <form id="userForm" onsubmit="submitForm(event);">
+        
+            <div class="form-field">
+                <label for="loanAmoun">EMI Amount:</label>
+                <input type="text" id="emiAmountFromUI" name="emiAmountFromUI" placeholder="Enter EMI Amount">
+            </div>
+            
+            <div class="form-field">
+                <label for="emiPaymentDate">EMI Date:</label>
+                <input type="date" id="emiPaymentDate" name="emiPaymentDate" placeholder="Enter Emi Date">
+            </div>
+
+            <div class="form-field">
+                <label for="nextEmiDate">Next EMI Date:</label>
+                <input type="date" id="nextEmiDate" name="nextEmiDate" placeholder="Enter Next Emi Date">
+            </div>
+			<input type="hidden" id="firstName" name="firstName">
+			<input type="hidden" id="id" name="id">
+			<input type="hidden" id="totalAmountToPay" name="totalAmountToPay">
+			<input type="hidden" id="loanPaymentType" name="loanPaymentType">
+			<input type="hidden" id="loanDuration" name="loanDuration">
+			<input type="hidden" id="emiAmount" name="emiAmount">
+            <button type="submit" class="submit-btn">Submit</button>
+            <button type="Button" class="submit-btn" onclick="refreshPage()">Back</button>
+        </form>
+    </div>
+</div>
+	
 	<div>
 
 		<div style="overflow-x: auto;  width: 100%;">
@@ -102,10 +302,14 @@ tbody {
 						<td th:text="${user.dob}">Date Of Birth</td>  -->
 						
 						
-						<td style="white-space: nowrap"><a
-							th:href="@{/payEmi/(firstName=${user.firstName},id=${user.userId},loanAmount=${user.totalAmountToPay},loanPaymentType=${user.loanPaymentType},loanDuration=${user.loanDuration},emiAmount=${user.emiAmount})}">
+						<td style="white-space: nowrap">
+						<!-- <a th:href="@{/payEmi/(firstName=${user.firstName},id=${user.userId},loanAmount=${user.totalAmountToPay},loanPaymentType=${user.loanPaymentType},loanDuration=${user.loanDuration},emiAmount=${user.emiAmount})}">
 								<button type="button" class="btn btn-primary">PAYEMI</button>
-								</a> <a th:href="@{/editUser/(id=${user.id})}">
+								</a>  -->
+								<a href="#" 
+								th:attr="data-firstName=${user.firstName}, data-id=${user.userId}, data-loanAmount=${user.totalAmountToPay}, data-loanPaymentType=${user.loanPaymentType}, data-loanDuration=${user.loanDuration}, data-emiAmount=${user.emiAmount}"
+								button type="button" class="btn btn-primary">PAYEMI</a>
+								<a th:href="@{/editUser/(id=${user.id})}">
 								<button type="button" class="btn btn-primary">EDIT</button></a> 
 								<a th:href="@{/deleteUser/(id=${user.id},userId=${user.userId})}" onclick="return confirm('Are you sure you want to delete this Customer?')">
 								<button type="button" class="btn btn-primary">DELETE</button></a>
