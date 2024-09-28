@@ -160,6 +160,21 @@ h2 {
     
     function submitForm(event) {
         event.preventDefault(); // Prevent the default form submission
+        var emiAmountFromUI =  $("#emiAmountFromUI").val();
+    	var emiPaymentDate =  $("#emiPaymentDate").val();
+    	var nextEmiDate =  $("#nextEmiDate").val();
+        if (emiAmountFromUI.length < 1) {  
+		      alert("Please enter emi amount.");
+		      return;
+		    } 
+      	if (emiPaymentDate.length < 1) {  
+      		 alert("Please enter emi date.");
+      		 return;
+		    }
+      	if (nextEmiDate.length < 1) {  
+      		 alert("Please enter next emi date."); 
+      		 return;
+			    }
         // Gather form data
         const formData = {
         	firstName: document.getElementById('firstName').value,
