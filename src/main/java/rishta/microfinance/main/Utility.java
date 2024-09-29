@@ -1,19 +1,25 @@
 package rishta.microfinance.main;
 
 import java.awt.Color;
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletResponse;
 
 import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.FontFactory;
 import com.lowagie.text.Image;
@@ -21,10 +27,15 @@ import com.lowagie.text.ImageLoader;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
+import com.lowagie.text.Rectangle;
+import com.lowagie.text.pdf.ColumnText;
+import com.lowagie.text.pdf.PdfContentByte;
+import com.lowagie.text.pdf.PdfGState;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 
+@Component
 public class Utility {
 	
 	 public static Date getNextMonth(Date date) {
@@ -96,9 +107,20 @@ public class Utility {
 	        	paymentType = paymentType+"/ Per Month";
 	        	durationType = durationType+"Months";
 	        }
-	        PdfWriter.getInstance(document, response.getOutputStream());
-	        
+	       
+	        PdfWriter writer = PdfWriter.getInstance(document, response.getOutputStream());
 	        document.open();
+
+	        
+	        PdfContentByte canvas = writer.getDirectContentUnder();
+	        String logoPath = getLogoImagePath();
+	        Image logo = Image.getInstance(logoPath);
+            logo.scaleToFit(300, 300); // Adjust logo size
+            logo.setAlignment(Image.ALIGN_CENTER); // Align logo in center
+            document.add(logo);
+            
+           
+            
 	        Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
 	        font.setSize(22);
 	        font.setColor(Color.RED);
@@ -170,7 +192,7 @@ public class Utility {
 	        
 	        Paragraph p16 = new Paragraph("Additional Terms and Condtion: ",font2);
 	        document.add(p16);
-	        Paragraph p17 = new Paragraph("The Lender agrees to lend to the Borrower and the Borrower agrees to borrow from the Lender for the purposes specified in Article 2 hereof and  on the terms and conditions contained ",font1);
+	        Paragraph p17 = new Paragraph("The Lender agrees to lend to the Borrower and the Borrower agrees to borrow from the Lender for the purposes specified in Article 2 here of and on the basis of terms and conditions legal action will be taken against the candidate .",font1);
 	        document.add(p17);
 	        
 	        document.add(Chunk.NEWLINE);
@@ -186,7 +208,11 @@ public class Utility {
 	        document.add(Chunk.NEWLINE);
 	        Paragraph granter = new Paragraph("Granter's Signature: _____________________________________ Date: ______________________________",font1);
 	        document.add(granter);
-	         
+	        
+	        addWatermark(canvas, writer);
+
+            // Add page border
+            addPageBorder(canvas, writer);
 	        document.close();
 	         
 	    }
@@ -204,9 +230,18 @@ public class Utility {
 	        	paymentType = paymentType+"/ Per Month";
 	        	durationType = durationType+"Months";
 	        }
-	        PdfWriter.getInstance(document, response.getOutputStream());
+	        //PdfWriter.getInstance(document, response.getOutputStream());
 	        
+	        PdfWriter writer = PdfWriter.getInstance(document, response.getOutputStream());
 	        document.open();
+	        
+	        PdfContentByte canvas = writer.getDirectContentUnder();
+	        String logoPath = getLogoImagePath();
+	        Image logo = Image.getInstance(logoPath);
+            logo.scaleToFit(300, 300); // Adjust logo size
+            logo.setAlignment(Image.ALIGN_CENTER); // Align logo in center
+            document.add(logo);
+            
 	        Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
 	        font.setSize(18);
 	        font.setColor(Color.RED);
@@ -278,7 +313,7 @@ public class Utility {
 	        
 	        Paragraph p16 = new Paragraph("Additional Terms and Condtion: ",font2);
 	        document.add(p16);
-	        Paragraph p17 = new Paragraph("The Lender agrees to lend to the Borrower and the Borrower agrees to borrow from the Lender for the purposes specified in Article 2 hereof and  on the terms and conditions contained ",font1);
+	        Paragraph p17 = new Paragraph("The Lender agrees to lend to the Borrower and the Borrower agrees to borrow from the Lender for the purposes specified in Article 2 here of and on the basis of terms and conditions legal action will be taken against the candidate .",font1);
 	        document.add(p17);
 	        
 	        document.add(Chunk.NEWLINE);
@@ -294,6 +329,11 @@ public class Utility {
 	        document.add(Chunk.NEWLINE);
 	        Paragraph granter = new Paragraph("Granter's Signature: _____________________________________ Date: ______________________________",font1);
 	        document.add(granter);
+	        
+	        addWatermark(canvas, writer);
+
+            // Add page border
+            addPageBorder(canvas, writer);
 	         
 	        document.close();
 	         
@@ -356,9 +396,16 @@ public class Utility {
 	     
 	    public static void generateEMIReport(HttpServletResponse response,List<LoanEMIUser> listUsers) throws DocumentException, IOException {
 	        Document document = new Document(PageSize.A4);
-	        PdfWriter.getInstance(document, response.getOutputStream());
+	        PdfWriter writer = PdfWriter.getInstance(document, response.getOutputStream());
 	         
 	        document.open();
+	        PdfContentByte canvas = writer.getDirectContentUnder();
+	        String logoPath = getLogoImagePath();
+	        Image logo = Image.getInstance(logoPath);
+            logo.scaleToFit(300, 300); // Adjust logo size
+            logo.setAlignment(Image.ALIGN_CENTER); // Align logo in center
+            document.add(logo);
+	        
 	        Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
 	        font.setSize(18);
 	        font.setColor(Color.RED);
@@ -376,9 +423,59 @@ public class Utility {
 	        writeTableData(table,listUsers);
 	         
 	        document.add(table);
+	        
+	        addWatermark(canvas, writer);
+
+            // Add page border
+            addPageBorder(canvas, writer);
 	         
 	        document.close();
 	         
+	    }
+	    
+	    private static void addWatermark(PdfContentByte canvas, PdfWriter writer) {
+	        // Define watermark text
+	        Phrase watermarkText = new Phrase("RISHITA MICRO FINANCE", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 55, Font.BOLD, new Color(192, 192, 192)));
+
+	        // Get the total number of pages
+	        int totalPageCount = writer.getPageNumber();
+
+	        for (int i = 1; i <= totalPageCount; i++) {
+	            // Set transparency for the watermark
+	            PdfGState gState = new PdfGState();
+	            gState.setFillOpacity(0.3f);  // Watermark transparency
+	            canvas.setGState(gState);
+
+	            // Add watermark to each page
+	            ColumnText.showTextAligned(
+	                    canvas, 
+	                    Element.ALIGN_CENTER, 
+	                    watermarkText, 
+	                    298, 421, 45 // Coordinates and rotation (rotate 45 degrees)
+	            );
+	        }
+	    }
+
+	    private static void addPageBorder(PdfContentByte canvas, PdfWriter writer) {
+	        // Set border properties
+	        canvas.setLineWidth(2f); // Border thickness
+	        canvas.setColorStroke(new Color(255, 0, 0)); // Border color (black)
+
+	        // Draw a rectangle border around the entire page
+	        Rectangle pageSize = writer.getPageSize();
+	        canvas.rectangle(20, 20, pageSize.getWidth() - 40, pageSize.getHeight() - 40); // Adjust margins as needed
+	        canvas.stroke();
+	    }
+	    
+	    private static String getLogoImagePath() throws IOException {
+	    	try {
+	            ClassPathResource resource = new ClassPathResource("static/images/micro.jpg");
+
+	            File file = resource.getFile();
+	            return file.getAbsolutePath();
+	        } catch (IOException e) {
+	            throw new RuntimeException("Error retrieving image path: ", e);
+	        }
 	    }
 
 }
