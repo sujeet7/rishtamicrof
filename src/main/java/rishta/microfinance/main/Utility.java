@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Calendar;
@@ -469,11 +471,9 @@ public class Utility {
 	    
 	    private static String getLogoImagePath() throws IOException {
 	    	try {
-	            ClassPathResource resource = new ClassPathResource("static/images/micro.jpg");
-
-	            File file = resource.getFile();
-	            return file.getAbsolutePath();
-	        } catch (IOException e) {
+	            Path path = Paths.get("src/main/resources/static/images/micro.jpg");
+                return path.toAbsolutePath().toString(); 
+	        } catch (Exception e) {
 	            throw new RuntimeException("Error retrieving image path: ", e);
 	        }
 	    }
