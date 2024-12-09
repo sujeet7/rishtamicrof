@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface UserLoanEMIRepository extends JpaRepository<LoanEMIUser, Long>{
 	
 	@Query(nativeQuery = true,
-		       value ="SELECT * FROM railway.loan_emi WHERE total_emi_paid = (SELECT MAX(total_emi_paid) FROM railway.loan_emi where user_id=?1 ) AND user_id=?1 ")
+		       value ="SELECT * FROM railway.loan_emi WHERE total_emi_paid = (SELECT MAX(CAST(total_emi_paid AS DECIMAL)) FROM railway.loan_emi where user_id=?1 ) AND user_id=?1 ")
 	public LoanEMIUser getLastPaidEMIUser(String  userId);
 	
 	@Query("SELECT u FROM LoanEMIUser u WHERE u.customerId=?1")

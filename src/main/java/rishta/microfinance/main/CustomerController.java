@@ -387,6 +387,19 @@ public class CustomerController {
 		return "users";
 	}
 	
+	 @GetMapping("/getUserMonthly")
+	    public String getUsersByMonth(@RequestParam int month,Model model) {
+		 List<User> listUsers=null;
+		 if(month!=99) {
+	       listUsers=  userRepo.findByMonth(month);
+		 }else {
+			 listUsers = userRepo.findAll();
+		 }
+	        model.addAttribute("listUsers", listUsers);
+	        
+	        return "users";
+	    }
+	
 	@GetMapping("/savingCustomers")
 	public String savingCustomers(Model model) {
 		List<SavingCustomerEntity> listUsers = savingCustomerRepository.findAll();
