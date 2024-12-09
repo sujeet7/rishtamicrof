@@ -27,6 +27,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Query("SELECT COUNT(*) FROM User u")
 	public Long getTotalNumberOfUser();
 	
+	 @Query("SELECT u FROM User u WHERE MONTH(u.registrationDate) = :month")
+	    List<User> findByMonth(int month);
+	
 	public void deleteById(String id);
 	
 	@Modifying(clearAutomatically = true)
