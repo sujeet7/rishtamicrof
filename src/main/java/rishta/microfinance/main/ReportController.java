@@ -1,6 +1,7 @@
 package rishta.microfinance.main;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -61,6 +62,29 @@ public class ReportController {
 			List<LoanEMIUser> user = userEmiRepo.getAllUsersPaidEMI(userId);
 
 			Utility.generateEMIReport(response, user);
+
+		}
+		
+		@GetMapping("/generateUserReportMonthly")
+		public void generateUserReportMonthly(@RequestParam("month") int month, HttpServletResponse response)
+				throws DocumentException, IOException {
+			response.setContentType("application/pdf");
+
+			String headerKey = "Content-Disposition";
+			String headerValue = "attachment; filename=USER-MONTHLY_" + month + ".pdf";
+			response.setHeader(headerKey, headerValue);
+
+			List<User> listUsers = userRepo.findByMonth(month);
+			 if(listUsers!=null && listUsers.size()>0) {
+					for (User user : listUsers) {
+						Date emiUserObj = userEmiRepo.getMaxDate(user.getUserId());
+						if(emiUserObj!=null) {
+						user.setLastTransaction(emiUserObj);
+						}
+					}
+		       }
+
+			Utility.generateUserReportMonthly(response, listUsers);
 
 		}
 

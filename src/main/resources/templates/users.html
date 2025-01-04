@@ -227,6 +227,22 @@ tbody {
             }
         }
     }
+    
+    document.addEventListener("DOMContentLoaded", () => {
+        const dropdown = document.getElementById("dropdown");
+
+        // Step 1: Retrieve the saved value from localStorage
+        const savedValue = localStorage.getItem("selectedOption");
+        if (savedValue) {
+            dropdown.value = savedValue; // Set the dropdown value to the saved option
+        }
+
+        // Step 2: Save the selected value to localStorage when it changes
+        dropdown.addEventListener("change", () => {
+            const selectedValue = dropdown.value;
+            localStorage.setItem("selectedOption", selectedValue); // Save the selected value
+        });
+    });
 </script>
 
 <body>
@@ -288,7 +304,8 @@ tbody {
 				    <option value="11">November</option>
 				    <option value="12">December</option>
 				 </select>
-				 
+				 <a th:href="@{/generateUserReportMonthly/(month=${month})}">
+								<button type="button">MonthlyReport</button></a>
 		</div>			
 		<div style="overflow-x: auto;  width: 100%;">
 			<h5>

@@ -20,8 +20,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 	@Query("SELECT u FROM User u WHERE u.userId=?1")
 	public User getUserById(String  userId);
+	@Query("SELECT u FROM User u WHERE u.firstName LIKE %?1%")
+	public List<User> getUserByName(String  firstName);
 	
-	 @Query(value = "SELECT * FROM railway.users LIMIT 5;", nativeQuery = true)
+	 @Query(value = "SELECT * FROM railway.users ORDER BY registration_date DESC LIMIT 5;", nativeQuery = true)
 	public List<User> getToFiveUsers();
 	
 	@Query("SELECT COUNT(*) FROM User u")
@@ -29,6 +31,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	
 	 @Query("SELECT u FROM User u WHERE MONTH(u.registrationDate) = :month")
 	    List<User> findByMonth(int month);
+	 
+	 @Query("SELECT SUM(u.totalAmountToPay-u.loanAmount) FROM User u WHERE MONTH(u.registrationDate) = :month")
+		public Long getAllInterstAmountMonthly(int month);
 	
 	public void deleteById(String id);
 	
@@ -76,4 +81,12 @@ public void updateUser(@Param("email") String email,
 	@Query("SELECT SUM(u.totalAmountToPay-u.loanAmount) FROM User u")
 	public Long getAllInterstAmount();
 	
+	 @Query(nativeQuery = true,value = "SELECT sum(lm.emi_amount) FROM railway.loan_emi lm INNER JOIN railway.users u ON lm.user_id = u.user_id WHERE MONTH(u.registration_date) = ?1 and u.loan_payment_type='daily'")
+	 public Long getDailyByMonth(int month);
+	 
+	 @Query(nativeQuery = true,value = "SELECT sum(lm.emi_amount) FROM railway.loan_emi lm INNER JOIN railway.users u ON lm.user_id = u.user_id WHERE MONTH(u.registration_date) = ?1 and u.loan_payment_type='weekly'")
+	 public Long getWeeklyByMonth(int month);
+	 
+	 @Query(nativeQuery = true,value = "SELECT sum(lm.emi_amount) FROM railway.loan_emi lm INNER JOIN railway.users u ON lm.user_id = u.user_id WHERE MONTH(u.registration_date) = ?1 and u.loan_payment_type='monthly'")
+	 public Long getMonthly(int month);
 }

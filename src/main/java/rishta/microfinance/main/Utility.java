@@ -380,6 +380,45 @@ public class Utility {
 	        cell.setPhrase(new Phrase("EMI Amount", font));
 	        table.addCell(cell); 
 	    }
+	    
+	    
+	    private static void writeUserReportTableHeader(PdfPTable table) {
+	        PdfPCell cell = new PdfPCell();
+	        cell.setBackgroundColor(Color.RED);
+	        cell.setPadding(5);
+	        Font font = FontFactory.getFont(FontFactory.HELVETICA);
+	        font.setColor(Color.BLACK);
+	        font.setSize(8); 
+	       
+	        cell.setPhrase(new Phrase("User ID", font));
+	         
+	        table.addCell(cell);
+	         
+	        cell.setPhrase(new Phrase("First Name", font));
+	        table.addCell(cell);
+	        
+	        cell.setPhrase(new Phrase("Last Name", font));
+	        table.addCell(cell);
+	         
+	        cell.setPhrase(new Phrase("LoanAmount", font));
+	        table.addCell(cell);
+	         
+	        cell.setPhrase(new Phrase("Total Amount To Pay", font));
+	        table.addCell(cell); 
+	        
+	        cell.setPhrase(new Phrase("EMI Amount", font));
+	        table.addCell(cell); 
+	        
+	        cell.setPhrase(new Phrase("Loan Paymnet Type", font));
+	        table.addCell(cell); 
+	        
+	        cell.setPhrase(new Phrase("Last Transaction", font));
+	        table.addCell(cell); 
+	        
+	        cell.setPhrase(new Phrase("Loan Type", font));
+	        table.addCell(cell); 
+	        
+	    }
 	     
 	    private static void writeTableData(PdfPTable table,List<LoanEMIUser> listUsers) {
 	        for (LoanEMIUser user : listUsers) {
@@ -393,6 +432,20 @@ public class Utility {
 	            table.addCell(user.getTotalDueEmi());
 	            table.addCell(user.getLeftEmiDuration());
 	            table.addCell(String.valueOf(user.getEmiAmount()));
+	        }
+	    }
+	    
+	    private static void writeUserTableData(PdfPTable table,List<User> listUsers) {
+	        for (User user : listUsers) {
+	        	 table.addCell(user.getUserId());
+	             table.addCell(user.getFirstName());
+	             table.addCell(user.getLastName());
+	             table.addCell(String.valueOf(user.getLoanAmount()));
+	             table.addCell(String.valueOf(user.getTotalAmountToPay()));
+	             table.addCell(String.valueOf(user.getEmiAmount()));
+	             table.addCell(user.getLoanPaymentType());
+	             table.addCell(String.valueOf(user.getLastTransaction()).replace("05:30:00.0", ""));
+	             table.addCell(String.valueOf(user.getLoanType()));
 	        }
 	    }
 	     
@@ -423,6 +476,45 @@ public class Utility {
 	        table.setSpacingBefore(10);
 	        writeTableHeader(table);
 	        writeTableData(table,listUsers);
+	         
+	        document.add(table);
+	        
+	        addWatermark(canvas, writer);
+
+            // Add page border
+            addPageBorder(canvas, writer);
+	         
+	        document.close();
+	         
+	    }
+	    
+	    public static void generateUserReportMonthly(HttpServletResponse response,List<User> listUsers) throws DocumentException, IOException {
+	        Document document = new Document(PageSize.A4);
+	        PdfWriter writer = PdfWriter.getInstance(document, response.getOutputStream());
+	         
+	        document.open();
+	        PdfContentByte canvas = writer.getDirectContentUnder();
+	        String logoPath = getLogoImagePath();
+	        Image logo = Image.getInstance(logoPath);
+            logo.scaleToFit(300, 300); // Adjust logo size
+            logo.setAlignment(Image.ALIGN_CENTER); // Align logo in center
+            document.add(logo);
+	        
+	        Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
+	        font.setSize(18);
+	        font.setColor(Color.RED);
+	         
+	        Paragraph p = new Paragraph("User Monthly Report", font);
+	        p.setAlignment(Paragraph.ALIGN_CENTER);
+	         
+	        document.add(p);
+	         
+	        PdfPTable table = new PdfPTable(9);
+	        table.setWidthPercentage(100f);
+	        table.setWidths(new float[] {4.0f, 4.5f, 4.5f, 3.0f,3.0f, 3.0f, 2.5f, 5.0f, 5.0f});
+	        table.setSpacingBefore(5);
+	        writeUserReportTableHeader(table);
+	        writeUserTableData(table,listUsers);
 	         
 	        document.add(table);
 	        

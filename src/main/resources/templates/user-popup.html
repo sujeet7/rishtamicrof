@@ -126,11 +126,14 @@
 <body>
 	<div>
 		<div class="popup-box">
-			<h2 style="color: green;">Search By User Id</h2>
+			<h2 style="color: green;">Search By UserId OR Name</h2>
 			<form class="form-container" th:action="@{/searchUserById}"
 				th:object="${user}" method="GET">
 				<input class="form-input" type="text" th:field="*{userId}"
-					placeholder="Enter User Id" id="name" name="name" required>
+					placeholder="Enter User Id" id="name" name="name">
+					OR
+					<input class="form-input" type="text" th:field="*{firstName}"
+					placeholder="Enter User Name" id="name" name="name">
 
 				<button class="btn-submit" type="submit">Search</button>
 			</form>
