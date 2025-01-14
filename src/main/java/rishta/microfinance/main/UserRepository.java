@@ -34,6 +34,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	 
 	 @Query("SELECT SUM(u.totalAmountToPay-u.loanAmount) FROM User u WHERE MONTH(u.registrationDate) = :month")
 		public Long getAllInterstAmountMonthly(int month);
+	 
+	 @Query("SELECT SUM(u.loanAmount) FROM User u WHERE MONTH(u.registrationDate) = :month")
+		public Long getTotalDesburseAmountMonthly(int month);
 	
 	public void deleteById(String id);
 	
@@ -89,4 +92,14 @@ public void updateUser(@Param("email") String email,
 	 
 	 @Query(nativeQuery = true,value = "SELECT sum(lm.emi_amount) FROM railway.loan_emi lm INNER JOIN railway.users u ON lm.user_id = u.user_id WHERE MONTH(u.registration_date) = ?1 and u.loan_payment_type='monthly'")
 	 public Long getMonthly(int month);
+	 
+	 
+	 @Query(nativeQuery = true,value = "SELECT sum(lm.emi_amount) FROM railway.loan_emi lm INNER JOIN railway.users u ON lm.user_id = u.user_id WHERE lm.emi_payment_date BETWEEN ?1 AND ?2 and u.loan_payment_type='daily'")
+	 public Long getDailyByDate(String startDate,String endDate);
+	 
+	 @Query(nativeQuery = true,value = "SELECT sum(lm.emi_amount) FROM railway.loan_emi lm INNER JOIN railway.users u ON lm.user_id = u.user_id WHERE lm.emi_payment_date BETWEEN ?1 AND ?2 and u.loan_payment_type='weekly'")
+	 public Long getWeeklyByDate(String startDate,String endDate);
+	 
+	 @Query(nativeQuery = true,value = "SELECT sum(lm.emi_amount) FROM railway.loan_emi lm INNER JOIN railway.users u ON lm.user_id = u.user_id WHERE lm.emi_payment_date BETWEEN ?1 AND ?2 and u.loan_payment_type='monthly'")
+	 public Long getMonthlyByDate(String startDate,String endDate);
 }

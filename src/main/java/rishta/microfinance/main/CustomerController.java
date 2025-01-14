@@ -102,6 +102,36 @@ public class CustomerController {
 
 		return "dashboard";
 	}
+	
+	@GetMapping("/showDashboardByDate")
+	public String showDashboardByDate(@RequestParam String startDate,@RequestParam String endDate,Model model) {
+		Long totalRecieveAmount = userEmiRepo.getAllPaidEMIAmounts();
+		Long totalDesburseAmount = userRepo.getAllDesbursAmount();
+		Long totalInterestAmount = userRepo.getAllInterstAmount();
+		Long todayCollection = userRepo.getDailyByDate(startDate,endDate);
+		Long weeklyCollection = userRepo.getWeeklyByDate(startDate,endDate);
+		Long monthlyCollection = userRepo.getMonthlyByDate(startDate,endDate);
+		List<User> topFiveUsers = userRepo.getToFiveUsers();
+		List<SavingCustomerEntity> topFiveSavingUsers = savingCustomerRepository.getToFiveUsers();
+		Long totalSum = userEmiRepo.getTotalSumAmount();
+		model.addAttribute("totalRecieveAmount", totalRecieveAmount);
+		model.addAttribute("totalDesburseAmount", totalDesburseAmount);
+		model.addAttribute("totalInterestAmount", totalInterestAmount);
+		model.addAttribute("todayCollection", todayCollection);
+		model.addAttribute("weeklyCollection", weeklyCollection);
+		model.addAttribute("monthlyCollection", monthlyCollection);
+		model.addAttribute("totalSum", totalSum);
+		model.addAttribute("topFiveUsers", topFiveUsers);
+		model.addAttribute("topFiveSavingUsers", topFiveSavingUsers);
+		String msg ="Collection Between ["+Utility.getDateDDMMYYYY(startDate)+" to "+Utility.getDateDDMMYYYY(endDate)+"]";
+		model.addAttribute("msg", msg);
+		if(totalDesburseAmount!=null && totalRecieveAmount!=null) {
+			model.addAttribute("totalOutstandingAmount", totalDesburseAmount-totalRecieveAmount);
+			}
+		//model.addAttribute("user", new User());
+
+		return "dashboard";
+	}
 
 	@GetMapping("/register")
 	public String showRegistrationForm(Model model) {
@@ -420,6 +450,8 @@ public class CustomerController {
 		 if(month!=99) {
 	       listUsers=  userRepo.findByMonth(month);
 	       Long totalInterestAmount = userRepo.getAllInterstAmountMonthly(month);
+	       	Long totalRecieveAmount = userEmiRepo.getAllPaidEMIAmountsMonthly(month);
+			Long totalDesburseAmount = userRepo.getTotalDesburseAmountMonthly(month);
 	       if(listUsers!=null && listUsers.size()>0) {
 				for (User user : listUsers) {
 					Date emiUserObj = userEmiRepo.getMaxDate(user.getUserId());
@@ -430,6 +462,8 @@ public class CustomerController {
 	       }
 			model.addAttribute("totalInterestAmount", totalInterestAmount);
 			model.addAttribute("loanCustomerCounts", listUsers.size());
+			model.addAttribute("totalDesburseAmount", totalDesburseAmount);
+			model.addAttribute("totalRecieveAmount", totalRecieveAmount);
 		 }else {
 			 listUsers = userRepo.findAll();
 				Long totalRecieveAmount = userEmiRepo.getAllPaidEMIAmounts();

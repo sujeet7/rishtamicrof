@@ -82,6 +82,23 @@ public class Utility {
 			return date;
 	 }
 	 
+	 public static String getDateDDMMYYYY(String dateString) {
+	        SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy");
+	        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+	        String formattedDate=null;
+	        try {
+	        	  // Parse the input date string to a Date object
+	            Date date = inputFormat.parse(dateString);
+
+	            // Format the Date object to the desired output format
+	            formattedDate = outputFormat.format(date);
+	            System.out.println("Converted Date: " + formattedDate);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+			return formattedDate;
+	 }
+	 
 	 
 	 public static Date getNextWeek(Date date) {
 	        Calendar calendar = Calendar.getInstance();

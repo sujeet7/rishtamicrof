@@ -131,6 +131,11 @@ body {
             margin-top: 40px;
             color: #888;
         }
+        label {
+            font-size: 16px; /* Font size */
+            font-weight: bold; /* Bold text */
+            color: green; /* Dark gray color */
+        }
 </style>
 
 <script>
@@ -152,6 +157,20 @@ async function onOptionChange(event) {
             console.error('Fetch error:', error);
         }
     }
+}
+
+function onSearchOption() {
+	const startDate = document.getElementById("start-date").value;
+    const endDate = document.getElementById("end-date").value;
+   
+    if (startDate && endDate) {
+            try {
+                window.location.href = `/showDashboardByDate?startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`;
+            } catch (error) {
+                console.error('Fetch error:', error);
+            }
+    } 
+       
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -192,6 +211,11 @@ document.addEventListener("DOMContentLoaded", () => {
 				    <option value="11">November</option>
 				    <option value="12">December</option>
 				 </select>
+				 
+				 
+				    
+				        
+				    
 		</div>	
         <ul>
             <li><a th:href="@{/register}">AddNewCustomer</a></li>
@@ -202,10 +226,21 @@ document.addEventListener("DOMContentLoaded", () => {
             <li><button type="button" onclick="myFunction()">Show/Hide</button></li>
         </ul>
     </div>
-
+    <div>
+ 		<label for="start-date">Start Date:</label>
+		<input type="date" id="start-date" name="startDate" required>
+		<label for="end-date">End Date:</label>
+		<input type="date" id="end-date" name="endDate" required>
+		<button type="button" onclick="onSearchOption()">Search</button>
+		<h5>
+				<span th:if="${msg != null}" th:text="${msg}"></span>
+			</h5>
+	</div>
     <!-- Main Content -->
     <div class="main-content" id="myDIV">
         <!-- KPI Cards -->
+       <p id="result"></p>
+		
         <section class="kpi-cards">
             <div class="kpi-card">
                <h3>Total Balance :</h3>
@@ -227,7 +262,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		
 		 <section class="kpi-cards">
             <div class="kpi-card">
-                <h3>Today Collection:</h3>
+                <h3>Daily Collection:</h3>
                 <p><span th:if="${todayCollection != null}" th:text="${todayCollection}"></span></p>
             </div>
             <div class="kpi-card">
