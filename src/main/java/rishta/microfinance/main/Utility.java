@@ -170,6 +170,8 @@ public class Utility {
             
 	        Paragraph p6 = new Paragraph("Borrower Information: ",font2);
 	        document.add(p6);
+	        Paragraph p000 = new Paragraph("● UserId: 			"+user.getUserId(),font1);
+	        document.add(p000);
 	        Paragraph p7 = new Paragraph("● Name: 			"+user.getFirstName()+" "+user.getLastName()+" ",font1);
 	        document.add(p7);
 	        Paragraph p0 = new Paragraph("● Relation: 			"+user.getRelation(),font1);
@@ -291,6 +293,8 @@ public class Utility {
             
 	        Paragraph p6 = new Paragraph("Saving Customer Information: ",font2);
 	        document.add(p6);
+	        Paragraph p000 = new Paragraph("● UserId: 			"+user.getUserId(),font1);
+	        document.add(p000);
 	        Paragraph p7 = new Paragraph("● Name: 			"+user.getFirstName()+" "+user.getLastName()+" ",font1);
 	        document.add(p7);
 	        Paragraph p0 = new Paragraph("● Relation: 			"+user.getRelation(),font1);

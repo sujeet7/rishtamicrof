@@ -547,6 +547,13 @@ public class CustomerController {
 
 		}else {
 			listUser=userRepo.getUserByName(user.getFirstName());
+			for (User user1 : listUser) {
+				Date emiUserObj = userEmiRepo.getMaxDate(user1.getUserId());
+				if(emiUserObj!=null) {
+				user1.setLastTransaction(emiUserObj);
+				}
+			}
+			model.addAttribute("loanCustomerCounts", listUser.size());
 		}
 		if (userOb != null) {
 			model.addAttribute("listUsers", userOb);
