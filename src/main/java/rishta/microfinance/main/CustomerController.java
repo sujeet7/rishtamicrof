@@ -540,6 +540,9 @@ public class CustomerController {
 		User userOb = null;
 		SavingCustomerEntity customerOb = null;
 		List<User> listUser =null;
+		Long totalRecieveAmount = userEmiRepo.getAllPaidEMIAmounts();
+		Long totalDesburseAmount = userRepo.getAllDesbursAmount();
+		Long totalInterestAmount = userRepo.getAllInterstAmount();
 		if (user.getUserId().startsWith("RMFC")) {
 			userOb = userRepo.getUserById(user.getUserId());
 		}else if(user.getUserId().startsWith("RMFSA")){
@@ -553,7 +556,13 @@ public class CustomerController {
 				user1.setLastTransaction(emiUserObj);
 				}
 			}
+			model.addAttribute("totalRecieveAmount", totalRecieveAmount);
+			model.addAttribute("totalDesburseAmount", totalDesburseAmount);
+			model.addAttribute("totalInterestAmount", totalInterestAmount);
 			model.addAttribute("loanCustomerCounts", listUser.size());
+			if(totalDesburseAmount!=null && totalRecieveAmount!=null) {
+				model.addAttribute("totalOutstandingAmount", totalDesburseAmount-totalRecieveAmount);
+				}
 		}
 		if (userOb != null) {
 			model.addAttribute("listUsers", userOb);

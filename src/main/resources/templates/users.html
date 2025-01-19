@@ -304,8 +304,8 @@ tbody {
 				    <option value="11">November</option>
 				    <option value="12">December</option>
 				 </select>
-				 <a th:href="@{/generateUserReportMonthly/(month=${month})}">
-								<button type="button">MonthlyReport</button></a>
+				 <a th:href="@{/generateUserReportMonthly/(month=${month})}"><button type="button">MonthlyReport</button></a>
+				 <a th:href="@{/searchUser}"><button type="button">SearchUserById</button></a>
 		</div>			
 		<div style="overflow-x: auto;  width: 100%;">
 			<h5>
@@ -384,8 +384,6 @@ tbody {
 								<button type="button" class="btn btn-primary">EMIHistory</button></a>
 								<a th:href="@{/generateEMIReport/(id=${user.userId})}">
 								<button type="button" class="btn btn-primary">EMIReport</button></a>
-								<a th:href="@{/searchUser}">
-								<button type="button" class="btn btn-primary">SearchUserById</button></a>
 						</td>
 						
 					</tr>

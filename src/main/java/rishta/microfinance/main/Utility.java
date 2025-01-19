@@ -92,7 +92,6 @@ public class Utility {
 
 	            // Format the Date object to the desired output format
 	            formattedDate = outputFormat.format(date);
-	            System.out.println("Converted Date: " + formattedDate);
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
@@ -176,7 +175,7 @@ public class Utility {
 	        document.add(p7);
 	        Paragraph p0 = new Paragraph("● Relation: 			"+user.getRelation(),font1);
 	        document.add(p0);
-	        Paragraph p00 = new Paragraph("● Date Of Birth: 			"+user.getDob(),font1);
+	        Paragraph p00 = new Paragraph("● Date Of Birth: 			"+getDateDDMMYYYY(user.getDob()),font1);
 	        document.add(p00);
 	        Paragraph p8 = new Paragraph("● Address: 			"+user.getAddress()+"",font1);
 	        document.add(p8);
@@ -196,7 +195,7 @@ public class Utility {
 	        document.add(p12);
 	        Paragraph p25 = new Paragraph("● Total Loan Amount With Intrest : 			"+user.getTotalAmountToPay()+"",font1);
 	        document.add(p25);
-	        Paragraph p13 = new Paragraph("● Loan Date : 			"+user.getRegistrationDate()+"",font1);
+	        Paragraph p13 = new Paragraph("● Loan Date : 			"+getDateDDMMYYYY(user.getRegistrationDate().toString())+"",font1);
 	        document.add(p13);
 	        Paragraph p14 = new Paragraph("● Loan EMI Amount : 			"+user.getEmiAmount()+" "+paymentType,font1);
 	        document.add(p14);
@@ -299,7 +298,7 @@ public class Utility {
 	        document.add(p7);
 	        Paragraph p0 = new Paragraph("● Relation: 			"+user.getRelation(),font1);
 	        document.add(p0);
-	        Paragraph p00 = new Paragraph("● Date Of Birth: 			"+user.getDob(),font1);
+	        Paragraph p00 = new Paragraph("● Date Of Birth: 			"+getDateDDMMYYYY(user.getDob()),font1);
 	        document.add(p00);
 	        Paragraph p8 = new Paragraph("● Address: 			"+user.getAddress()+"",font1);
 	        document.add(p8);
@@ -319,7 +318,7 @@ public class Utility {
 	        document.add(p12);
 	        Paragraph p25 = new Paragraph("● Total Saving Amount With Intrest : 			"+user.getTotalAmountToPay()+"",font1);
 	        document.add(p25);
-	        Paragraph p13 = new Paragraph("● Saving Date : 			"+user.getRegistrationDate()+"",font1);
+	        Paragraph p13 = new Paragraph("● Saving Date : 			"+getDateDDMMYYYY(user.getRegistrationDate().toString())+"",font1);
 	        document.add(p13);
 	        Paragraph p14 = new Paragraph("● Saving EMI Amount : 			"+user.getSavingEMIAmount()+" "+paymentType,font1);
 	        document.add(p14);
