@@ -155,13 +155,20 @@ public class Utility {
             
 	        Paragraph p1 = new Paragraph("Lender Information: ",font2);
 	        document.add(p1);
-	        Paragraph p2 = new Paragraph("● Name: 			Rishita Micro Finance",font1);
+	        Paragraph p29 = new Paragraph("● CIN: 			U85300UP2022NPL163964",font1);
+	        document.add(p29);
+	        Paragraph p30 = new Paragraph("● Registration Number: 			163964",font1);
+	        document.add(p30);
+	        Paragraph p31 = new Paragraph("● ROC name: 			ROC Kanpur",font1);
+	        document.add(p31);
+	        Paragraph p2 = new Paragraph("● Company Name: 			MERIDIANINSTA MICROSERVICES FOUNDATION",font1);
 	        document.add(p2);
-	        Paragraph p3 = new Paragraph("● Address: 			Nadwasarai,Dist-Mau(U.P) Pin: 275302",font1);
+	        Paragraph p3 = new Paragraph("● Address: 			C/O JAMALUDDIN MAU S/O SRI YASIN,R/O NADWASARSI MAU,NADWA SARAI,"
+	        		+ "MAU BADRAV UTTAR PRADESH INDIA 275320",font1);
 	        document.add(p3);
 	        Paragraph p4 = new Paragraph("● Phone Number: 			9695549171",font1);
 	        document.add(p4);
-	        Paragraph p5 = new Paragraph("● Email: 			Rishitamicrofinance@gmail.com",font1);
+	        Paragraph p5 = new Paragraph("● Email: 			meridianinstafoundation@gmail.com",font1);
 	        document.add(p5);
 	        
 	        document.add(Chunk.NEWLINE);
@@ -278,13 +285,19 @@ public class Utility {
             
 	        Paragraph p1 = new Paragraph("Saver Information: ",font2);
 	        document.add(p1);
-	        Paragraph p2 = new Paragraph("● Name: 			Rishita Microfinance",font1);
+	        Paragraph p29 = new Paragraph("● CIN: 			U85300UP2022NPL163964",font1);
+	        document.add(p29);
+	        Paragraph p30 = new Paragraph("● Registration Number: 			163964",font1);
+	        document.add(p30);
+	        Paragraph p31 = new Paragraph("● ROC name: 			ROC Kanpur",font1);
+	        document.add(p31);
+	        Paragraph p2 = new Paragraph("● Comany Name: 			MERIDIANINSTA MICROSERVICES FOUNDATION",font1);
 	        document.add(p2);
-	        Paragraph p3 = new Paragraph("● Address: 			Nadwasarai,Mau(U.P) Pin: 27302",font1);
+	        Paragraph p3 = new Paragraph("● Address: 			C/O JAMALUDDIN MAU S/O SRI YASIN,R/O NADWASARSI MAU,NADWA SARAI,MAU BADRAV UTTAR PRADESH INDIA 275320",font1);
 	        document.add(p3);
-	        Paragraph p4 = new Paragraph("● Phone Number: 			8826119350",font1);
+	        Paragraph p4 = new Paragraph("● Phone Number: 			9695549171",font1);
 	        document.add(p4);
-	        Paragraph p5 = new Paragraph("● Email: 			Rishtamicrofinance@gmail.com",font1);
+	        Paragraph p5 = new Paragraph("● Email: 			meridianinstafoundation@gmail.com",font1);
 	        document.add(p5);
 	        
 	        document.add(Chunk.NEWLINE);
