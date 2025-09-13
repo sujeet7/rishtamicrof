@@ -76,13 +76,13 @@ public class CustomerController {
 	}
 	
 	@GetMapping("/showDashboard")
-	public String showDashboardByMonth(@RequestParam int month,Model model) {
+	public String showDashboardByMonth(@RequestParam("date") String date,Model model) {
 		Long totalRecieveAmount = userEmiRepo.getAllPaidEMIAmounts();
 		Long totalDesburseAmount = userRepo.getAllDesbursAmount();
 		Long totalInterestAmount = userRepo.getAllInterstAmount();
-		Long todayCollection = userRepo.getDailyByMonth(month);
-		Long weeklyCollection = userRepo.getWeeklyByMonth(month);
-		Long monthlyCollection = userRepo.getMonthly(month);
+		Long todayCollection = userRepo.getDailyByMonth(date);
+		Long weeklyCollection = userRepo.getWeeklyByMonth(date);
+		Long monthlyCollection = userRepo.getMonthly(date);
 		List<User> topFiveUsers = userRepo.getToFiveUsers();
 		List<SavingCustomerEntity> topFiveSavingUsers = savingCustomerRepository.getToFiveUsers();
 		Long totalSum = userEmiRepo.getTotalSumAmount();
