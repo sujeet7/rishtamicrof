@@ -84,14 +84,14 @@ public void updateUser(@Param("email") String email,
 	@Query("SELECT SUM(u.totalAmountToPay-u.loanAmount) FROM User u")
 	public Long getAllInterstAmount();
 	
-	 @Query(nativeQuery = true,value = "SELECT sum(lm.emi_amount) FROM railway.loan_emi lm INNER JOIN railway.users u ON lm.user_id = u.user_id WHERE MONTH(u.registration_date) = ?1 and u.loan_payment_type='daily'")
-	 public Long getDailyByMonth(int month);
+	 @Query(nativeQuery = true,value = "SELECT sum(lm.emi_amount) FROM railway.loan_emi lm INNER JOIN railway.users u ON lm.user_id = u.user_id WHERE u.registration_date = ?1 and u.loan_payment_type='daily'")
+	 public Long getDailyByMonth(String date);
 	 
-	 @Query(nativeQuery = true,value = "SELECT sum(lm.emi_amount) FROM railway.loan_emi lm INNER JOIN railway.users u ON lm.user_id = u.user_id WHERE MONTH(u.registration_date) = ?1 and u.loan_payment_type='weekly'")
-	 public Long getWeeklyByMonth(int month);
+	 @Query(nativeQuery = true,value = "SELECT sum(lm.emi_amount) FROM railway.loan_emi lm INNER JOIN railway.users u ON lm.user_id = u.user_id WHERE u.registration_date = ?1 and u.loan_payment_type='weekly'")
+	 public Long getWeeklyByMonth(String date);
 	 
-	 @Query(nativeQuery = true,value = "SELECT sum(lm.emi_amount) FROM railway.loan_emi lm INNER JOIN railway.users u ON lm.user_id = u.user_id WHERE MONTH(u.registration_date) = ?1 and u.loan_payment_type='monthly'")
-	 public Long getMonthly(int month);
+	 @Query(nativeQuery = true,value = "SELECT sum(lm.emi_amount) FROM railway.loan_emi lm INNER JOIN railway.users u ON lm.user_id = u.user_id WHERE u.registration_date = ?1 and u.loan_payment_type='monthly'")
+	 public Long getMonthly(String date);
 	 
 	 
 	 @Query(nativeQuery = true,value = "SELECT sum(lm.emi_amount) FROM railway.loan_emi lm INNER JOIN railway.users u ON lm.user_id = u.user_id WHERE lm.emi_payment_date BETWEEN ?1 AND ?2 and u.loan_payment_type='daily'")
