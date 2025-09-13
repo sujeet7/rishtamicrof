@@ -444,14 +444,17 @@ public class CustomerController {
 	}
 	
 	 @GetMapping("/getUserMonthly")
-	    public String getUsersByMonth(@RequestParam int month,Model model) {
+	    public String getUsersByMonth(@RequestParam String startDate,@RequestParam String endDate,Model model) {
 		 List<User> listUsers=null;
-			
-		 if(month!=99) {
-	       listUsers=  userRepo.findByMonth(month);
-	       Long totalInterestAmount = userRepo.getAllInterstAmountMonthly(month);
-	       	Long totalRecieveAmount = userEmiRepo.getAllPaidEMIAmountsMonthly(month);
-			Long totalDesburseAmount = userRepo.getTotalDesburseAmountMonthly(month);
+			Date startDate1 = Utility.getDate(startDate.toString());
+			Date endDate1 = Utility.getDate(endDate.toString());
+			String msg ="Date Between ["+Utility.getDateDDMMYYYY(startDate)+" to "+Utility.getDateDDMMYYYY(endDate)+"]";
+			model.addAttribute("msg", msg);
+		 if(startDate!=null && endDate!=null) {
+	       listUsers=  userRepo.findByMonth(startDate1,endDate1);
+	       Long totalInterestAmount = userRepo.getAllInterstAmountMonthly(startDate1,endDate1);
+	       	Long totalRecieveAmount = userEmiRepo.getAllPaidEMIAmountsMonthly(startDate1,endDate1);
+			Long totalDesburseAmount = userRepo.getTotalDesburseAmountMonthly(startDate1,endDate1);
 	       if(listUsers!=null && listUsers.size()>0) {
 				for (User user : listUsers) {
 					Date emiUserObj = userEmiRepo.getMaxDate(user.getUserId());
@@ -491,7 +494,8 @@ public class CustomerController {
 			 
 		 }
 	        model.addAttribute("listUsers", listUsers);
-	        model.addAttribute("month", month);
+	        model.addAttribute("startDate", startDate);
+	        model.addAttribute("endDate", endDate);
 	        
 	        return "users";
 	    }

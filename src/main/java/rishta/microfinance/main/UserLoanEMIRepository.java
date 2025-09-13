@@ -27,8 +27,8 @@ public interface UserLoanEMIRepository extends JpaRepository<LoanEMIUser, Long>{
 	@Query("SELECT SUM(u.emiAmount) FROM LoanEMIUser u")
 	public Long getAllPaidEMIAmounts();
 	
-	@Query("SELECT SUM(u.emiAmount) FROM LoanEMIUser u WHERE MONTH(u.emiPaymentDate) = :month")
-	public Long getAllPaidEMIAmountsMonthly(int month);
+	@Query("SELECT SUM(u.emiAmount) FROM LoanEMIUser u WHERE u.emiPaymentDate BETWEEN ?1 AND ?2")
+	public Long getAllPaidEMIAmountsMonthly(Date startDate,Date endDate);
 	
 	@Query("SELECT SUM(u.emiAmount) FROM LoanEMIUser u WHERE u.customerId LIKE 'RMFSA0%'")
 	public Long getAllPaidEMIAmountsForSaving();

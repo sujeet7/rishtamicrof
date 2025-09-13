@@ -29,14 +29,17 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Query("SELECT COUNT(*) FROM User u")
 	public Long getTotalNumberOfUser();
 	
-	 @Query("SELECT u FROM User u WHERE MONTH(u.registrationDate) = :month")
+	 @Query("SELECT u FROM User u WHERE u.registrationDate = :month")
 	    List<User> findByMonth(int month);
+	
+	 @Query("SELECT u FROM User u WHERE u.registrationDate BETWEEN ?1 AND ?2")
+	    List<User> findByMonth(Date startDate,Date endDate);
 	 
-	 @Query("SELECT SUM(u.totalAmountToPay-u.loanAmount) FROM User u WHERE MONTH(u.registrationDate) = :month")
-		public Long getAllInterstAmountMonthly(int month);
+	 @Query("SELECT SUM(u.totalAmountToPay-u.loanAmount) FROM User u WHERE u.registrationDate BETWEEN ?1 AND ?2")
+		public Long getAllInterstAmountMonthly(Date startDate,Date endDate);
 	 
-	 @Query("SELECT SUM(u.loanAmount) FROM User u WHERE MONTH(u.registrationDate) = :month")
-		public Long getTotalDesburseAmountMonthly(int month);
+	 @Query("SELECT SUM(u.loanAmount) FROM User u WHERE u.registrationDate BETWEEN ?1 AND ?2")
+		public Long getTotalDesburseAmountMonthly(Date startDate,Date endDate);
 	
 	public void deleteById(String id);
 	
