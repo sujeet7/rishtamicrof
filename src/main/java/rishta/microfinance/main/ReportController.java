@@ -66,15 +66,16 @@ public class ReportController {
 		}
 		
 		@GetMapping("/generateUserReportMonthly")
-		public void generateUserReportMonthly(@RequestParam("month") int month, HttpServletResponse response)
+		public void generateUserReportMonthly(@RequestParam("startDate") String startDate,@RequestParam("endDate") String endDate, HttpServletResponse response)
 				throws DocumentException, IOException {
 			response.setContentType("application/pdf");
-
+			Date startDate1 = Utility.getDate(startDate.toString());
+			Date endDate1 = Utility.getDate(endDate.toString());
 			String headerKey = "Content-Disposition";
-			String headerValue = "attachment; filename=USER-MONTHLY_" + month + ".pdf";
+			String headerValue = "attachment; filename=USER-MONTHLY_REPORT_FROM_" + startDate +"_TO_"+endDate+ ".pdf";
 			response.setHeader(headerKey, headerValue);
 
-			List<User> listUsers = userRepo.findByMonth(month);
+			List<User> listUsers = userRepo.findByMonth(startDate1,endDate1);
 			 if(listUsers!=null && listUsers.size()>0) {
 					for (User user : listUsers) {
 						Date emiUserObj = userEmiRepo.getMaxDate(user.getUserId());
